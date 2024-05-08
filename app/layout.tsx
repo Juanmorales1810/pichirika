@@ -52,10 +52,10 @@ export default function RootLayout({
 								isExternal
 								className="flex items-center gap-1 text-current"
 								href="https://nextui-docs-v2.vercel.app?utm_source=next-app-template"
-								title="nextui.org homepage"
+								title="Portfolio de Juan Morales"
 							>
-								<span className="text-default-600">Powered by</span>
-								<p className="text-primary">NextUI</p>
+								<span className="text-default-600">Hecho con 💖 por</span>
+								<p className="text-primary">Juan Morales.</p>
 							</Link>
 						</footer>
 					</div>
