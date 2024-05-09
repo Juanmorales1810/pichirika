@@ -1,6 +1,6 @@
 'use client'
-
 import { useEffect } from 'react'
+import Image from 'next/image'
 
 export default function Error({
   error,
@@ -15,7 +15,8 @@ export default function Error({
   }, [error])
 
   return (
-    <div>
+    <div className='flex flex-col gap-2'>
+      <Image className="rounded-xl" src="/perro.webp" alt="error" width={200} height={200} />
       <h2>Something went wrong!</h2>
       <button
         onClick={
