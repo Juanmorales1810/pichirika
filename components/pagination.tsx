@@ -27,12 +27,12 @@ export default function PaginationSection(props: PaginationProps) {
 
     return (
         <div className="flex flex-col justify-center items-center w-full h-full gap-2">
-            <ul className="flex flex-wrap justify-center gap-4 py-4">
+            <ul className="flex flex-wrap justify-center gap-2 py-2">
                 {currentProducts.map((product, index) => (
                     <CardPichiriKa key={index} title={product.Nombre} fecha={product.Fecha} image={product.Imagen} ubication={product.Ubicacion} />
                 ))}
             </ul>
-            <Pagination loop showControls total={totalPages} initialPage={1} page={currentPage}
+            <Pagination className="font-semibold" color="success" loop showControls total={totalPages} initialPage={1} page={currentPage}
                 onChange={setCurrentPage} />
         </div>
     );
