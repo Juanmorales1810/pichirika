@@ -121,7 +121,7 @@ const pichirika = [
 ]
 export default function AboutPage() {
 	return (
-		<div className="flex flex-col items-center w-full h-[calc(100vh-64px)]">
+		<div className="flex flex-col items-center w-full h-full min-h-[calc(100vh-64px)]">
 			<div className="flex gap-4 py-2">
 				<Button className="font-semibold" endContent={<PetIcon className="dark:fill-white" />}>Registrar animal</Button>
 				<Button className="font-semibold" endContent={<UserIcon className="dark:fill-white" />}>Iniciar sesión</Button>
