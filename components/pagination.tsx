@@ -1,6 +1,5 @@
 "use client";
-import { Button } from "@nextui-org/button";
-import { Pagination, PaginationItem, PaginationCursor } from "@nextui-org/pagination";
+import { Pagination } from "@nextui-org/pagination";
 import { useState } from "react";
 import CardPichiriKa from "./cardpichirika";
 
@@ -29,11 +28,14 @@ export default function PaginationSection(props: PaginationProps) {
         <div className="flex flex-col justify-center items-center w-full h-full gap-2">
             <ul className="flex flex-wrap justify-center gap-2 py-2">
                 {currentProducts.map((product, index) => (
-                    <CardPichiriKa key={index} title={product.Nombre} fecha={product.Fecha} image={product.Imagen} ubication={product.Ubicacion} />
+                    <CardPichiriKa key={index} title={product.Nombre} fecha={product.Fecha} image={product.Imagen} ubication={product.Ubicacion} id={index} />
                 ))}
             </ul>
-            <Pagination className="font-semibold" color="success" loop showControls total={totalPages} initialPage={1} page={currentPage}
-                onChange={setCurrentPage} />
+            <div className="flex justify-center items-center p-2.5">
+                <Pagination className="font-semibold" color="success" loop showControls total={totalPages} initialPage={1} page={currentPage}
+                    onChange={setCurrentPage} />
+            </div>
+
         </div>
     );
 }
