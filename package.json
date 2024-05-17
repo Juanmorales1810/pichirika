@@ -11,9 +11,9 @@
   "dependencies": {
     "@nextui-org/button": "2.0.26",
     "@nextui-org/code": "2.0.24",
-    "@nextui-org/input": "2.1.16",
+    "@nextui-org/input": "^2.1.21",
     "@nextui-org/kbd": "2.0.25",
-    "@nextui-org/link": "2.0.26",
+    "@nextui-org/link": "^2.0.26",
     "@nextui-org/navbar": "2.0.27",
     "@nextui-org/pagination": "^2.0.30",
     "@nextui-org/snippet": "2.0.30",
@@ -37,10 +37,13 @@
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.51.4",
     "tailwind-variants": "^0.1.18",
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.3"
   }
 }
