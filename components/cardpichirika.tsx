@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/button";
 import Image from "next/image";
 import { fontMono } from "@/config/fonts";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 
 
 interface CardPichiriKaProps {
@@ -15,7 +15,7 @@ interface CardPichiriKaProps {
 export default function CardPichiriKa(props: CardPichiriKaProps) {
     const { title, fecha, image, ubication, id } = props;
     return (
-        <article className="flex flex-col justify-center items-center gap-4 w-48 bg-lime-300 dark:bg-lime-800 rounded-2xl p-4 border-3 border-lime-700 dark:border-lime-400">
+        <article className="flex flex-col justify-center items-center gap-4 min-w-40 max-w-48 bg-lime-300 dark:bg-lime-800 rounded-2xl p-4 border-3 border-lime-700 dark:border-lime-400">
             <header>
                 <Image className="rounded-xl" src={image} alt={title} width={200} height={200} />
             </header>
