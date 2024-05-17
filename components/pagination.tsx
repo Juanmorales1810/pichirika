@@ -35,7 +35,6 @@ export default function PaginationSection(props: PaginationProps) {
                 <Pagination className="font-semibold" color="success" loop showControls total={totalPages} initialPage={1} page={currentPage}
                     onChange={setCurrentPage} />
             </div>
-
         </div>
     );
 }
