@@ -15,6 +15,7 @@ const CommandSchema = new Schema(
         name: { type: String, required: true, trim: true },
         departament: { type: String, required: true, trim: true },
         location: { type: String, required: true, trim: true },
+        description: { type: String, required: true, trim: true },
         image: { type: String, required: true },
     },
     {
