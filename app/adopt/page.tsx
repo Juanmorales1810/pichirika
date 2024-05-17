@@ -2,6 +2,7 @@ import { PetIcon, UserIcon } from "@/components/icons";
 import PaginationSection from "@/components/pagination";
 import { fontMono } from "@/config/fonts";
 import { Button } from "@nextui-org/button";
+import Link from "next/link";
 
 const pichirika = [
 	{
@@ -123,8 +124,8 @@ export default function AboutPage() {
 	return (
 		<div className="flex flex-col items-center w-full h-full min-h-[calc(100vh-64px)]">
 			<div className="flex gap-4 py-2">
-				<Button className="font-semibold" endContent={<PetIcon className="dark:fill-white" />}>Registrar animal</Button>
-				<Button className="font-semibold" endContent={<UserIcon className="dark:fill-white" />}>Iniciar sesión</Button>
+				<Button as={Link} href="/adopt/register" className="font-semibold" endContent={<PetIcon className="dark:fill-white" />}>Registrar animal</Button>
+				<Button disabled className="font-semibold" endContent={<UserIcon className="dark:fill-white" />}>Iniciar sesión</Button>
 			</div>
 			<h1 className={"font-bold text-center text-6xl " + fontMono.className}>Algunos PichiriKas</h1>
 			<div className="flex flex-wrap max-w-5xl">
