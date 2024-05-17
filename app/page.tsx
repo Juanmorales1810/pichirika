@@ -1,7 +1,7 @@
-import { Link } from "@nextui-org/link";
 import { AlertIcon, CallIcon, Logo, PetIcon } from "@/components/icons";
 import { fontMono } from "@/config/fonts";
 import { Button } from "@nextui-org/button";
+import Link from "next/link";
 
 
 export default function Home() {
