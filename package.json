@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.4.2",
     "@nextui-org/button": "2.0.26",
+    "@nextui-org/checkbox": "^2.0.29",
     "@nextui-org/code": "2.0.24",
     "@nextui-org/input": "^2.1.21",
     "@nextui-org/kbd": "2.0.25",
     "@nextui-org/link": "^2.0.26",
     "@nextui-org/navbar": "2.0.27",
     "@nextui-org/pagination": "^2.0.30",
+    "@nextui-org/select": "^2.1.27",
     "@nextui-org/snippet": "2.0.30",
     "@nextui-org/switch": "2.0.25",
     "@nextui-org/system": "2.0.15",
@@ -32,14 +35,15 @@
     "framer-motion": "^10.16.4",
     "intl-messageformat": "^10.5.0",
     "mongoose": "^8.3.4",
-    "next": "14.0.2",
+    "next": "^14.2.3",
     "next-themes": "^0.2.1",
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.51.4",
     "tailwind-variants": "^0.1.18",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
