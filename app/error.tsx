@@ -15,16 +15,16 @@ export default function Error({
   }, [error])
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col justify-end items-center h-screen pb-10 gap-2'>
       <Image className="rounded-xl" src="/perro.webp" alt="error" width={200} height={200} />
-      <h2>Something went wrong!</h2>
+      <h2 className='text-xl uppercase text-red-600 font-bold'>Algo salio muy mal!</h2>
       <button
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
-        Try again
+        Intenta de nuevo perrin💖
       </button>
     </div>
   )
