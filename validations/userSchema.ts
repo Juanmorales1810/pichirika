@@ -46,6 +46,29 @@ export const mappedDepartment: { [key in Department]: string } = {
     ullum: "Ullum",
 };
 
+const isFileListDefined = typeof FileList !== "undefined";
+
+const imageSchema = isFileListDefined
+    ? z
+          .instanceof(FileList)
+          .refine((files) => files.length > 0, {
+              message: "Debe seleccionar un archivo de imagen.",
+          })
+          .refine(
+              (files) => {
+                  const validTypes = ["image/jpeg", "image/png", "image/gif"];
+                  return validTypes.includes(files[0]?.type);
+              },
+              {
+                  message:
+                      "Formato de imagen no válido. Solo se permiten JPEG, PNG y GIF.",
+              }
+          )
+          .refine((files) => files[0]?.size <= 5 * 1024 * 1024, {
+              message: "El tamaño de la imagen no debe exceder los 5MB.",
+          })
+    : z.any();
+
 // Definimos el esquema de validación para el formulario de usuario
 export const userSchema = z.object({
     name: z
@@ -70,36 +93,5 @@ export const userSchema = z.object({
     street2: z.string().optional(),
     description: z.string().optional(),
     isHomeless: z.boolean().optional(),
-    image: z
-        .instanceof(FileList)
-        .refine((files) => files.length > 0, {
-            message: "Debe seleccionar un archivo de imagen.",
-        })
-        .refine(
-            (files) => {
-                if (files.length === 0) return true; // Si no hay archivos, pasa la validación
-                const file = files[0];
-                const validTypes = [
-                    "image/jpeg",
-                    "image/png",
-                    "image/jpg",
-                    "image/webp",
-                ];
-                return validTypes.includes(file.type);
-            },
-            {
-                message:
-                    "Formato de imagen no válido. Solo se permiten JPEG, JPG, PNG y WEBP.",
-            }
-        )
-        .refine(
-            (files) => {
-                if (files.length === 0) return true; // Si no hay archivos, pasa la validación
-                const file = files[0];
-                return file.size <= 5 * 1024 * 1024;
-            },
-            {
-                message: "El tamaño de la imagen no debe exceder los 5MB.",
-            }
-        ),
+    image: imageSchema,
 });

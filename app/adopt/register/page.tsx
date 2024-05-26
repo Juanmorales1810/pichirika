@@ -11,7 +11,6 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { fontMono } from "@/config/fonts"
 import { useState } from "react";
-import { get } from "http";
 
 type Inputs = {
     name: string;
@@ -26,23 +25,22 @@ type Inputs = {
 
 export default function Register() {
     const [name, setName] = useState<string>("");
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        formState: { errors },
-    } = useForm<Inputs>({
+
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(userSchema),
     });
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data);
     };
+
     const generateName = () => {
         const randomIndex = Math.floor(Math.random() * nombresAnimales.length);
-        const newName = nombresAnimales[randomIndex];  // Almacena el nuevo nombre en una variable
-        setName(newName);  // Actualiza el estado del nombre
-        setValue("name", newName);  // Actualiza el valor del campo "name" en react-hook-form
-    }
+        const newName = nombresAnimales[randomIndex];
+        setName(newName);
+        setValue("name", newName);
+    };
+
     return (
         <div className="flex flex-col justify-start md:justify-center h-[calc(100vh-64px)] gap-2">
             <h1 className={"text-2xl py-4 font-extrabold " + fontMono.className}>Registro de animales en adopción</h1>
@@ -57,13 +55,13 @@ export default function Register() {
                     isInvalid={!!errors.name}
                     errorMessage={errors.name?.message}
                     endContent={
-                        <Button onClick={() => generateName()} color="success" size="sm" className="text-xs text-zinc-950 font-semibold">
+                        <Button onClick={generateName} color="success" size="sm" className="text-xs text-zinc-950 font-semibold">
                             Generar nombre
                         </Button>
                     }
                     onChange={(e) => {
-                        setName(e.target.value);  // Actualiza el estado del nombre cuando el usuario edita el campo de entrada
-                        setValue("name", e.target.value);  // Actualiza el valor del campo "name" en react-hook-form
+                        setName(e.target.value);
+                        setValue("name", e.target.value);
                     }}
                 />
                 <Select
@@ -84,7 +82,6 @@ export default function Register() {
                     id="street1"
                     type="text"
                     placeholder="Calle 1"
-                    isRequired
                     {...register("street1")}
                     isInvalid={!!errors.street1}
                     errorMessage={errors.street1?.message}
@@ -99,7 +96,6 @@ export default function Register() {
                 />
                 <Textarea
                     id="description"
-                    type="text"
                     placeholder="Descripción"
                     {...register("description")}
                 />
@@ -107,8 +103,7 @@ export default function Register() {
                     <input
                         className={`text-default-500 block w-full file:py-2 file:px-4 file:font-light file:rounded-lg file:border-0 file:border-solid ${errors.image ? "file:bg-danger-50 dark:file:bg-danger-50" : "file:bg-default-100"} file:outline-none file:transition-all file:duration-200 file:ease-in-out`}
                         id="image"
-                        accept="image/*;capture=camera"
-                        placeholder="Image"
+                        accept="image/*"
                         type="file"
                         {...register("image")}
                     />
@@ -116,7 +111,6 @@ export default function Register() {
                 </div>
                 <Checkbox
                     id="isHomeless"
-                    type="checkbox"
                     color="success"
                     {...register("isHomeless")}
                 >
@@ -125,6 +119,6 @@ export default function Register() {
                 <Button color="success" className={"text-xl w-32 mt-4 text-zinc-950 font-bold " + fontMono.className} type="submit">Registrar</Button>
             </form>
         </div>
-    )
+    );
 }
 
