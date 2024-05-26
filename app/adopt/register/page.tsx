@@ -103,7 +103,7 @@ export default function Register() {
                     <input
                         className={`text-default-500 block w-full file:py-2 file:px-4 file:font-light file:rounded-lg file:border-0 file:border-solid ${errors.image ? "file:bg-danger-50 dark:file:bg-danger-50" : "file:bg-default-100"} file:outline-none file:transition-all file:duration-200 file:ease-in-out`}
                         id="image"
-                        accept="image/*"
+                        accept="image/*;capture=camera"
                         type="file"
                         {...register("image")}
                     />
