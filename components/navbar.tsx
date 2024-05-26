@@ -20,7 +20,7 @@ import clsx from "clsx";
 
 export const Navbar = () => {
     return (
-        <NextUINavbar maxWidth="xl" position="static" className="fixed">
+        <NextUINavbar isBlurred={false} isBordered maxWidth="xl" position="static" className="fixed bg-zinc-300 dark:bg-zinc-950 shadow-md dark:shadow-none">
             <NavbarContent className="basis-1/5 sm:basis-full md:ml-32" justify="center">
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
                     <NextLink
@@ -77,13 +77,13 @@ export const Navbar = () => {
                 <NavbarMenuToggle />
             </NavbarContent>
 
-            <NavbarMenu>
-                <div className="mx-4 mt-2 flex flex-col gap-2">
+            <NavbarMenu className="bg-zinc-300 dark:bg-zinc-950">
+                <div className="flex flex-col justify-center items-center h-full gap-4">
                     {siteConfig.navMenuItems.map((item, index) => (
                         <NavbarMenuItem key={`${item}-${index}`}>
-                            <Link color="primary" href={item.href} size="lg">
+                            <NextLink href={item.href} className={`text-zinc-950 dark:text-zinc-100 text-4xl uppercase ${fontMono.className}`}>
                                 {item.label}
-                            </Link>
+                            </NextLink>
                         </NavbarMenuItem>
                     ))}
                 </div>
