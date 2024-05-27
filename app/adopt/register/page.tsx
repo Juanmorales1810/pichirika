@@ -59,7 +59,7 @@ export default function Register() {
                     isInvalid={!!errors.name}
                     errorMessage={errors.name?.message}
                     endContent={
-                        <Chip onClick={generateName} className="bg-lime-300 text-xs text-zinc-950 font-semibold dark:text-zinc-400 dark:bg-green-900 cursor-pointer select-none">
+                        <Chip onClick={generateName} color="success" className="text-xs text-zinc-950 font-semibold dark:text-zinc-400 cursor-pointer select-none">
                             Generar nombre
                         </Chip>
                     }
@@ -127,13 +127,13 @@ export default function Register() {
                     {errors.image?.message && <p className="text-start text-xs text-danger-500 dark:text-danger-400 p-1">{errors.image?.message}</p>}
                 </div>
                 <Checkbox
-                    id="isHomeless"
                     color="success"
+                    id="isHomeless"
                     {...register("isHomeless")}
                 >
                     ¿Esta en situación de calle?
                 </Checkbox>
-                <Button color="success" className={"text-xl w-32 mt-4 bg-lime-300 text-zinc-950 dark:text-zinc-100 dark:bg-green-900 font-bold " + fontMono.className} type="submit">Registrar</Button>
+                <Button color="success" variant="shadow" className={"text-xl w-32 mt-4 text-zinc-950 dark:text-zinc-100  font-bold " + fontMono.className} type="submit">Registrar</Button>
             </form>
         </div>
     );

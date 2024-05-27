@@ -20,7 +20,7 @@ import clsx from "clsx";
 
 export const Navbar = () => {
     return (
-        <NextUINavbar isBlurred={false} isBordered maxWidth="xl" position="static" className="fixed bg-zinc-100 dark:bg-zinc-950 shadow-md dark:shadow-none">
+        <NextUINavbar isBlurred={false} isBordered maxWidth="xl" position="static" className="fixed bg-zinc-50 dark:bg-zinc-950 shadow-md dark:shadow-none">
             <NavbarContent className="basis-1/5 sm:basis-full md:ml-32" justify="center">
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
                     <NextLink
