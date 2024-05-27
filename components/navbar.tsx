@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Navbar as NextUINavbar,
     NavbarContent,
@@ -15,12 +17,21 @@ import { siteConfig } from "@/config/site";
 import { fontMono } from "@/config/fonts";
 import { Logo } from "@/components/icons";
 import { Link } from "@nextui-org/link";
+import { useState } from "react";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 export const Navbar = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     return (
-        <NextUINavbar isBlurred={false} isBordered maxWidth="xl" position="static" className="fixed bg-zinc-50 dark:bg-zinc-950 shadow-md dark:shadow-none">
+        <NextUINavbar
+            isMenuOpen={isMenuOpen}
+            onMenuOpenChange={setIsMenuOpen}
+            isBlurred={false}
+            isBordered
+            maxWidth="xl"
+            position="static"
+            className="fixed bg-zinc-50 dark:bg-zinc-950 shadow-md dark:shadow-none">
             <NavbarContent className="basis-1/5 sm:basis-full md:ml-32" justify="center">
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
                     <NextLink
@@ -81,7 +92,7 @@ export const Navbar = () => {
                 <div className="flex flex-col justify-center items-center h-full gap-4">
                     {siteConfig.navMenuItems.map((item, index) => (
                         <NavbarMenuItem key={`${item}-${index}`}>
-                            <NextLink href={item.href} className={`text-zinc-950 dark:text-zinc-100 text-4xl uppercase ${fontMono.className}`}>
+                            <NextLink href={item.href} onClick={() => { setIsMenuOpen(false) }} className={`text-zinc-950 dark:text-zinc-100 text-4xl uppercase ${fontMono.className}`}>
                                 {item.label}
                             </NextLink>
                         </NavbarMenuItem>
