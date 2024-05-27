@@ -9,7 +9,7 @@ export default function Home() {
 		<section className="flex flex-col items-center justify-center gap-4">
 			<div className="relative flex w-full h-full min-h-[100dvh] justify-center items-center overflow-hidden">
 				<div className="flex flex-col justify-between items-center gap-4 w-full max-w-6xl z-20 md:flex-row">
-					<div className="flex flex-col justify-center items-center w-auto h-[50vh] mt-14 md:mt-0">
+					<div className="flex flex-col justify-center items-center w-auto h-[40vh] mt-14 md:mt-0">
 						<Logo className="fill-zinc-950 dark:fill-zinc-300 transition-[fill] ease-in-out duration-700 w-52 h-52 md:w-80 md:h-80" />
 						<h1 className={"font-[900] text-4xl sm:text-7xl text-zinc-950 dark:text-zinc-200 transition-colors ease-in-out duration-700 " + fontMono.className}>PichiriKa</h1>
 					</div>
