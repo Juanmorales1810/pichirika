@@ -29,7 +29,7 @@ export default function Home() {
 
 					</div>
 				</div>
-				<div className="absolute w-full h-[75vh] rounded-t-[112px] dark:rounded-b-[112px] dark:rounded-t-none top-[48%] md:top-0 dark:-top-12 md:h-screen bg-lime-100 z-10 md:dark:rounded-full md:rounded-full md:dark:top-0 md:left-[40%] dark:bg-green-950 md:dark:-left-[50%] transition-[color_left] ease-in-out duration-700"></div>
+				<div className="absolute w-full h-[60vh] rounded-t-[112px] dark:h-[40vh] dark:rounded-b-[112px] dark:rounded-t-none top-[46%] dark:top-16 md:top-0 md:h-screen bg-lime-100 z-10 md:dark:rounded-full md:rounded-full md:dark:top-0 md:left-[40%] dark:bg-green-950 md:dark:-left-[50%] transition-[color_left] ease-in-out duration-700"></div>
 			</div>
 
 			{/* <div className="flex flex-col w-full max-w-6xl gap-3">
