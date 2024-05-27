@@ -9,8 +9,8 @@ import clsx from "clsx";
 
 export const viewport: Viewport = {
 	themeColor: [
-		{ color: "#06b6d4", media: "(prefers-color-scheme: light)" },
-		{ color: "#06b6d4", media: "(prefers-color-scheme: light)" },
+		{ color: "#bef264", media: "(prefers-color-scheme: light)" },
+		{ color: "#14532d", media: "(prefers-color-scheme: dark)" },
 	],
 }
 
