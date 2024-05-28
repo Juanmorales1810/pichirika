@@ -1,11 +1,11 @@
-import { PetIcon, UserIcon } from "@/components/icons";
 import PaginationSection from "@/components/pagination";
-import { fontMono } from "@/config/fonts";
+import { PetIcon, UserIcon } from "@/components/icons";
 import { connectMongoDB } from "@/libs/mongodb";
-import Pet from "@/models/pichirikas";
 import { Button } from "@nextui-org/button";
-import Link from "next/link";
+import { fontMono } from "@/config/fonts";
+import Pet from "@/models/pichirikas";
 import { cache } from "react";
+import Link from "next/link";
 
 const getItems = cache(async function loadMenu() {
 	await connectMongoDB();
