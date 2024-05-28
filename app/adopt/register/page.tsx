@@ -1,7 +1,7 @@
 "use client";
 
 import { userSchema, mappedDepartment } from "@/validations/userSchema";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Select, SelectItem } from "@nextui-org/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { nombresAnimales } from "@/config/nombre";
@@ -55,13 +55,6 @@ export default function Register() {
         if (imageFile && imageFile[0]) {
             formData.append("image", imageFile[0]);
         }
-        console.log(formData.get("name"));
-        console.log(formData.get("department"));
-        console.log(formData.get("street1"));
-        console.log(formData.get("street2"));
-        console.log(formData.get("description"));
-        console.log(formData.get("isHomeless"));
-        console.log(formData.get("image"));
 
         startLoading()
         await Fetch({
