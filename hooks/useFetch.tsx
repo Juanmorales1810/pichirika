@@ -10,7 +10,7 @@ interface AuthFetchProps {
     method?: Method
 }
 
-export function useAuthFetch() {
+export function useFetch() {
     const router = useRouter()
 
     const authRouter = async ({
