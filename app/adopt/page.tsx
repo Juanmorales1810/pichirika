@@ -1,126 +1,24 @@
 import { PetIcon, UserIcon } from "@/components/icons";
 import PaginationSection from "@/components/pagination";
 import { fontMono } from "@/config/fonts";
+import { connectMongoDB } from "@/libs/mongodb";
+import Pet from "@/models/pichirikas";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
+import { cache } from "react";
 
-const pichirika = [
-	{
-		"Nombre": "Gatito",
-		"Ubicacion": "Caucete",
-		"Fecha": "01/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Perrito",
-		"Ubicacion": "Capital",
-		"Fecha": "02/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Conejito",
-		"Ubicacion": "Rivadavia",
-		"Fecha": "03/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Pajarito",
-		"Ubicacion": "Santa Lucia",
-		"Fecha": "04/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Hamster",
-		"Ubicacion": "Rawson",
-		"Fecha": "05/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Cachorrito",
-		"Ubicacion": "Chimbas",
-		"Fecha": "06/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Gatita",
-		"Ubicacion": "Pocito",
-		"Fecha": "07/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Perrita",
-		"Ubicacion": "Rivadavia",
-		"Fecha": "08/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Conejita",
-		"Ubicacion": "Caucete",
-		"Fecha": "09/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Pajarita",
-		"Ubicacion": "Santa Lucia",
-		"Fecha": "10/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Hamsterita",
-		"Ubicacion": "Rawson",
-		"Fecha": "11/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Cachorrita",
-		"Ubicacion": "Chimbas",
-		"Fecha": "12/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Gatito",
-		"Ubicacion": "Pocito",
-		"Fecha": "13/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Perrito",
-		"Ubicacion": "Rivadavia",
-		"Fecha": "14/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Conejito",
-		"Ubicacion": "Caucete",
-		"Fecha": "15/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Pajarito",
-		"Ubicacion": "Santa Lucia",
-		"Fecha": "16/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Hamster",
-		"Ubicacion": "Rawson",
-		"Fecha": "17/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Cachorrito",
-		"Ubicacion": "Chimbas",
-		"Fecha": "18/05/2022",
-		"Imagen": "/perro.webp"
-	},
-	{
-		"Nombre": "Gatita",
-		"Ubicacion": "Pocito",
-		"Fecha": "19/05/2022",
-		"Imagen": "/perro.webp"
-	}
-]
-export default function AboutPage() {
+const getItems = cache(async function loadMenu() {
+	await connectMongoDB();
+	const ListPets = await Pet.find();
+	return ListPets.map(product => {
+		const obj = product.toObject();
+		obj._id = obj._id.toString(); // Convierte _id a una cadena
+		return obj;
+	}); // Usa .toObject() para convertir cada producto a un objeto JavaScript simple
+})
+
+export default async function AboutPage() {
+	const menu = await getItems();
 	return (
 		<div className="flex flex-col items-center w-full h-full min-h-[calc(100vh-64px)]">
 			<div className="flex gap-4 py-2">
@@ -129,7 +27,7 @@ export default function AboutPage() {
 			</div>
 			<h1 className={"font-bold text-center text-6xl " + fontMono.className}>Algunos PichiriKas</h1>
 			<div className="flex flex-wrap max-w-5xl">
-				<PaginationSection Array={pichirika} />
+				<PaginationSection Array={menu} />
 			</div>
 		</div>
 	);
