@@ -56,12 +56,12 @@ const imageSchema = isFileListDefined
           })
           .refine(
               (files) => {
-                  const validTypes = ["image/jpeg", "image/png", "image/gif"];
+                  const validTypes = ["image/jpeg", "image/png", "image/jpg"];
                   return validTypes.includes(files[0]?.type);
               },
               {
                   message:
-                      "Formato de imagen no válido. Solo se permiten JPEG, PNG y GIF.",
+                      "Formato de imagen no válido. Solo se permiten JPEG, PNG y JPG.",
               }
           )
           .refine((files) => files[0]?.size <= 5 * 1024 * 1024, {
