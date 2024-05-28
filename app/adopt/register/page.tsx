@@ -6,12 +6,14 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { nombresAnimales } from "@/config/nombre";
 import { Checkbox } from "@nextui-org/checkbox";
+import { useLoading } from "@/hooks/useLoading";
 import { Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
+import { useFetch } from "@/hooks/useFetch";
 import { Input } from "@nextui-org/input";
 import { fontMono } from "@/config/fonts"
-import { useState } from "react";
 import { Chip } from "@nextui-org/chip";
+import { useState } from "react";
 
 type Inputs = {
     name: string;
@@ -26,14 +28,13 @@ type Inputs = {
 
 export default function Register() {
     const [name, setName] = useState<string>("");
+    const { finishLoading, isLoading, startLoading } = useLoading()
 
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<Inputs>({
+    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(userSchema),
     });
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data);
-    };
+    const Fetch = useFetch()
 
     const generateName = () => {
         const randomIndex = Math.floor(Math.random() * nombresAnimales.length);
@@ -42,10 +43,41 @@ export default function Register() {
         setValue("name", newName);
     };
 
+    const onSubmit = handleSubmit(async ({ name, department, street1, street2, description, isHomeless }) => {
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("department", department);
+        formData.append("street1", street1);
+        formData.append("street2", street2);
+        formData.append("description", description);
+        formData.append("isHomeless", String(isHomeless));
+        const imageFile = watch('image') as FileList;
+        if (imageFile && imageFile[0]) {
+            formData.append("image", imageFile[0]);
+        }
+        console.log(formData.get("name"));
+        console.log(formData.get("department"));
+        console.log(formData.get("street1"));
+        console.log(formData.get("street2"));
+        console.log(formData.get("description"));
+        console.log(formData.get("isHomeless"));
+        console.log(formData.get("image"));
+
+        startLoading()
+        await Fetch({
+            endpoint: 'registerpet',
+            redirectRoute: '/adopt',
+            formData: formData,
+            method: 'POST'
+        })
+        finishLoading()
+    })
+
+
     return (
         <div className="flex flex-col justify-start md:justify-center h-[calc(100vh-64px)] gap-2">
             <h1 className={"text-2xl py-4 font-extrabold " + fontMono.className}>Registro de animales en adopción</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center gap-2">
+            <form onSubmit={onSubmit} className="flex flex-col items-center gap-2">
                 <Input
                     classNames={{
                         inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
@@ -133,7 +165,7 @@ export default function Register() {
                 >
                     ¿Esta en situación de calle?
                 </Checkbox>
-                <Button color="success" variant="shadow" className={"text-xl w-32 mt-4 text-zinc-950 dark:text-zinc-100  font-bold " + fontMono.className} type="submit">Registrar</Button>
+                <Button color="success" variant="shadow" className={"text-xl w-32 mt-4 text-zinc-950 dark:text-zinc-100  font-bold " + fontMono.className} type="submit" isLoading={isLoading}>Registrar</Button>
             </form>
         </div>
     );
