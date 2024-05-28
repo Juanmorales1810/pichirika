@@ -1,21 +1,25 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
-export interface ICommandSchema extends Document {
-    id: string;
+export interface IPetSchema extends Document {
+    _id?: ObjectId | string | undefined;
     name: string;
-    table: string;
+    department: string;
+    street1: string;
+    street2: string;
+    description: string;
+    isHomeless: boolean;
     image: string;
-    price: number;
 }
 
 // Definir el esquema para los elementos del menú
-const CommandSchema = new Schema(
+const PetSchema = new Schema(
     {
-        id: { type: String, required: true, unique: true, trim: true },
         name: { type: String, required: true, trim: true },
-        departament: { type: String, required: true, trim: true },
-        location: { type: String, required: true, trim: true },
-        description: { type: String, required: true, trim: true },
+        department: { type: String, required: true, trim: true },
+        street1: { type: String, required: true, trim: true },
+        street2: { type: String, required: false, trim: true },
+        description: { type: String, required: false, trim: true },
+        isHomeless: { type: String, required: true },
         image: { type: String, required: true },
     },
     {
@@ -25,7 +29,6 @@ const CommandSchema = new Schema(
 );
 
 // Crear el modelo utilizando el esquema
-const Command =
-    mongoose.models.Command || mongoose.model("Command", CommandSchema);
+const Pet = mongoose.models.Pet || mongoose.model("Pet", PetSchema);
 
-export default Command;
+export default Pet;
