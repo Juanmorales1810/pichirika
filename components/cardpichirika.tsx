@@ -5,7 +5,7 @@ import Link from "next/link";
 
 
 interface CardPichiriKaProps {
-    id: number;
+    id: string;
     title: string;
     image: string;
     ubication: string;
