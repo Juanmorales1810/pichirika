@@ -16,7 +16,7 @@ export default function CardPichiriKa(props: CardPichiriKaProps) {
     return (
         <article className="flex flex-col justify-center items-center gap-4 min-w-40 max-w-48 bg-lime-50 dark:bg-lime-800 rounded-2xl p-4 border-3 border-lime-700 dark:border-lime-400">
             <header>
-                <Image className="rounded-xl" src={image} alt={title} width={200} height={200} />
+                <Image className="rounded-xl aspect-square object-cover" src={image} alt={title} width={200} height={200} />
             </header>
             <section className="text-center">
                 <h3 className={"text-2xl font-bold " + fontMono.className}>{title}</h3>
