@@ -4,10 +4,9 @@ import { connectMongoDB } from "@/libs/mongodb";
 import { Button } from "@nextui-org/button";
 import { fontMono } from "@/config/fonts";
 import Pet from "@/models/pichirikas";
-import { cache } from "react";
 import Link from "next/link";
 
-const getItems = cache(async function loadMenu() {
+const getItems = async function loadMenu() {
 	await connectMongoDB();
 	const ListPets = await Pet.find();
 	return ListPets.map(product => {
@@ -15,7 +14,7 @@ const getItems = cache(async function loadMenu() {
 		obj._id = obj._id.toString(); // Convierte _id a una cadena
 		return obj;
 	}); // Usa .toObject() para convertir cada producto a un objeto JavaScript simple
-})
+}
 
 export default async function AboutPage() {
 	const menu = await getItems();
