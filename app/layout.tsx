@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 		siteName: 'PichiriKa',
 		images: [
 			{
-				url: 'https://pichirika.vercel.app/meta/metaimg.jpg', // Must be an absolute URL
+				url: 'https://pichirika.vercel.app/Metadata.jpg', // Must be an absolute URL
 				width: 1200,
 				height: 630,
 			},
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 		siteId: '1467726470533754880',
 		creator: '@Juanmora1810',
 		creatorId: '1467726470533754880',
-		images: ['https://pichirika.vercel.app/meta/metaimg.jpg'], // Must be an absolute URL
+		images: ['https://pichirika.vercel.app/Metadata.jpg'], // Must be an absolute URL
 	},
 };
 
