@@ -5,9 +5,10 @@ import { Button } from "@nextui-org/button";
 import { fontMono } from "@/config/fonts";
 import Pet from "@/models/pichirikas";
 import Link from "next/link";
-import { Suspense, cache } from "react";
 
-const getItems = cache(async function loadMenu() {
+export const dynamic = "force-dynamic";
+
+const getItems = async function loadMenu() {
 	await connectMongoDB();
 	const ListPets = await Pet.find();
 	return ListPets.map(product => {
@@ -15,7 +16,7 @@ const getItems = cache(async function loadMenu() {
 		obj._id = obj._id.toString(); // Convierte _id a una cadena
 		return obj;
 	}); // Usa .toObject() para convertir cada producto a un objeto JavaScript simple
-})
+}
 
 export default async function AboutPage() {
 	const menu = await getItems();
@@ -27,9 +28,7 @@ export default async function AboutPage() {
 			</div>
 			<h1 className={"font-bold text-center text-6xl " + fontMono.className}>Algunos PichiriKas</h1>
 			<div className="flex flex-wrap max-w-5xl">
-				<Suspense fallback={<div>Cargando...</div>}>
-					<PaginationSection Array={menu} />
-				</Suspense>
+				<PaginationSection Array={menu} />
 			</div>
 		</div>
 	);
