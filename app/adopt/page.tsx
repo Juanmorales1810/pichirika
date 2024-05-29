@@ -19,7 +19,7 @@ const getItems = async function loadMenu() {
 }
 
 export default async function AboutPage() {
-	const menu = await getItems();
+	const Pets = await getItems();
 	return (
 		<div className="flex flex-col items-center w-full h-full min-h-[calc(100vh-64px)]">
 			<div className="flex gap-4 py-2">
@@ -28,7 +28,7 @@ export default async function AboutPage() {
 			</div>
 			<h1 className={"font-bold text-center text-6xl " + fontMono.className}>Algunos PichiriKas</h1>
 			<div className="flex flex-wrap max-w-5xl">
-				<PaginationSection Array={menu} />
+				<PaginationSection Array={Pets} />
 			</div>
 		</div>
 	);
