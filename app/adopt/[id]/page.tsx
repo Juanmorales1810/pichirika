@@ -1,3 +1,4 @@
+import { Department, mappedDepartment } from "@/validations/userSchema";
 import { connectMongoDB } from "@/libs/mongodb";
 import { fontMono } from "@/config/fonts";
 import Pet from "@/models/pichirikas";
@@ -10,7 +11,7 @@ interface Params {
 interface PetSchema {
     _id: string;
     name: string;
-    department: string;
+    department: Department;
     street1: string;
     street2: string;
     description: string;
@@ -42,7 +43,7 @@ export default async function App({ params }: { params: Params }) {
             <div className="flex flex-col items-center text-center gap-2 md:justify-center md:items-start md:text-start">
                 <h1 className={`text-3xl text-green-950 dark:text-lime-300 font-bold uppercase ${fontMono.className}`}>Hola mi nombre es&nbsp;{pet.name}</h1>
                 <div className="">
-                    <p className="text-lg text-pretty text-green-950 dark:text-lime-300 font-semibold">Estoy en&nbsp;{pet.department}&nbsp;en la calle {pet.street1}{pet.street2 === "" ? null : ` y ${pet.street2}`}</p>
+                    <p className="text-lg text-pretty text-green-950 dark:text-lime-300 font-semibold">Estoy en&nbsp;{pet.department in mappedDepartment ? mappedDepartment[pet.department] : pet.department}&nbsp;en la calle {pet.street1}{pet.street2 === "" ? null : ` y ${pet.street2}`}</p>
                 </div>
                 {
                     pet.description === "" ? <div className="bg-lime-100 rounded-xl w-full border-2 px-3 py-1 border-green-700">
