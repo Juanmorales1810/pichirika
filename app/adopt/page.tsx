@@ -1,3 +1,5 @@
+"use server";
+
 import PaginationSection from "@/components/pagination";
 import { PetIcon, UserIcon } from "@/components/icons";
 import { connectMongoDB } from "@/libs/mongodb";
@@ -12,6 +14,7 @@ const getItems = async function loadMenu() {
 	return ListPets.map(product => {
 		const obj = product.toObject();
 		obj._id = obj._id.toString(); // Convierte _id a una cadena
+		console.log(obj);
 		return obj;
 	}); // Usa .toObject() para convertir cada producto a un objeto JavaScript simple
 }
