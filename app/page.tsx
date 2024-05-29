@@ -33,8 +33,9 @@ export default function Home() {
 				<footer className="absolute top-[94%] w-full flex items-center justify-center py-3 z-50">
 					<Link
 						className="flex items-center gap-1 text-current"
-						href="https://nextui-docs-v2.vercel.app?utm_source=next-app-template"
+						href="https://portfolio-astro-tan.vercel.app/"
 						title="Portfolio de Juan Morales"
+						target="_blank"
 					>
 						<span className="text-default-600">Hecho con 💖 por</span>
 						<p className="text-primary">Juan Morales.</p>
