@@ -4,7 +4,6 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 
 export const viewport: Viewport = {
@@ -20,10 +19,37 @@ export const metadata: Metadata = {
 		template: `%s - ${siteConfig.name}`,
 	},
 	description: siteConfig.description,
+	keywords: ["Adopción", "Mascotas", "Perros", "Gatos", "Adopta", "Adopta una mascota", "Adopta un perro", "Adopta un gato", "Adopta un animal", "Adopta un amigo", "Adopta un compañero", "Adopta un compañero", "Cuidados", "Veranarías Cercanas", "Cuidados animales"],
 	icons: {
 		icon: "/favicon.ico",
-		shortcut: "/favicon-16x16.png",
-		apple: "/apple-touch-icon.png",
+		apple: "/icon-192x192.png",
+	},
+	manifest: "/manifest.json",
+	creator: "Juan Morales",
+	openGraph: {
+		title: siteConfig.name,
+		description: siteConfig.description,
+		url: 'https://pichirika.vercel.app',
+		siteName: 'PichiriKa',
+		images: [
+			{
+				url: 'https://pichirika.vercel.app/meta/metaimg.jpg', // Must be an absolute URL
+				width: 1200,
+				height: 630,
+			},
+
+		],
+		locale: 'es_AR',
+		type: 'website',
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: siteConfig.name,
+		description: siteConfig.description,
+		siteId: '1467726470533754880',
+		creator: '@Juanmora1810',
+		creatorId: '1467726470533754880',
+		images: ['https://pichirika.vercel.app/meta/metaimg.jpg'], // Must be an absolute URL
 	},
 };
 
@@ -47,17 +73,6 @@ export default function RootLayout({
 						<main className="flex flex-col w-full mx-auto flex-grow">
 							{children}
 						</main>
-						{/* <footer className="w-full flex items-center justify-center py-3">
-							<Link
-								isExternal
-								className="flex items-center gap-1 text-current"
-								href="https://nextui-docs-v2.vercel.app?utm_source=next-app-template"
-								title="Portfolio de Juan Morales"
-							>
-								<span className="text-default-600">Hecho con 💖 por</span>
-								<p className="text-primary">Juan Morales.</p>
-							</Link>
-						</footer> */}
 					</div>
 				</Providers>
 			</body>
