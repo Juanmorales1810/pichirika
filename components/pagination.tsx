@@ -1,4 +1,5 @@
 "use client";
+import { Department } from "@/validations/userSchema";
 import { Pagination } from "@nextui-org/pagination";
 import { useState } from "react";
 import CardPichiriKa from "./cardpichirika";
@@ -6,7 +7,7 @@ import CardPichiriKa from "./cardpichirika";
 interface PaginationProps {
     Array: {
         name: string;
-        department: string;
+        department: Department;
         street1: string;
         street2: string;
         description: string;
@@ -19,19 +20,19 @@ interface PaginationProps {
 export default function PaginationSection(props: PaginationProps) {
     const { Array } = props;
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 10;
-    const products = Array; // Aquí deberías tener tu arreglo de productos
-    const totalPages = Math.ceil(products.length / productsPerPage);
+    const petsPerPage = 10;
+    const pets = Array; // Aquí deberías tener tu arreglo de productos
+    const totalPages = Math.ceil(pets.length / petsPerPage);
 
     // Calcular los índices de los productos que se mostrarán en la página actual
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+    const indexOfLastProduct = currentPage * petsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - petsPerPage;
+    const currentPets = pets.slice(indexOfFirstProduct, indexOfLastProduct).reverse();
 
     return (
         <div className="flex flex-col justify-center items-center w-full h-full gap-2">
             <ul className="flex flex-wrap justify-center gap-2 py-2">
-                {currentProducts.map((product, index) => (
+                {currentPets.map((product, index) => (
                     <CardPichiriKa key={index} title={product.name} image={product.image} ubication={product.department} id={product._id} />
                 ))}
             </ul>
