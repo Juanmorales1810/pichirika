@@ -14,6 +14,7 @@ import { Input } from "@nextui-org/input";
 import { fontMono } from "@/config/fonts"
 import { Chip } from "@nextui-org/chip";
 import { useState } from "react";
+import clsx from "clsx";
 
 type Inputs = {
     name: string;
@@ -23,11 +24,14 @@ type Inputs = {
     description: string;
     image: object;
     isHomeless: boolean;
+    telephone: string;
+    namecontact: string;
 };
 
 
 export default function Register() {
     const [name, setName] = useState<string>("");
+    const [isSelected, setIsSelected] = useState<boolean>(true);
     const { finishLoading, isLoading, startLoading } = useLoading()
 
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<Inputs>({
@@ -43,7 +47,7 @@ export default function Register() {
         setValue("name", newName);
     };
 
-    const onSubmit = handleSubmit(async ({ name, department, street1, street2, description, isHomeless }) => {
+    const onSubmit = handleSubmit(async ({ name, department, street1, street2, description, isHomeless, telephone, namecontact }) => {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("department", department);
@@ -54,6 +58,14 @@ export default function Register() {
         const imageFile = watch('image') as FileList;
         if (imageFile && imageFile[0]) {
             formData.append("image", imageFile[0]);
+        }
+        if (!isHomeless) {
+            formData.append("telephone", telephone);
+            formData.append("namecontact", namecontact);
+        }
+
+        for (let [key, value] of Array.from(formData.entries())) {
+            console.log(`${key}: ${value}`);
         }
 
         startLoading()
@@ -68,9 +80,9 @@ export default function Register() {
 
 
     return (
-        <div className="flex flex-col justify-start md:justify-center h-[calc(100vh-64px)] gap-2">
-            <h1 className={"text-2xl py-4 font-extrabold " + fontMono.className}>Registro de animales en adopción</h1>
-            <form onSubmit={onSubmit} className="flex flex-col items-center gap-2">
+        <div className="flex flex-col justify-start md:justify-center h-full min-h-[calc(100vh-64px)] gap-2 px-2 pb-5">
+            <h1 className={"text-2xl py-4 text-center font-extrabold " + fontMono.className}>Registro de animales en adopción</h1>
+            <form onSubmit={onSubmit} className="flex flex-col items-center gap-2 md:w-full md:max-w-md">
                 <Input
                     classNames={{
                         inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
@@ -152,12 +164,45 @@ export default function Register() {
                     {errors.image?.message && <p className="text-start text-xs text-danger-500 dark:text-danger-400 p-1">{errors.image?.message}</p>}
                 </div>
                 <Checkbox
+                    isSelected={isSelected}
+                    onValueChange={setIsSelected}
                     color="success"
                     id="isHomeless"
                     {...register("isHomeless")}
                 >
                     ¿Esta en situación de calle?
                 </Checkbox>
+                <div className={clsx(
+                    `flex flex-col justify-center items-center px-1 h-full gap-2 transition-[opacity_height] duration-500 delay-500 ease-in-out overflow-hidden`,
+                    isSelected ? "opacity-0 max-h-0" : "opacity-100 max-h-[200px]",
+                )}>
+                    <p className="text-sm text-center">
+                        Si no está en situación de calle, ingrese un teléfono de contacto y su nombre para que los interesados puedan comunicarse.
+                    </p>
+
+                    <Input
+                        classNames={{
+                            inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
+                        }}
+                        id="telephone"
+                        type="tel"
+                        placeholder="Teléfono"
+                        {...register("telephone")}
+                        isInvalid={!!errors.telephone}
+                        errorMessage={errors.telephone?.message}
+                    />
+                    <Input
+                        classNames={{
+                            inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
+                        }}
+                        id="namecontact"
+                        type="tel"
+                        placeholder="Nombre de contacto"
+                        {...register("namecontact")}
+                        isInvalid={!!errors.namecontact}
+                        errorMessage={errors.namecontact?.message}
+                    />
+                </div>
                 <Button color="success" variant="shadow" className={"text-xl w-32 mt-4 text-zinc-950 dark:text-zinc-100  font-bold " + fontMono.className} type="submit" isLoading={isLoading}>Registrar</Button>
             </form>
         </div>
