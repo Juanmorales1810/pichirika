@@ -309,4 +309,8 @@ export const nombresAnimales = [
     "Duke",
     "Dylan",
     "Chupetín",
+    "Churro",
+    "Betty",
+    "Bimbo",
+    "Cora",
 ];
