@@ -9,6 +9,8 @@ export interface IPetSchema extends Document {
     description: string;
     isHomeless: boolean;
     image: string;
+    telephone: string;
+    namecontact: string;
 }
 
 // Definir el esquema para los elementos del menú
@@ -21,6 +23,8 @@ const PetSchema = new Schema(
         description: { type: String, required: false, trim: true },
         isHomeless: { type: String, required: true },
         image: { type: String, required: true },
+        telephone: { type: String, required: false, trim: true },
+        namecontact: { type: String, required: false, trim: true },
     },
     {
         timestamps: true,
