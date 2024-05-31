@@ -70,28 +70,70 @@ const imageSchema = isFileListDefined
     : z.any();
 
 // Definimos el esquema de validación para el formulario de usuario
-export const userSchema = z.object({
-    name: z
-        .string()
-        .min(3, {
-            message: "El nombre debe tener al menos 3 caracteres.",
-        })
-        .max(30, {
-            message: "El nombre no debe exceder los 30 caracteres.",
+export const userSchema = z
+    .object({
+        name: z
+            .string()
+            .min(3, {
+                message: "El nombre debe tener al menos 3 caracteres.",
+            })
+            .max(30, {
+                message: "El nombre no debe exceder los 30 caracteres.",
+            }),
+        department: z.enum(department, {
+            errorMap: () => ({ message: "Debes seleccionar un departamento." }),
         }),
-    department: z.enum(department, {
-        errorMap: () => ({ message: "Debes seleccionar un departamento." }),
-    }),
-    street1: z
-        .string()
-        .min(3, {
-            message: "La calle debe tener al menos 3 caracteres.",
-        })
-        .max(120, {
-            message: "La calle no debe exceder los 120 caracteres.",
-        }),
-    street2: z.string().optional(),
-    description: z.string().optional(),
-    isHomeless: z.boolean().optional(),
-    image: imageSchema,
-});
+        street1: z
+            .string()
+            .min(3, {
+                message: "La calle debe tener al menos 3 caracteres.",
+            })
+            .max(120, {
+                message: "La calle no debe exceder los 120 caracteres.",
+            }),
+        street2: z.string().optional(),
+        description: z.string().optional(),
+        isHomeless: z.boolean().optional(),
+        telephone: z.string().optional(),
+        namecontact: z.string().optional(),
+        image: imageSchema,
+    })
+    .superRefine((data, ctx) => {
+        // Si isHomeless es false, entonces telephone y namecontact deben estar definidos y deben tener un número específico de caracteres
+        if (data.isHomeless === false) {
+            if (!data.telephone) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ["telephone"],
+                    message: "El teléfono es requerido.",
+                });
+            } else if (
+                data.telephone.length < 10 ||
+                data.telephone.length > 15
+            ) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ["telephone"],
+                    message: "El teléfono debe tener entre 10 y 15 caracteres.",
+                });
+            }
+
+            if (!data.namecontact) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ["namecontact"],
+                    message: "El Nombre de contacto es requerido.",
+                });
+            } else if (
+                data.namecontact.length < 3 ||
+                data.namecontact.length > 30
+            ) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ["namecontact"],
+                    message:
+                        "El Nombre de contacto debe tener entre 3 y 30 caracteres.",
+                });
+            }
+        }
+    });
