@@ -43,6 +43,8 @@ export async function POST(NextRequest: NextRequest) {
     const street2 = data.get("street2");
     const description = data.get("description");
     const isHomeless = data.get("isHomeless");
+    const telephone = data.get("telephone");
+    const namecontact = data.get("namecontact");
     const image = data.get("image");
 
     console.log("Data:", data);
@@ -92,6 +94,8 @@ export async function POST(NextRequest: NextRequest) {
             street2,
             description,
             isHomeless,
+            telephone,
+            namecontact,
             image: imageUrl,
         });
         const obj = JSON.parse(body);
@@ -103,6 +107,8 @@ export async function POST(NextRequest: NextRequest) {
             street2,
             description,
             isHomeless,
+            telephone,
+            namecontact,
             image: imageUrl,
         });
         const savedPet = await newPet.save();
