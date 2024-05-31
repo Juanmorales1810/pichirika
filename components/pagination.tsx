@@ -27,7 +27,7 @@ export default function PaginationSection(props: PaginationProps) {
     // Calcular los índices de los productos que se mostrarán en la página actual
     const indexOfLastProduct = currentPage * petsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - petsPerPage;
-    const currentPets = pets.slice(indexOfFirstProduct, indexOfLastProduct).reverse();
+    const currentPets = pets.slice(indexOfFirstProduct, indexOfLastProduct);
 
     return (
         <div className="flex flex-col justify-center items-center w-full h-full gap-2">

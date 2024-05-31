@@ -28,7 +28,7 @@ export default async function AboutPage() {
 			</div>
 			<h1 className={"font-bold text-center text-6xl " + fontMono.className}>Algunos PichiriKas</h1>
 			<div className="flex flex-wrap max-w-5xl">
-				<PaginationSection Array={Pets} />
+				<PaginationSection Array={Pets.reverse()} />
 			</div>
 		</div>
 	);
