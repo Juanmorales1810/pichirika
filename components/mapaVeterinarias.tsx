@@ -50,7 +50,7 @@ const MapaVeterinarias = ({ veterinarias }: { veterinarias: Veterinaria[] }) => 
         }
     }, [selectedVeterinaria, lat, lon]);
     return (
-        <LoadScript googleMapsApiKey="AIzaSyAcyybGF_nvmxoVvN4V3BZ6meekjSrTpxE">
+        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 center={center}
