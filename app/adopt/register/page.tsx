@@ -196,7 +196,7 @@ export default function Register() {
                             inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
                         }}
                         id="namecontact"
-                        type="tel"
+                        type="text"
                         placeholder="Nombre de contacto"
                         {...register("namecontact")}
                         isInvalid={!!errors.namecontact}
