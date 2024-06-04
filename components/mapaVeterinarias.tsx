@@ -135,7 +135,7 @@ const MapaVeterinarias = ({ veterinarias }: { veterinarias: Veterinaria[] }) => 
                     ]
                 }}
             >
-                {veterinarias.map((veterinaria) => (
+                {veterinarias.map((veterinaria, index) => (
                     <Marker
                         key={veterinaria.nombre}
                         position={{ lat: veterinaria.lat, lng: veterinaria.lon }}
@@ -146,6 +146,7 @@ const MapaVeterinarias = ({ veterinarias }: { veterinarias: Veterinaria[] }) => 
                             url: "https://pichirika.vercel.app/pichirika-dot.png",
                         }}
                         options={{
+                            zIndex: 100 / (index + 1),
                             label: {
                                 text: veterinaria.nombre,
                                 color: '#fdfdfd',
