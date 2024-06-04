@@ -1,6 +1,7 @@
 import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer, InfoWindow } from '@react-google-maps/api';
 import React, { useEffect, useState } from 'react';
 import useGeolocation from '@/hooks/useLocation';
+import { Spinner } from '@nextui-org/spinner';
 
 type Veterinaria = {
     nombre: string;
@@ -15,8 +16,8 @@ const MapaVeterinarias = ({ veterinarias }: { veterinarias: Veterinaria[] }) => 
     const [directionsServiceActive, setDirectionsServiceActive] = useState<boolean>(false);
 
     const mapContainerStyle = {
-        height: "100%",
-        width: "100%",
+        height: "calc(100% + 50px)",
+        width: "calc(100% + 50px)",
     };
 
     const center = {
@@ -50,7 +51,10 @@ const MapaVeterinarias = ({ veterinarias }: { veterinarias: Veterinaria[] }) => 
         }
     }, [selectedVeterinaria, lat, lon]);
     return (
-        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
+        <LoadScript
+            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
+            loadingElement={<Spinner label="Cargando ubicación..." color="success" size='lg' />}
+            id="google-maps-script">
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 center={center}
@@ -120,7 +124,14 @@ const MapaVeterinarias = ({ veterinarias }: { veterinarias: Veterinaria[] }) => 
                             stylers: [
                                 { visibility: "off" } // Oculta el nombre de los barrios
                             ]
-                        }
+                        },
+                        {
+                            featureType: "road",
+                            elementType: "labels.text.fill",
+                            stylers: [
+                                { visibility: "off" } // Oculta iconos de carretera como peajes, estaciones de servicio, etc.
+                            ]
+                        },
                     ]
                 }}
             >
@@ -129,16 +140,19 @@ const MapaVeterinarias = ({ veterinarias }: { veterinarias: Veterinaria[] }) => 
                         key={veterinaria.nombre}
                         position={{ lat: veterinaria.lat, lng: veterinaria.lon }}
                         onClick={() => handleVeterinariaClick(veterinaria)}
+                        label={veterinaria.nombre}
+                        icon={{
+                            labelOrigin: typeof google !== 'undefined' ? new google.maps.Point(10, 45) : undefined,
+                            url: "https://pichirika.vercel.app/pichirika-dot.png",
+                        }}
+                        options={{
+                            label: {
+                                text: veterinaria.nombre,
+                                color: '#fdfdfd',
+                                className: 'bg-lime-700 rounded-lg px-2 py-1 text-xs'
+                            },
+                        }}
                     >
-                        {selectedVeterinaria === veterinaria && (
-                            <InfoWindow
-                                onCloseClick={() => setSelectedVeterinaria(null)}
-                            >
-                                <div>
-                                    <h2 className='text-zinc-950 text-lg'>{veterinaria.nombre}</h2>
-                                </div>
-                            </InfoWindow>
-                        )}
                     </Marker>
                 ))}
                 {lat && lon && (

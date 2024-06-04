@@ -86,13 +86,13 @@ const VeterinariasCercanas = () => {
             <div className="flex flex-col gap-3 w-full h-full px-2">
                 <ul className="flex flex-col flex-none gap-1 md:flex-row">
                     {veterinariasCercanas.map((veterinaria) => (
-                        <li className="flex flex-col px-3 py-0.5 bg-lime-50 dark:bg-lime-800 rounded-lg border-2 border-lime-700 dark:border-lime-400" key={veterinaria.nombre}>
+                        <li className="flex flex-col px-3 py-0.5 bg-lime-50 dark:bg-lime-800 rounded-lg border-2 border-lime-300 dark:border-lime-400" key={veterinaria.nombre}>
                             <h3 className={`text-base font-bold ${fontMono.className}`}>{veterinaria.nombre}</h3>
                             <p className="text-xs">Esta a&nbsp;<strong>{veterinaria.distancia}m</strong> de distancia</p>
                         </li>
                     ))}
                 </ul>
-                <div className="h-full rounded-xl overflow-hidden mb-2">
+                <div className="flex justify-center items-center w-full h-full rounded-xl overflow-hidden mb-2">
                     <MapaVeterinarias veterinarias={veterinariasCercanas} />
                 </div>
             </div>
