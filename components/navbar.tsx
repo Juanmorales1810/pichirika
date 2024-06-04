@@ -17,12 +17,40 @@ import { siteConfig } from "@/config/site";
 import { fontMono } from "@/config/fonts";
 import { Logo } from "@/components/icons";
 import { Link } from "@nextui-org/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+    useEffect(() => {
+        window.addEventListener('beforeinstallprompt', (e: any) => {
+            // Evita que Chrome muestre el aviso de instalación
+            e.preventDefault();
+            // Guarda el evento para que pueda ser usado más tarde
+            setDeferredPrompt(e);
+        });
+    }, []);
+
+    const handleInstallClick = () => {
+        // Verifica si deferredPrompt es null
+        if (deferredPrompt !== null) {
+            // Muestra el aviso de instalación
+            deferredPrompt.prompt();
+            // Espera a que el usuario responda al aviso
+            deferredPrompt.userChoice.then((choiceResult: any) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('El usuario aceptó la instalación');
+                } else {
+                    console.log('El usuario rechazó la instalación');
+                }
+                setDeferredPrompt(null);
+            });
+        }
+    };
+
     return (
         <NextUINavbar
             isMenuOpen={isMenuOpen}
@@ -97,6 +125,11 @@ export const Navbar = () => {
                             </NextLink>
                         </NavbarMenuItem>
                     ))}
+                    <NavbarMenuItem>
+                        <Button onClick={handleInstallClick} className="text-zinc-950 dark:text-zinc-100 text-4xl uppercase">
+                            Instalar
+                        </Button>
+                    </NavbarMenuItem>
                 </div>
             </NavbarMenu>
         </NextUINavbar>
