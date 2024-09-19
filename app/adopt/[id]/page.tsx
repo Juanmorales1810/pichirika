@@ -1,4 +1,4 @@
-import { Department, mappedDepartment } from "@/validations/userSchema";
+import { Department, mappedDepartment } from "@/validations/registerPetSchema";
 import { connectMongoDB } from "@/libs/mongodb";
 import { fontMono } from "@/config/fonts";
 import Pet from "@/models/pichirikas";
