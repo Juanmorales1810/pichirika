@@ -1,78 +1,48 @@
 "use client";
 
-import { userSchema, mappedDepartment } from "@/validations/userSchema";
-import { useForm } from "react-hook-form";
-import { Select, SelectItem } from "@nextui-org/select";
+import { registerSchema } from "@/validations/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { nombresAnimales } from "@/config/nombre";
-import { Checkbox } from "@nextui-org/checkbox";
 import { useLoading } from "@/hooks/useLoading";
-import { Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { useFetch } from "@/hooks/useFetch";
+import { useForm } from "react-hook-form";
 import { Input } from "@nextui-org/input";
 import { fontMono } from "@/config/fonts"
-import { Chip } from "@nextui-org/chip";
-import { useState } from "react";
+import Link from "next/link";
 import clsx from "clsx";
+import { Checkbox } from "@nextui-org/checkbox";
+import { useState } from "react";
+import { FacebookLogo, GoogleLogo } from "@/components/icons";
 
 type Inputs = {
+    correo: string;
+    password: string;
+    repeatepassword: string;
     name: string;
-    department: string;
-    street1: string;
-    street2: string;
-    description: string;
-    image: object;
-    isHomeless: boolean;
-    telephone: string;
-    namecontact: string;
+    lastName: string;
+    phone: string;
+    itsRefuge: boolean;
+    refugeteTelephone: string;
+    refugeteName: string;
 };
 
 
-export default function Register() {
-    const [name, setName] = useState<string>("");
-    const [isSelected, setIsSelected] = useState<boolean>(true);
+export default function Login() {
+    const [isSelected, setIsSelected] = useState<boolean>(false);
     const { finishLoading, isLoading, startLoading } = useLoading()
 
-    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<Inputs>({
-        resolver: zodResolver(userSchema),
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
+        resolver: zodResolver(registerSchema),
     });
 
     const Fetch = useFetch()
 
-    const generateName = () => {
-        const randomIndex = Math.floor(Math.random() * nombresAnimales.length);
-        const newName = nombresAnimales[randomIndex];
-        setName(newName);
-        setValue("name", newName);
-    };
-
-    const onSubmit = handleSubmit(async ({ name, department, street1, street2, description, isHomeless, telephone, namecontact }) => {
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("department", department);
-        formData.append("street1", street1);
-        formData.append("street2", street2);
-        formData.append("description", description);
-        formData.append("isHomeless", String(isHomeless));
-        const imageFile = watch('image') as FileList;
-        if (imageFile && imageFile[0]) {
-            formData.append("image", imageFile[0]);
-        }
-        if (!isHomeless) {
-            formData.append("telephone", telephone);
-            formData.append("namecontact", namecontact);
-        }
-
-        for (let [key, value] of Array.from(formData.entries())) {
-            console.log(`${key}: ${value}`);
-        }
-
+    const onSubmit = handleSubmit(async (data) => {
         startLoading()
         await Fetch({
-            endpoint: 'registerpet',
+            endpoint: 'auth/register',
             redirectRoute: '/adopt',
-            formData: formData,
+            formData: data,
             method: 'POST'
         })
         finishLoading()
@@ -80,9 +50,44 @@ export default function Register() {
 
 
     return (
-        <div className="flex flex-col justify-start md:justify-center h-full min-h-[calc(100vh-64px)] gap-2 px-2 pb-5">
-            <h1 className={"text-2xl py-4 text-center font-extrabold " + fontMono.className}>Registro de animales en adopción</h1>
+        <div className="flex flex-col justify-center items-center md:justify-center h-full min-h-[calc(100vh-64px)] gap-2 px-2 pb-5">
+            <h1 className={clsx("text-2xl pt-4 text-center font-extrabold ", fontMono.className)}>Al registrarte podrás tener un mayor manejo control sobre las adopciones</h1>
+            <p className={clsx("text-md pb-4 text-center font-extrabold ", fontMono.className)}>Esto es recomendado para refugios, rescatistas y veterinarias</p>
             <form onSubmit={onSubmit} className="flex flex-col items-center gap-2 md:w-full md:max-w-md">
+
+                <Input
+                    classNames={{
+                        inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
+                    }}
+                    id="correo"
+                    type="email"
+                    placeholder="Correo electrónico"
+                    {...register("correo")}
+                    isInvalid={!!errors.correo}
+                    errorMessage={errors.correo?.message}
+                />
+                <Input
+                    classNames={{
+                        inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
+                    }}
+                    id="password"
+                    type="password"
+                    placeholder="Contraseña"
+                    {...register("password")}
+                    isInvalid={!!errors.password}
+                    errorMessage={errors.password?.message}
+                />
+                <Input
+                    classNames={{
+                        inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
+                    }}
+                    id="repeatepassword"
+                    type="password"
+                    placeholder="Repetir contraseña"
+                    {...register("repeatepassword")}
+                    isInvalid={!!errors.repeatepassword}
+                    errorMessage={errors.repeatepassword?.message}
+                />
                 <Input
                     classNames={{
                         inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
@@ -90,122 +95,107 @@ export default function Register() {
                     id="name"
                     type="text"
                     placeholder="Nombre"
-                    isRequired
-                    value={name}
                     {...register("name")}
                     isInvalid={!!errors.name}
                     errorMessage={errors.name?.message}
-                    endContent={
-                        <Chip onClick={generateName} color="success" className="text-xs text-zinc-950 font-semibold dark:text-zinc-400 cursor-pointer select-none">
-                            Generar nombre
-                        </Chip>
-                    }
-                    onChange={(e) => {
-                        setName(e.target.value);
-                        setValue("name", e.target.value);
-                    }}
-                />
-                <Select
-                    classNames={{
-                        trigger: "bg-lime-100 dark:bg-green-950 shadow-md",
-                        popoverContent: "bg-lime-100 dark:bg-green-950",
-                    }}
-                    id="department"
-                    placeholder="Departamento"
-                    {...register("department")}
-                    isInvalid={!!errors.department}
-                    errorMessage={errors.department?.message}
-                    aria-label="Departamento"
-                >
-                    {Object.entries(mappedDepartment).map(([key, value]) => (
-                        <SelectItem key={key} value={key} aria-label="Ciudad">
-                            {value}
-                        </SelectItem>
-                    ))}
-                </Select>
-                <Input
-                    classNames={{
-                        inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
-                    }}
-                    id="street1"
-                    type="text"
-                    placeholder="Calle 1"
-                    {...register("street1")}
-                    isInvalid={!!errors.street1}
-                    errorMessage={errors.street1?.message}
                 />
                 <Input
                     classNames={{
                         inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
                     }}
-                    id="street2"
+                    id="lastName"
                     type="text"
-                    placeholder="Calle 2"
-                    {...register("street2")}
-                    isInvalid={!!errors.street2}
-                    errorMessage={errors.street2?.message}
+                    placeholder="Apellido"
+                    {...register("lastName")}
+                    isInvalid={!!errors.lastName}
+                    errorMessage={errors.lastName?.message}
                 />
-                <Textarea
+                <Input
                     classNames={{
                         inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
                     }}
-                    id="description"
-                    placeholder="Descripción"
-                    {...register("description")}
+                    id="phone"
+                    type="number"
+                    placeholder="Teléfono"
+                    {...register("phone")}
+                    isInvalid={!!errors.phone}
+                    errorMessage={errors.phone?.message}
                 />
-                <div className="flex flex-col w-full ">
-                    <input
-                        className={`text-default-500 block w-full file:py-2 file:px-4 file:font-light file:rounded-lg file:border-0 file:border-solid ${errors.image ? "file:bg-danger-50 dark:file:bg-danger-50" : "file:bg-lime-300 shadow-md rounded-xl bg-lime-100 dark:file:bg-green-900 dark:bg-green-950"} file:outline-none file:transition-all file:duration-200 file:ease-in-out`}
-                        id="image"
-                        accept="image/*;capture=camera"
-                        type="file"
-                        {...register("image")}
-                    />
-                    {errors.image?.message && <p className="text-start text-xs text-danger-500 dark:text-danger-400 p-1">{errors.image?.message}</p>}
-                </div>
                 <Checkbox
                     isSelected={isSelected}
                     onValueChange={setIsSelected}
                     color="success"
-                    id="isHomeless"
-                    {...register("isHomeless")}
+                    id="itsRefuge"
+                    {...register("itsRefuge")}
                 >
-                    ¿Esta en situación de calle?
+                    ¿Sos parte de un refugio?
                 </Checkbox>
                 <div className={clsx(
-                    `flex flex-col justify-center items-center px-1 h-full gap-2 transition-[opacity_height] duration-500 delay-500 ease-in-out overflow-hidden`,
-                    isSelected ? "opacity-0 max-h-0" : "opacity-100 max-h-[200px]",
+                    `flex flex-col justify-center items-center p-1 h-full gap-2 transition-[opacity_height] duration-500 delay-500 ease-in-out overflow-hidden`,
+                    !isSelected ? "opacity-0 max-h-0" : "opacity-100 max-h-[200px]",
                 )}>
                     <p className="text-sm text-center">
-                        Si no está en situación de calle, ingrese un teléfono de contacto y su nombre para que los interesados puedan comunicarse.
+                        Si sos parte de un refugio, ingrese un teléfono de contacto y su nombre para que los interesados puedan comunicarse.
                     </p>
 
                     <Input
                         classNames={{
                             inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
                         }}
-                        id="telephone"
+                        id="refugeteTelephone"
                         type="tel"
-                        placeholder="Teléfono"
-                        {...register("telephone")}
-                        isInvalid={!!errors.telephone}
-                        errorMessage={errors.telephone?.message}
+                        placeholder="Teléfono del refugio"
+                        {...register("refugeteTelephone")}
+                        isInvalid={!!errors.refugeteTelephone}
+                        errorMessage={errors.refugeteTelephone?.message}
                     />
                     <Input
                         classNames={{
                             inputWrapper: "bg-lime-100 dark:bg-green-950 shadow-md",
                         }}
-                        id="namecontact"
+                        id="refugeteName"
                         type="text"
                         placeholder="Nombre de contacto"
-                        {...register("namecontact")}
-                        isInvalid={!!errors.namecontact}
-                        errorMessage={errors.namecontact?.message}
+                        {...register("refugeteName")}
+                        isInvalid={!!errors.refugeteName}
+                        errorMessage={errors.refugeteName?.message}
                     />
                 </div>
-                <Button color="success" variant="shadow" className={"text-xl w-32 mt-4 text-zinc-950 dark:text-zinc-100  font-bold " + fontMono.className} type="submit" isLoading={isLoading}>Registrar</Button>
+                <div className="w-full flex justify-between">
+                    <Link className="text-blue-600 hover:text-blue-500 transition-colors" href="#">Soporte</Link>
+                    <Link className="text-blue-600 hover:text-blue-500 transition-colors" href="/adopt/login">Iniciar sesión</Link>
+                </div>
+                <Button
+                    color="success"
+                    variant="shadow"
+                    className={clsx(
+                        "text-xl mt-4 text-zinc-950 dark:text-zinc-100  font-bold ",
+                        fontMono.className
+                    )}
+                    type="submit"
+                    isLoading={isLoading}>Crear usuario</Button>
             </form>
+            <p className={clsx("text-sm text-center font-extrabold ", fontMono.className)}>O puedes iniciar sesión con</p>
+            <div className="w-full flex justify-center items-center gap-4">
+                <Button
+                    className={clsx(
+                        "text-xl text-zinc-950 dark:text-zinc-100  font-bold ",
+                        fontMono.className
+                    )}
+                    color="success"
+                    variant="shadow"
+                    endContent={<GoogleLogo />}
+                    isLoading={isLoading}>Google</Button>
+                <Button
+                    className={clsx(
+                        "text-xl text-zinc-950 dark:text-zinc-100  font-bold ",
+                        fontMono.className
+                    )}
+                    color="success"
+                    variant="shadow"
+                    endContent={<FacebookLogo />}
+                    isLoading={isLoading}>Facebook</Button>
+            </div>
         </div>
     );
 }
-
