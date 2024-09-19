@@ -1,5 +1,5 @@
 "use client";
-import { Department } from "@/validations/userSchema";
+import { Department } from "@/validations/registerPetSchema";
 import { Pagination } from "@nextui-org/pagination";
 import { useState } from "react";
 import CardPichiriKa from "./cardpichirika";
