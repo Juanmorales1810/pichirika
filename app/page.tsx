@@ -18,7 +18,7 @@ export default function Home() {
 						<p className=" text-base md:text-lg text-center font-medium text-pretty mb-3 md:text-start">Es un portal web para la adopción y cuidado de animales es una plataforma virtual que facilita la conexión entre mascotas necesitadas de hogar y personas interesadas en brindarles amor y cuidados. Ofrece perfiles detallados de animales disponibles, información sobre cuidados básicos y salud, citas para visitar refugios, sistemas de donaciones y foros comunitarios. Promueve la adopción responsable y el bienestar animal.</p>
 						<div className="flex gap-4 mb-2">
 							<Button as={Link} href="/adopt" color="success" variant="shadow" className="font-semibold" endContent={<PetIcon className="fill-zinc-950 dark:fill-zinc-200" />} >Adopta</Button>
-							<Button as={Link} href="tel:4213280" color="danger" variant="shadow" className="bg-red-700 font-semibold text-zinc-950 dark:text-zinc-200 dark:bg-red-900" endContent={<CallIcon className="fill-zinc-950 dark:fill-zinc-200" />} >Denuncia</Button>
+							<Button as={Link} href="tel:4213280" color="danger" variant="shadow" className="bg-red-700 font-semibold text-zinc-200 dark:bg-red-900" endContent={<CallIcon className="fill-zinc-200" />} >Denuncia</Button>
 						</div>
 						<div className="flex gap-1 items-center my-2">
 							<AlertIcon className="stroke-red-600" size={14} />
