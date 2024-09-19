@@ -1,6 +1,6 @@
 "use client";
 
-import { userSchema, mappedDepartment } from "@/validations/registerPetSchema";
+import { petSchema, mappedDepartment } from "@/validations/registerPetSchema";
 import { Select, SelectItem } from "@nextui-org/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { nombresAnimales } from "@/config/nombre";
@@ -35,7 +35,7 @@ export default function Register() {
     const { finishLoading, isLoading, startLoading } = useLoading()
 
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<Inputs>({
-        resolver: zodResolver(userSchema),
+        resolver: zodResolver(petSchema),
     });
 
     const Fetch = useFetch()
@@ -90,7 +90,6 @@ export default function Register() {
                     id="name"
                     type="text"
                     placeholder="Nombre"
-                    isRequired
                     value={name}
                     {...register("name")}
                     isInvalid={!!errors.name}

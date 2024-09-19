@@ -70,7 +70,7 @@ const imageSchema = isFileListDefined
     : z.any();
 
 // Definimos el esquema de validación para el formulario de usuario
-export const userSchema = z
+export const petSchema = z
     .object({
         name: z
             .string()
