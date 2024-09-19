@@ -8,11 +8,11 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { useForm } from "react-hook-form";
 import { Link } from "@nextui-org/link";
-import React from "react";
+import React, { Suspense } from "react";
 import { AxiosRequestConfig } from "axios";
 
 
-export default function ForgetPassword() {
+function Page() {
     const [isVisible, setIsVisible] = React.useState(false);
     const { finishLoading, isLoading, startLoading } = useLoading()
 
@@ -109,4 +109,11 @@ export default function ForgetPassword() {
             </p>
         </div>
     )
+}
+export default function ForgetPassword() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Page />
+        </Suspense>
+    );
 }
