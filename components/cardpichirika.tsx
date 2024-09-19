@@ -1,4 +1,4 @@
-import { Department, mappedDepartment } from "@/validations/userSchema";
+import { Department, mappedDepartment } from "@/validations/registerPetSchema";
 import { Button } from "@nextui-org/button";
 import { fontMono } from "@/config/fonts";
 import Image from "next/image";
