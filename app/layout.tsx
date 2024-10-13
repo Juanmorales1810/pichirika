@@ -1,10 +1,12 @@
-import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
+import { Metadata, Viewport } from "next";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
-import { Navbar } from "@/components/navbar";
 import clsx from "clsx";
+
+import "@/styles/globals.css";
 
 export const viewport: Viewport = {
 	themeColor: [
@@ -72,6 +74,7 @@ export default function RootLayout({
 						<Navbar />
 						<main className="flex flex-col w-full mx-auto flex-grow">
 							{children}
+							<SpeedInsights />
 						</main>
 					</div>
 				</Providers>
