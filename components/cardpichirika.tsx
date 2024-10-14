@@ -16,8 +16,6 @@ interface CardPichiriKaProps {
 
 export default function CardPichiriKa(props: CardPichiriKaProps) {
     const { title, image, ubication, id, skeleton } = props;
-    console.log(skeleton);
-
     return (
         <article className="flex flex-col justify-center items-center gap-4 min-w-40 max-w-48 bg-lime-50 dark:bg-lime-800 rounded-2xl p-4 border-3 border-lime-700 dark:border-lime-400">
             <header className="">

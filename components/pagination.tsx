@@ -21,7 +21,7 @@ const fetcher = (...args: [RequestInfo, RequestInit]) => fetch(...args).then((re
 
 export default function PaginationSection() {
     const [page, setPage] = useState(1);
-    const { data, isLoading } = useSWR(`http://localhost:3000/api/registerpet?page=${page}&limit=10`, fetcher, {
+    const { data, isLoading } = useSWR(`https://www.pichirika.com/api/registerpet?page=${page}&limit=10`, fetcher, {
         keepPreviousData: true,
     });
 
