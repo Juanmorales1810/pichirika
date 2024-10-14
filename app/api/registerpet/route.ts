@@ -11,23 +11,42 @@ cloudinary.config({
     secure: true,
 });
 
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
         await connectMongoDB();
 
         const menu = await Pet.find();
 
+        // Obtener los parámetros de consulta
+        const { searchParams } = new URL(req.url);
+        const page = parseInt(searchParams.get("page") || "1", 10); // Página por defecto: 1
+        const limit = parseInt(searchParams.get("limit") || "10", 10); // Límite por defecto: 10 elementos por página
+        const search = searchParams.get("search") || ""; // Filtro de búsqueda
+
+        // Calcular el índice de inicio
+        const skip = (page - 1) * limit;
+
+        // Construir el filtro de búsqueda
+        const filter = search ? { titulo: new RegExp(search, "i") } : {}; // Filtra por nombre, ignorando mayúsculas/minúsculas
+
+        // Obtener elementos con filtrado y paginación
+        const items = await Pet.find(filter).skip(skip).limit(limit);
+
+        // Obtener el total de documentos que coinciden con el filtro
+        const totalItems = await Pet.countDocuments(filter);
+
         return NextResponse.json(
             {
-                menu,
+                items,
+                totalItems,
+                currentPage: page,
+                totalPages: Math.ceil(totalItems / limit),
                 message: messages.success.getItme,
             },
-            {
-                status: 200,
-            }
+            { status: 200 }
         );
     } catch (error: any) {
-        console.error("Error al obtener los datos de Mascotas:", error);
+        console.error("Error al obtener datos de Mascotas:", error);
         return NextResponse.json(
             { message: messages.error.default, error },
             { status: 500 }
