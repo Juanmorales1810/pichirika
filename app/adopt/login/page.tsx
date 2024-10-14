@@ -23,23 +23,23 @@ type Inputs = {
 
 export default function Login() {
     const { finishLoading, isLoading, startLoading } = useLoading()
-    const [isMounted, setIsMounted] = useState(false); // Estado para controlar si el componente está montado
+    // const [isMounted, setIsMounted] = useState(false); // Estado para controlar si el componente está montado
 
-    const searchParams = useSearchParams(); // Obtenemos los parámetros de consulta
+    // const searchParams = useSearchParams(); // Obtenemos los parámetros de consulta
 
-    const { clearUser } = useStore((state) => state);
+    // const { clearUser } = useStore((state) => state);
 
-    useEffect(() => {
-        // Cuando el componente esté montado, activamos el estado
-        setIsMounted(true);
-    }, []);
+    // useEffect(() => {
+    //     // Cuando el componente esté montado, activamos el estado
+    //     setIsMounted(true);
+    // }, []);
 
-    useEffect(() => {
-        // Asegurarnos que estamos en el lado del cliente y que el componente está montado
-        if (isMounted && searchParams.get('clearUser')) {
-            clearUser();
-        }
-    }, [isMounted, searchParams, clearUser]);
+    // useEffect(() => {
+    //     // Asegurarnos que estamos en el lado del cliente y que el componente está montado
+    //     if (isMounted && searchParams.get('clearUser')) {
+    //         clearUser();
+    //     }
+    // }, [isMounted, searchParams, clearUser]);
 
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(loginSchema),
