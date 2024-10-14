@@ -11,19 +11,24 @@ import {
 } from "@nextui-org/navbar";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { link as linkStyles } from "@nextui-org/theme";
-import { HeartFilledIcon } from "@/components/icons";
 import { Button } from "@nextui-org/button";
+import { useEffect, useState } from "react";
 import { siteConfig } from "@/config/site";
 import { fontMono } from "@/config/fonts";
 import { Logo } from "@/components/icons";
-import { Link } from "@nextui-org/link";
-import { useEffect, useState } from "react";
+import useStore from "@/context/store";
+import Avatar from "boring-avatars";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    const user = useStore((state) => state.user)
+    useStore((state) => state.user)
+
+    console.log(user);
+
 
     useEffect(() => {
         window.addEventListener('beforeinstallprompt', (e: any) => {
@@ -92,22 +97,18 @@ export const Navbar = () => {
                 className="hidden sm:flex basis-1/5 sm:basis-full"
                 justify="end"
             >
+                {user ? (
+                    <NavbarItem className="hidden md:flex">
+                        <NextLink href="/" className="flex justify-center items-center gap-2 rounded-full">
+                            <p className="font-medium">Bienvenido {user?.name}</p>
+                            <div className="h-10 w-10">
+                                <Avatar name={`${user?.name}${user?.lastName}`} variant="beam" colors={["#ecfccb", "#bef264", "#84cc16", "#4d7c0f", "#365314"]} />
+                            </div>
+                        </NextLink>
+                    </NavbarItem>
+                ) : null}
                 <NavbarItem className="hidden sm:flex gap-2">
                     <ThemeSwitch />
-                </NavbarItem>
-                <NavbarItem className="hidden md:flex">
-                    <Button
-                        isExternal
-                        as={Link}
-                        className="text-sm font-normal text-default-600 bg-default-100"
-                        href={siteConfig.links.sponsor}
-                        startContent={
-                            <HeartFilledIcon className="text-danger" />
-                        }
-                        variant="flat"
-                    >
-                        Sponsor
-                    </Button>
                 </NavbarItem>
             </NavbarContent>
 
