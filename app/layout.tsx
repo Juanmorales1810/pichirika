@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { Metadata, Viewport } from "next";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
+import { Toaster } from 'sonner'
 import clsx from "clsx";
 
 import "@/styles/globals.css";
@@ -75,6 +76,7 @@ export default function RootLayout({
 						<main className="flex flex-col w-full mx-auto flex-grow">
 							{children}
 							<SpeedInsights />
+							<Toaster />
 						</main>
 					</div>
 				</Providers>
