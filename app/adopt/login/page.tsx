@@ -1,14 +1,17 @@
 "use client";
 
 import { FacebookLogo, GoogleLogo } from "@/components/icons";
+import { useRouter, useSearchParams } from "next/navigation";
 import { loginSchema } from "@/validations/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoading } from "@/hooks/useLoading";
 import { Button } from "@nextui-org/button";
 import { useFetch } from "@/hooks/useFetch";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@nextui-org/input";
 import { fontMono } from "@/config/fonts"
+import useStore from "@/context/store";
 import Link from "next/link";
 import clsx from "clsx";
 
@@ -20,6 +23,23 @@ type Inputs = {
 
 export default function Login() {
     const { finishLoading, isLoading, startLoading } = useLoading()
+    const [isMounted, setIsMounted] = useState(false); // Estado para controlar si el componente está montado
+
+    const searchParams = useSearchParams(); // Obtenemos los parámetros de consulta
+
+    const { clearUser } = useStore((state) => state);
+
+    useEffect(() => {
+        // Cuando el componente esté montado, activamos el estado
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        // Asegurarnos que estamos en el lado del cliente y que el componente está montado
+        if (isMounted && searchParams.get('clearUser')) {
+            clearUser();
+        }
+    }, [isMounted, searchParams, clearUser]);
 
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(loginSchema),
