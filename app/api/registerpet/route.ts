@@ -29,8 +29,11 @@ export async function GET(req: NextRequest) {
         // Construir el filtro de búsqueda
         const filter = search ? { titulo: new RegExp(search, "i") } : {}; // Filtra por nombre, ignorando mayúsculas/minúsculas
 
-        // Obtener elementos con filtrado y paginación
-        const items = await Pet.find(filter).skip(skip).limit(limit);
+        // Obtener elementos con filtrado y paginación (el método sort ordena los elementos por fecha de creación descendente)
+        const items = await Pet.find(filter)
+            .sort({ _id: -1 })
+            .skip(skip)
+            .limit(limit);
 
         // Obtener el total de documentos que coinciden con el filtro
         const totalItems = await Pet.countDocuments(filter);
@@ -131,7 +134,7 @@ export async function POST(NextRequest: NextRequest) {
             image: imageUrl,
         });
         const savedPet = await newPet.save();
-        console.log("Menú guardado:", savedPet);
+        console.log("Mascota guardada:", savedPet);
         return NextResponse.json(
             {
                 newMenu: savedPet,
@@ -142,7 +145,7 @@ export async function POST(NextRequest: NextRequest) {
             }
         );
     } catch (error: any) {
-        console.error("Error al guardar el menú:", error);
+        console.error("Error al guardar la mascota:", error);
         return NextResponse.json(
             { message: messages.error.default, error },
             { status: 500 }
