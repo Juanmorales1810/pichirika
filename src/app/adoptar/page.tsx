@@ -41,10 +41,13 @@ async function getPets(page: number, limit: number): Promise<PetsResponse> {
 export default async function PetsPage({
     searchParams,
 }: {
-    searchParams: { page?: string };
+    searchParams: Promise<{ page?: string }> | { page?: string };
 }) {
-    const currentPage = Number(searchParams.page) || 1;
-    const itemsPerPage = 10;
+    // Asegurarnos de que searchParams esté resuelto
+    const params =
+        searchParams instanceof Promise ? await searchParams : searchParams;
+    const currentPage = Number(params.page) || 1;
+    const itemsPerPage = 8;
 
     const data = await getPets(currentPage, itemsPerPage);
     const totalPages = data?.totalItems
