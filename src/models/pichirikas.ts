@@ -21,7 +21,7 @@ const PetSchema = new Schema(
         street1: { type: String, required: true, trim: true },
         street2: { type: String, required: false, trim: true },
         description: { type: String, required: false, trim: true },
-        isHomeless: { type: Boolean, required: true },
+        isHomeless: { type: String, required: true },
         image: { type: String, required: true },
         telephone: { type: String, required: false, trim: true },
         namecontact: { type: String, required: false, trim: true },
