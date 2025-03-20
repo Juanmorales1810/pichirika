@@ -32,7 +32,7 @@ export default function Error({
                     () => reset()
                 }
             >
-                Intenta de nuevo perrin💖
+                Intenta de nuevo💖
             </button>
         </div>
     );
