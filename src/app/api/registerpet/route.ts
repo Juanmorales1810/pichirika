@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     try {
         await connectMongoDB();
 
-        const menu = await Pet.find();
+        const pets = await Pet.find();
 
         // Obtener los parámetros de consulta
         const { searchParams } = new URL(req.url);
