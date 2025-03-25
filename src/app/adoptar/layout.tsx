@@ -3,5 +3,5 @@ export default function AboutLayout({
 }: {
     children: React.ReactNode;
 }) {
-    return <section className="container mx-auto">{children}</section>;
+    return <main className="container mx-auto">{children}</main>;
 }
