@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { fontMono } from "@/config/fonts";
+import { Header } from "@/components/interface/Header";
+import { Toaster } from "sonner";
 
 export const viewport: Viewport = {
     themeColor: [
@@ -75,13 +78,18 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="es" suppressHydrationWarning>
-            <body className={`antialiased`}>
+            <body
+                className={`${fontMono.variable} antialiased relative transition-colors`}
+            >
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="light"
                     enableSystem
                 >
+                    <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem] dark:bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)]"></div>
+                    <Header />
                     {children}
+                    <Toaster />
                 </ThemeProvider>
             </body>
         </html>
