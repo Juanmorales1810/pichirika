@@ -9,12 +9,11 @@ export default function Hero() {
         <section className="flex flex-col items-center justify-center gap-4">
             <div className="relative flex w-full h-full min-h-[100dvh] justify-center items-center overflow-hidden">
                 <div className="flex flex-col justify-between items-center gap-4 w-full max-w-6xl z-20 md:flex-row">
-                    <div className="flex flex-col justify-center items-center w-auto h-[40vh] mt-14 md:mt-0">
+                    <div className="flex flex-col justify-center items-center w-auto h-[40vh]">
                         <Logo className="fill-zinc-950 dark:fill-zinc-300 transition-[fill] ease-in-out duration-700 w-52 h-52 md:w-80 md:h-80" />
                         <h1
                             className={
-                                "font-[900] text-4xl sm:text-7xl text-zinc-950 dark:text-zinc-200 transition-colors ease-in-out duration-700 " +
-                                fontMono.className
+                                "font-[900] text-4xl sm:text-7xl text-zinc-950 dark:text-zinc-200 transition-colors ease-in-out duration-700 [font-family:var(--font-mono)]"
                             }
                         >
                             PichiriKa
@@ -76,7 +75,7 @@ export default function Hero() {
                         </div>
                     </div>
                 </div>
-                <div className="absolute w-full h-[62vh] rounded-t-[112px] dark:h-[40vh] dark:rounded-b-[112px] dark:rounded-t-none top-[47%] dark:top-16 md:dark:h-screen md:top-0 md:h-screen bg-lime-100 z-10 md:dark:rounded-full md:rounded-full md:dark:top-0 md:left-[40%] dark:bg-green-950 md:dark:-left-[50%] transition-[color_left] ease-in-out duration-700"></div>
+                <div className="absolute w-full h-[62vh] rounded-t-[112px] dark:h-[50vh] dark:rounded-b-[112px] dark:rounded-t-none top-[47%] dark:top-0 md:dark:h-screen md:top-0 md:h-screen bg-lime-100 z-10 md:dark:rounded-full md:rounded-full md:dark:top-0 md:left-[40%] dark:bg-green-950 md:dark:-left-[50%] transition-[color_left] ease-in-out duration-700"></div>
                 {/* <footer className="absolute top-[94%] w-full flex items-center justify-center py-3 z-50">
 					<Link
 						className="flex items-center gap-1 text-current"
