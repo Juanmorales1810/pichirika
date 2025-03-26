@@ -50,16 +50,22 @@ const getItem = cache(async function loadPet(params: string) {
     return obj;
 });
 
-export default async function PetDetailsPage({ params }: { params: Params }) {
-    const pet: PetSchema = await getItem(params.id);
+export default async function PetDetailsPage({
+    params,
+}: {
+    params: Params | Promise<Params>;
+}) {
+    // Asegurarnos de que params esté resuelto
+    const resolvedParams = params instanceof Promise ? await params : params;
+
+    // Ahora podemos usar resolvedParams.id con seguridad
+    const pet: PetSchema = await getItem(resolvedParams.id);
 
     const location = `${
         pet.department in mappedDepartment
-            ? mappedDepartment[pet.department]
+            ? mappedDepartment[pet.department as keyof typeof mappedDepartment]
             : pet.department
-    } en la calle ${pet.street1}${
-        pet.street2 === "" ? "" : ` y ${pet.street2}`
-    }`;
+    }, ${pet.street1}${pet.street2 ? `, ${pet.street2}` : ""}`;
     const isHomeless = pet.isHomeless === "true";
 
     return (
