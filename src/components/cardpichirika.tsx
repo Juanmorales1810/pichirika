@@ -127,7 +127,7 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
 
                 <Button className="w-full mt-2 font-semibold bg-lime-600 hover:bg-lime-700 dark:bg-lime-500 dark:hover:bg-lime-600 text-white h-8">
                     <Link
-                        href={`/adopt/${id}`}
+                        href={`/adoptar/${id}`}
                         className="flex items-center gap-1 w-full justify-center"
                     >
                         Adoptar
