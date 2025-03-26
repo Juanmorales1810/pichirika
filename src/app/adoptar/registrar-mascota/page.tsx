@@ -87,7 +87,7 @@ export default function Register() {
         startLoading();
         await Fetch({
             endpoint: "registerpet",
-            redirectRoute: "/adopt",
+            redirectRoute: "/adoptar",
             formData: formData,
             method: "POST",
         });
@@ -118,7 +118,12 @@ export default function Register() {
                                         <div className="relative flex w-full items-center">
                                             <Input
                                                 placeholder="Nombre"
-                                                className="bg-primary/5"
+                                                className={cn(
+                                                    "bg-primary/5",
+                                                    form.formState.errors
+                                                        .name &&
+                                                        "ring-destructive/20 dark:ring-destructive/40 border-destructive focus-visible:ring-destructive/20 bg-destructive/10 text-destructive"
+                                                )}
                                                 {...field}
                                                 value={name}
                                                 onChange={(e) => {
@@ -152,7 +157,14 @@ export default function Register() {
                                             onValueChange={field.onChange}
                                             defaultValue={field.value}
                                         >
-                                            <SelectTrigger className="bg-primary/5 w-full">
+                                            <SelectTrigger
+                                                className={cn(
+                                                    "bg-primary/5 w-full",
+                                                    form.formState.errors
+                                                        .department &&
+                                                        "ring-destructive/20 dark:ring-destructive/40 border-destructive focus-visible:ring-destructive/20 bg-destructive/10 text-destructive"
+                                                )}
+                                            >
                                                 <SelectValue placeholder="Departamento" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -236,27 +248,59 @@ export default function Register() {
                                         <div className="flex items-center justify-center w-full">
                                             <label
                                                 htmlFor="dropzone-file"
-                                                className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500"
+                                                className={cn(
+                                                    "flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer",
+                                                    form.formState.errors.image
+                                                        ? "border-destructive bg-destructive/10 dark:bg-destructive/20 dark:border-destructive hover:bg-destructive/10 dark:hover:border-destructive"
+                                                        : "border-zinc-300 bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-100 dark:border-zinc-600 dark:hover:border-zinc-500"
+                                                )}
                                             >
-                                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                    <CloudUpload className="h-10 w-10 text-gray-500 dark:text-gray-400" />
-                                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                        <span className="font-semibold">
-                                                            Click to upload
-                                                        </span>{" "}
-                                                        or drag and drop
-                                                    </p>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                        SVG, PNG, JPG or GIF
-                                                        (MAX. 800x400px)
-                                                    </p>
+                                                <div
+                                                    className={cn(
+                                                        "flex flex-col items-center justify-center pt-5 pb-6",
+                                                        form.formState.errors
+                                                            .image
+                                                            ? "text-destructive"
+                                                            : "text-zinc-500 dark:text-zinc-400"
+                                                    )}
+                                                >
+                                                    <CloudUpload className="h-10 w-10" />
+                                                    {value &&
+                                                    value.length > 0 ? (
+                                                        <>
+                                                            <p className="mb-2 text-sm font-semibold">
+                                                                Imagen
+                                                                seleccionada
+                                                            </p>
+                                                            <p className="text-sm">
+                                                                {value[0].name}
+                                                            </p>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <p className="mb-2 text-sm">
+                                                                <span className="font-semibold">
+                                                                    Click para
+                                                                    subir una
+                                                                    imagen
+                                                                </span>{" "}
+                                                                o saca una foto
+                                                                desde el
+                                                                teléfono
+                                                            </p>
+                                                            <p className="text-xs">
+                                                                JPEG, PNG, JPG o
+                                                                WEBP (MAX. 2MB)
+                                                            </p>
+                                                        </>
+                                                    )}
                                                 </div>
                                                 <Input
                                                     id="dropzone-file"
                                                     type="file"
                                                     accept="image/*;capture=camera"
                                                     className={cn(
-                                                        "hidden ",
+                                                        "hidden",
                                                         form.formState.errors
                                                             .image &&
                                                             "border-destructive"
