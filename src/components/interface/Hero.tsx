@@ -13,7 +13,7 @@ export default function Hero() {
                         <Logo className="fill-zinc-950 dark:fill-zinc-300 transition-[fill] ease-in-out duration-700 w-52 h-52 md:w-80 md:h-80" />
                         <h1
                             className={
-                                "font-[900] text-4xl sm:text-7xl text-zinc-950 dark:text-zinc-200 transition-colors ease-in-out duration-700 [font-family:var(--font-mono)]"
+                                "font-[900] text-4xl text-center mb-0 sm:text-7xl text-zinc-950 dark:text-zinc-200 transition-colors ease-in-out duration-700 [font-family:var(--font-mono)]"
                             }
                         >
                             PichiriKa
@@ -42,20 +42,19 @@ export default function Hero() {
                         <div className="flex gap-4 mb-2">
                             <Button
                                 asChild
-                                color="success"
-                                className="font-semibold"
+                                className="font-semibold bg-green-600 hover:bg-green-700"
                             >
                                 <Link
                                     href="/adoptar"
                                     className="flex items-center gap-2"
                                 >
-                                    <PetIcon className="fill-zinc-950 dark:fill-zinc-200" />
+                                    <PetIcon className="fill-white" />
                                     Adopta
                                 </Link>
                             </Button>
                             <Button
                                 color="danger"
-                                className="bg-red-700 font-semibold text-zinc-200 dark:bg-red-900"
+                                className="bg-red-700 font-semibold text-white dark:bg-red-900 hover:bg-red-800 dark:hover:bg-red-800"
                             >
                                 <Link
                                     href="tel:4213280"
