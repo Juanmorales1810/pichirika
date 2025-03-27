@@ -119,7 +119,7 @@ export function Header() {
                             <span
                                 aria-hidden="true"
                                 className={cn(
-                                    "absolute block h-0.5 w-full rounded-full bg-white transition duration-500 ease-in-out",
+                                    "absolute block h-0.5 w-full rounded-full bg-zinc-900 transition duration-500 ease-in-out dark:bg-zinc-300",
                                     mobileMenuOpen
                                         ? "rotate-45"
                                         : "-translate-y-1.5"
@@ -128,14 +128,14 @@ export function Header() {
                             <span
                                 aria-hidden="true"
                                 className={cn(
-                                    "absolute block h-0.5 w-full rounded-full bg-white transition duration-500 ease-in-out",
+                                    "absolute block h-0.5 w-full rounded-full bg-zinc-900 transition duration-500 ease-in-out dark:bg-zinc-300",
                                     mobileMenuOpen && "opacity-0"
                                 )}
                             ></span>
                             <span
                                 aria-hidden="true"
                                 className={cn(
-                                    "absolute block h-0.5 w-full rounded-full bg-white transition duration-500 ease-in-out",
+                                    "absolute block h-0.5 w-full rounded-full bg-zinc-900 transition duration-500 ease-in-out dark:bg-zinc-300",
                                     mobileMenuOpen
                                         ? "-rotate-45"
                                         : "translate-y-1.5"
@@ -210,30 +210,15 @@ export function Header() {
                             </div>
                         </div>
                     </div>
-                    <Link
-                        href="#"
-                        className="py-4 text-base font-medium text-primary transition-colors first:pt-0 last:pb-0 hover:text-primary/80"
-                    >
-                        About Us
-                    </Link>
-                    <Link
-                        href="#"
-                        className="py-4 text-base font-medium text-primary transition-colors first:pt-0 last:pb-0 hover:text-primary/80"
-                    >
-                        Pricing
-                    </Link>
-                    <Link
-                        href="#"
-                        className="py-4 text-base font-medium text-primary transition-colors first:pt-0 last:pb-0 hover:text-primary/80"
-                    >
-                        FAQ
-                    </Link>
-                    <Link
-                        href="#"
-                        className="py-4 text-base font-medium text-primary transition-colors first:pt-0 last:pb-0 hover:text-primary/80"
-                    >
-                        Contact
-                    </Link>
+                    {links.map((link) => (
+                        <Link
+                            key={link.label}
+                            href={link.href}
+                            className="py-4 text-base font-medium text-primary transition-colors first:pt-0 last:pb-0 hover:text-primary/80"
+                        >
+                            {link.label}
+                        </Link>
+                    ))}
                 </nav>
             </div>
         </header>
