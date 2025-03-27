@@ -3,8 +3,8 @@ import {
     LoadScript,
     DirectionsService,
     DirectionsRenderer,
-    InfoWindow,
     useGoogleMap,
+    useLoadScript,
 } from "@react-google-maps/api";
 import React, { useEffect, useState, useRef } from "react";
 import useGeolocation from "@/hooks/useLocation";
@@ -112,9 +112,14 @@ const MapaVeterinarias = ({
     const [directionsServiceActive, setDirectionsServiceActive] =
         useState<boolean>(false);
 
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string,
+        libraries: ["marker"] as any,
+    });
+
     const mapContainerStyle = {
-        height: "calc(100% + 50px)",
-        width: "calc(100% + 50px)",
+        height: "calc(100% + 25px)",
+        width: "calc(100% + 25px)",
     };
 
     const center = {
@@ -151,138 +156,68 @@ const MapaVeterinarias = ({
             setDirectionsServiceActive(true); // Enable DirectionsService to make the request
         }
     }, [selectedVeterinaria, lat, lon]);
+
+    if (loadError) return <div>Error al cargar el mapa</div>;
+    if (!isLoaded)
+        return (
+            <div>
+                <LoaderCircle
+                    className="animate-spin text-green-700"
+                    size={32}
+                />
+                <p className="text-sm text-center">
+                    Cargando veterinarias cercanas...
+                </p>
+            </div>
+        );
     return (
-        <LoadScript
-            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
-            loadingElement={
-                <div>
-                    <LoaderCircle
-                        className="animate-spin text-green-700"
-                        size={32}
-                    />
-                    <p className="text-sm text-center">
-                        Cargando veterinarias cercanas...
-                    </p>
-                </div>
-            }
-            id="google-maps-script"
-            libraries={["marker"]} // Importante: Añadir la biblioteca de marcadores
+        <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            center={center}
+            zoom={13}
+            options={{
+                mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID, // ID del mapa
+                disableDefaultUI: true, // Desactiva todos los controles predeterminados del mapa
+                scaleControl: false, // Activa el control de la barra de escala
+            }}
         >
-            <GoogleMap
-                mapContainerStyle={mapContainerStyle}
-                center={center}
-                zoom={13}
-                options={{
-                    mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID, // ID del mapa
-                    disableDefaultUI: true, // Desactiva todos los controles predeterminados del mapa
-                    scaleControl: false, // Activa el control de la barra de escala
-                    styles: [
-                        {
-                            featureType: "water",
-                            elementType: "geometry",
-                            stylers: [{ color: "#193341" }],
+            {veterinarias.map((veterinaria, index) => (
+                <AdvancedMarker
+                    key={veterinaria.nombre}
+                    position={{
+                        lat: veterinaria.lat,
+                        lng: veterinaria.lon,
+                    }}
+                    title={veterinaria.nombre}
+                    onClick={() => handleVeterinariaClick(veterinaria)}
+                    index={index}
+                />
+            ))}
+            {lat && lon && (
+                <AdvancedMarker position={center} isUserLocation={true} />
+            )}
+            {/* El resto del código para DirectionsService y DirectionsRenderer sigue igual */}
+            {selectedVeterinaria && directionsServiceActive && (
+                <DirectionsService
+                    options={{
+                        destination: {
+                            lat: selectedVeterinaria.lat,
+                            lng: selectedVeterinaria.lon,
                         },
-                        {
-                            featureType: "landscape",
-                            elementType: "geometry",
-                            stylers: [{ color: "#09090b" }],
-                        },
-                        {
-                            featureType: "road",
-                            elementType: "geometry",
-                            stylers: [
-                                { color: "#27272a" }, // Oculta iconos de carretera como peajes, estaciones de servicio, etc.
-                            ],
-                        },
-                        {
-                            featureType: "poi",
-                            stylers: [
-                                { visibility: "off" }, // Oculta puntos de interés como tiendas, restaurantes, etc.
-                            ],
-                        },
-                        {
-                            featureType: "transit",
-                            elementType: "labels.icon",
-                            stylers: [
-                                { visibility: "off" }, // Oculta iconos de transporte público
-                            ],
-                        },
-                        {
-                            featureType: "road",
-                            elementType: "labels.icon",
-                            stylers: [
-                                { visibility: "off" }, // Oculta iconos de carretera como peajes, estaciones de servicio, etc.
-                            ],
-                        },
-                        {
-                            featureType: "administrative",
-                            elementType: "labels.text.fill",
-                            stylers: [
-                                { color: "#ffffff" }, // Cambia el color del texto administrativo (por ejemplo, el nombre de las ciudades)
-                            ],
-                        },
-                        {
-                            featureType: "administrative.locality",
-                            elementType: "labels.text.fill",
-                            stylers: [
-                                { visibility: "off" }, // Oculta el nombre de las localidades (ciudades, pueblos, etc.)
-                            ],
-                        },
-                        {
-                            featureType: "administrative.neighborhood",
-                            elementType: "labels.text.fill",
-                            stylers: [
-                                { visibility: "off" }, // Oculta el nombre de los barrios
-                            ],
-                        },
-                        {
-                            featureType: "road",
-                            elementType: "labels.text.fill",
-                            stylers: [
-                                { visibility: "off" }, // Oculta iconos de carretera como peajes, estaciones de servicio, etc.
-                            ],
-                        },
-                    ],
-                }}
-            >
-                {veterinarias.map((veterinaria, index) => (
-                    <AdvancedMarker
-                        key={veterinaria.nombre}
-                        position={{
-                            lat: veterinaria.lat,
-                            lng: veterinaria.lon,
-                        }}
-                        title={veterinaria.nombre}
-                        onClick={() => handleVeterinariaClick(veterinaria)}
-                        index={index}
-                    />
-                ))}
-                {lat && lon && (
-                    <AdvancedMarker position={center} isUserLocation={true} />
-                )}
-                {/* El resto del código para DirectionsService y DirectionsRenderer sigue igual */}
-                {selectedVeterinaria && directionsServiceActive && (
-                    <DirectionsService
-                        options={{
-                            destination: {
-                                lat: selectedVeterinaria.lat,
-                                lng: selectedVeterinaria.lon,
-                            },
-                            origin: { lat: lat!, lng: lon! },
-                            travelMode: google.maps.TravelMode.DRIVING,
-                        }}
-                        callback={directionsCallback}
-                    />
-                )}
-                {directionsResponse && (
-                    <DirectionsRenderer
-                        options={{
-                            directions: directionsResponse,
-                        }}
-                    />
-                )}
-            </GoogleMap>
-        </LoadScript>
+                        origin: { lat: lat!, lng: lon! },
+                        travelMode: google.maps.TravelMode.DRIVING,
+                    }}
+                    callback={directionsCallback}
+                />
+            )}
+            {directionsResponse && (
+                <DirectionsRenderer
+                    options={{
+                        directions: directionsResponse,
+                    }}
+                />
+            )}
+        </GoogleMap>
     );
 };
 
