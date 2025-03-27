@@ -1,13 +1,13 @@
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Heart } from "lucide-react";
+import { unstable_ViewTransition as ViewTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Heart } from "lucide-react";
+import { useState } from "react";
+import type React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 // Assuming these are imported from your existing code
 import {
@@ -59,16 +59,18 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
     }
 
     return (
-        <article className="flex flex-col min-w-40 max-w-48 bg-lime-50 dark:bg-lime-800 rounded-2xl p-3 border-2 border-lime-700 dark:border-lime-400 hover:shadow-md transition-shadow">
+        <article className="flex flex-col min-w-40 max-w-48 bg-lime-50 dark:bg-lime-950 rounded-2xl p-3 border-2 border-lime-700 dark:border-lime-700 hover:shadow-md transition-shadow">
             <div className="relative">
-                <Link href={`/adopt/${id}`} className="block">
-                    <Image
-                        className="rounded-xl aspect-square object-cover"
-                        src={image || "/placeholder.svg"}
-                        alt={title}
-                        width={200}
-                        height={200}
-                    />
+                <Link href={`/adoptar/${id}`} className="block">
+                    <ViewTransition name={`${title}-image`}>
+                        <Image
+                            className="rounded-xl aspect-square object-cover"
+                            src={image || "/placeholder.svg"}
+                            alt={title}
+                            width={200}
+                            height={200}
+                        />
+                    </ViewTransition>
                     <Button
                         variant="ghost"
                         size="icon"
@@ -91,11 +93,13 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
 
             <div className="p-1 pt-2">
                 <div className="flex justify-between items-start mb-1">
-                    <h3
-                        className={`text-lg font-bold line-clamp-1 ${fontMono.className}`}
-                    >
-                        {title}
-                    </h3>
+                    <ViewTransition name={`${title}-name`}>
+                        <h3
+                            className={`text-lg font-bold line-clamp-1 ${fontMono.className}`}
+                        >
+                            {title}
+                        </h3>
+                    </ViewTransition>
                     <Badge
                         variant="outline"
                         className="ml-1 text-xs h-5 px-1.5 bg-lime-100 dark:bg-lime-700 border-lime-300 dark:border-lime-500 text-lime-800 dark:text-lime-200"
@@ -125,7 +129,7 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
                     </div>
                 </div>
 
-                <Button className="w-full mt-2 font-semibold bg-lime-600 hover:bg-lime-700 dark:bg-lime-500 dark:hover:bg-lime-600 text-white h-8">
+                <Button className="w-full mt-2 font-semibold bg-lime-600 hover:bg-lime-700 dark:bg-lime-700 dark:hover:bg-lime-800 text-white h-8">
                     <Link
                         href={`/adoptar/${id}`}
                         className="flex items-center gap-1 w-full justify-center"
