@@ -46,7 +46,7 @@ export default function Hero() {
                                 className="font-semibold"
                             >
                                 <Link
-                                    href="/adopt"
+                                    href="/adoptar"
                                     className="flex items-center gap-2"
                                 >
                                     <PetIcon className="fill-zinc-950 dark:fill-zinc-200" />
