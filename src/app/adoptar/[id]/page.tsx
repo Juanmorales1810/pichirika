@@ -51,16 +51,8 @@ const getItem = cache(async function loadPet(params: string) {
     return obj;
 });
 
-export default async function PetDetailsPage({
-    params,
-}: {
-    params: Params | Promise<Params>;
-}) {
-    // Asegurarnos de que params esté resuelto
-    const resolvedParams = params instanceof Promise ? await params : params;
-
-    // Ahora podemos usar resolvedParams.id con seguridad
-    const pet: PetSchema = await getItem(resolvedParams.id);
+export default async function PetDetailsPage({ params }: { params: Params }) {
+    const pet: PetSchema = await getItem(params.id);
 
     const location = `${
         pet.department in mappedDepartment
