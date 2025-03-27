@@ -12,7 +12,7 @@ export default function RegisterPetCTA({
     registerUrl = "/register-pet",
 }: RegisterPetCTAProps) {
     return (
-        <article className="flex flex-col min-w-40 max-w-48 bg-lime-50 dark:bg-lime-800 rounded-2xl p-3 border-2 border-dashed border-lime-700 dark:border-lime-400 hover:shadow-md transition-shadow">
+        <article className="flex flex-col min-w-40 max-w-48 bg-lime-50 dark:bg-lime-950 rounded-2xl p-3 border-2 border-dashed border-lime-700 dark:border-lime-700 hover:shadow-md transition-shadow">
             <div className="relative">
                 <div className="rounded-xl bg-lime-100 dark:bg-lime-700/50 flex items-center justify-center overflow-hidden">
                     <div className="flex items-end justify-center py-3">
@@ -33,7 +33,7 @@ export default function RegisterPetCTA({
                     en nuestra plataforma
                 </p>
 
-                <Button className="w-full font-semibold bg-lime-600 hover:bg-lime-700 dark:bg-lime-500 dark:hover:bg-lime-600 text-white h-8">
+                <Button className="w-full font-semibold bg-lime-600 hover:bg-lime-700 dark:bg-lime-700 dark:hover:bg-lime-800 text-white h-8">
                     <Link
                         href={registerUrl}
                         className="flex items-center gap-1 w-full justify-center"
