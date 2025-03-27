@@ -1,9 +1,9 @@
-import { fontMono } from "@/config/fonts";
-import { Department } from "@/validations/registerPetSchema";
-import CardPichiriKa from "@/components/cardpichirika";
 import { PaginationControls } from "@/components/pagination-controls";
-import RegisterPetCTA from "@/components/register-pet-cta";
 import { PetSearchFilters } from "@/components/pet-search-filters";
+import { Department } from "@/validations/registerPetSchema";
+import RegisterPetCTA from "@/components/register-pet-cta";
+import CardPichiriKa from "@/components/cardpichirika";
+import { fontMono } from "@/config/fonts";
 
 interface PaginationProps {
     name: string;
@@ -30,7 +30,6 @@ async function getPets(
         category?: string;
     }
 ): Promise<PetsResponse> {
-    // Build query parameters
     const params = new URLSearchParams();
     params.set("page", page.toString());
     params.set("limit", limit.toString());
@@ -39,7 +38,6 @@ async function getPets(
     if (filters.location) params.set("location", filters.location);
     if (filters.category) params.set("category", filters.category);
 
-    // Use absolute URL for production or relative URL for development
     const baseUrl =
         process.env.NODE_ENV === "production"
             ? `${process.env.NEXT_PUBLIC_API_URL}/api/registerpet`
@@ -59,27 +57,18 @@ async function getPets(
 export default async function PetsPage({
     searchParams,
 }: {
-    searchParams:
-        | Promise<{
-              page?: string;
-              name?: string;
-              location?: string;
-              category?: string;
-          }>
-        | {
-              page?: string;
-              name?: string;
-              location?: string;
-              category?: string;
-          };
+    searchParams: Promise<{
+        page?: string;
+        name?: string;
+        location?: string;
+        category?: string;
+    }>;
 }) {
-    // Ensure searchParams is resolved
-    const params =
-        searchParams instanceof Promise ? await searchParams : searchParams;
+    const params = await searchParams;
+
     const currentPage = Number(params.page) || 1;
     const itemsPerPage = 9;
 
-    // Extract filter values
     const filters = {
         name: params.name,
         location: params.location,
@@ -91,7 +80,6 @@ export default async function PetsPage({
         ? Math.ceil(data.totalItems / itemsPerPage)
         : 0;
 
-    // Create a function to preserve current filters when changing pages
     const getFilterParams = () => {
         const filterParams = new URLSearchParams();
         if (params.name) filterParams.set("name", params.name);
