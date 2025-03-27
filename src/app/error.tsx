@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default function Error({
     error,
@@ -26,14 +27,14 @@ export default function Error({
             <h2 className="text-xl uppercase text-red-600 font-bold">
                 Algo salio muy mal!
             </h2>
-            <button
+            <Button
                 onClick={
                     // Attempt to recover by trying to re-render the segment
                     () => reset()
                 }
             >
                 Intenta de nuevo💖
-            </button>
+            </Button>
         </div>
     );
 }
