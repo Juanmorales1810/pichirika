@@ -51,8 +51,13 @@ const getItem = cache(async function loadPet(params: string) {
     return obj;
 });
 
-export default async function PetDetailsPage({ params }: { params: Params }) {
-    const pet: PetSchema = await getItem(params.id);
+export default async function PetDetailsPage({
+    params,
+}: {
+    params: Promise<{ id: string }> | { id: string };
+}) {
+    const resolvedParams = await Promise.resolve(params);
+    const pet: PetSchema = await getItem(resolvedParams.id);
 
     const location = `${
         pet.department in mappedDepartment
