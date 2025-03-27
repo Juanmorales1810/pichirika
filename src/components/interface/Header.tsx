@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "../mode-toggle";
+import Image from "next/image";
 
 const links = [
     { href: "/veterinarias", label: "Veterinarias Cercanas" },
@@ -35,10 +36,12 @@ export function Header() {
                     href="/"
                     className="flex shrink-0 items-center gap-2 w-40"
                 >
-                    <img
+                    <Image
                         src="/icon-192x192.png"
                         alt="logo"
                         className="h-8 dark:invert-100"
+                        height={32}
+                        width={32}
                     />
                 </Link>
 
