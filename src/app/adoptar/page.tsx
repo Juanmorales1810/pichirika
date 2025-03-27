@@ -1,7 +1,4 @@
-import { PetIcon, UserIcon } from "@/components/icons";
 import { fontMono } from "@/config/fonts";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Department } from "@/validations/registerPetSchema";
 import CardPichiriKa from "@/components/cardpichirika";
 import { PaginationControls } from "@/components/pagination-controls";
