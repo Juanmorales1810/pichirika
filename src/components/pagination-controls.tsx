@@ -15,19 +15,25 @@ import { useCallback } from "react";
 interface PaginationControlsProps {
     currentPage: number;
     totalPages: number;
+    filterParams?: string;
 }
 
 export function PaginationControls({
     currentPage,
     totalPages,
+    filterParams = "",
 }: PaginationControlsProps) {
     const router = useRouter();
 
     const handlePageChange = useCallback(
         (page: number) => {
-            router.push(`?page=${page}`);
+            // Preserve filter parameters when changing pages
+            const url = filterParams
+                ? `?${filterParams}&page=${page}`
+                : `?page=${page}`;
+            router.push(url);
         },
-        [router]
+        [router, filterParams]
     );
 
     // Generate page numbers to display
@@ -68,12 +74,17 @@ export function PaginationControls({
         return null;
     }
 
+    // Create URL with current filters
+    const getPageUrl = (page: number) => {
+        return filterParams ? `?${filterParams}&page=${page}` : `?page=${page}`;
+    };
+
     return (
-        <Pagination className="my-4">
+        <Pagination className="my-1">
             <PaginationContent>
                 <PaginationItem>
                     <PaginationPrevious
-                        href={`?page=${currentPage > 1 ? currentPage - 1 : 1}`}
+                        href={getPageUrl(currentPage > 1 ? currentPage - 1 : 1)}
                         onClick={(e) => {
                             if (currentPage > 1) {
                                 e.preventDefault();
@@ -100,7 +111,7 @@ export function PaginationControls({
                     return (
                         <PaginationItem key={`page-${page}`}>
                             <PaginationLink
-                                href={`?page=${page}`}
+                                href={getPageUrl(page as number)}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handlePageChange(page as number);
@@ -115,11 +126,11 @@ export function PaginationControls({
 
                 <PaginationItem>
                     <PaginationNext
-                        href={`?page=${
+                        href={getPageUrl(
                             currentPage < totalPages
                                 ? currentPage + 1
                                 : totalPages
-                        }`}
+                        )}
                         onClick={(e) => {
                             if (currentPage < totalPages) {
                                 e.preventDefault();
