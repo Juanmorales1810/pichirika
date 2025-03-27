@@ -6,6 +6,7 @@ import { Department } from "@/validations/registerPetSchema";
 import CardPichiriKa from "@/components/cardpichirika";
 import { PaginationControls } from "@/components/pagination-controls";
 import RegisterPetCTA from "@/components/register-pet-cta";
+import { PetSearchFilters } from "@/components/pet-search-filters";
 
 interface PaginationProps {
     name: string;
@@ -23,12 +24,31 @@ interface PetsResponse {
     totalItems: number;
 }
 
-async function getPets(page: number, limit: number): Promise<PetsResponse> {
+async function getPets(
+    page: number,
+    limit: number,
+    filters: {
+        name?: string;
+        location?: string;
+        category?: string;
+    }
+): Promise<PetsResponse> {
+    // Build query parameters
+    const params = new URLSearchParams();
+    params.set("page", page.toString());
+    params.set("limit", limit.toString());
+
+    if (filters.name) params.set("name", filters.name);
+    if (filters.location) params.set("location", filters.location);
+    if (filters.category) params.set("category", filters.category);
+
     // Use absolute URL for production or relative URL for development
-    const url =
+    const baseUrl =
         process.env.NODE_ENV === "production"
-            ? `${process.env.NEXT_PUBLIC_API_URL}/api/registerpet?page=${page}&limit=${limit}`
-            : `http://localhost:3000/api/registerpet?page=${page}&limit=${limit}`;
+            ? `${process.env.NEXT_PUBLIC_API_URL}/api/registerpet`
+            : `http://localhost:3000/api/registerpet`;
+
+    const url = `${baseUrl}?${params.toString()}`;
 
     const res = await fetch(url, { cache: "no-store" });
 
@@ -42,40 +62,48 @@ async function getPets(page: number, limit: number): Promise<PetsResponse> {
 export default async function PetsPage({
     searchParams,
 }: {
-    searchParams: Promise<{ page?: string }> | { page?: string };
+    searchParams:
+        | Promise<{
+              page?: string;
+              name?: string;
+              location?: string;
+              category?: string;
+          }>
+        | {
+              page?: string;
+              name?: string;
+              location?: string;
+              category?: string;
+          };
 }) {
-    // Asegurarnos de que searchParams esté resuelto
+    // Ensure searchParams is resolved
     const params =
         searchParams instanceof Promise ? await searchParams : searchParams;
     const currentPage = Number(params.page) || 1;
-    const itemsPerPage = 7;
+    const itemsPerPage = 9;
 
-    const data = await getPets(currentPage, itemsPerPage);
+    // Extract filter values
+    const filters = {
+        name: params.name,
+        location: params.location,
+        category: params.category,
+    };
+
+    const data = await getPets(currentPage, itemsPerPage, filters);
     const totalPages = data?.totalItems
         ? Math.ceil(data.totalItems / itemsPerPage)
         : 0;
+
+    // Create a function to preserve current filters when changing pages
+    const getFilterParams = () => {
+        const filterParams = new URLSearchParams();
+        if (params.name) filterParams.set("name", params.name);
+        if (params.location) filterParams.set("location", params.location);
+        if (params.category) filterParams.set("category", params.category);
+        return filterParams.toString();
+    };
     return (
         <section className="flex flex-col items-center w-full h-full min-h-[calc(100vh)] pt-20">
-            {/* <div className="flex gap-4 py-2">
-                <Button className="font-semibold">
-                    <Link
-                        href="/adopt/register-pet"
-                        className="flex items-center gap-2"
-                    >
-                        <PetIcon className="dark:fill-white" />
-                        Registrar animal
-                    </Link>
-                </Button>
-                <Button className="font-semibold">
-                    <Link
-                        href="/adopt/login"
-                        className="flex items-center gap-2"
-                    >
-                        <UserIcon className="dark:fill-white" />
-                        Iniciar sesión
-                    </Link>
-                </Button>
-            </div> */}
             <h1
                 className={
                     "font-bold text-center text-6xl " + fontMono.className
@@ -83,6 +111,10 @@ export default async function PetsPage({
             >
                 Algunos PichiriKas
             </h1>
+            {/* Search Filters */}
+            <div className="w-full max-w-5xl mt-6">
+                <PetSearchFilters />
+            </div>
             <div className="flex flex-wrap max-w-5xl">
                 <div className="flex flex-col justify-center items-center w-full h-full gap-2">
                     {data?.totalItems === 0 && (
@@ -106,10 +138,11 @@ export default async function PetsPage({
                         )}
                     </ul>
 
-                    {data?.totalItems >= 8 && (
+                    {data?.totalItems >= 9 && (
                         <PaginationControls
                             currentPage={currentPage}
                             totalPages={totalPages}
+                            filterParams={getFilterParams()}
                         />
                     )}
                 </div>
