@@ -181,6 +181,9 @@ export function Header() {
                                 <Link
                                     href="#"
                                     className="group block rounded-md p-2 transition-colors hover:bg-accent"
+                                    onClick={() =>
+                                        setMobileMenuOpen(!mobileMenuOpen)
+                                    }
                                 >
                                     <div className="transition-transform duration-200 group-hover:translate-x-1">
                                         <div className="font-medium text-primary">
@@ -196,6 +199,9 @@ export function Header() {
                                 <Link
                                     href="#"
                                     className="group block rounded-md p-2 transition-colors hover:bg-accent"
+                                    onClick={() =>
+                                        setMobileMenuOpen(!mobileMenuOpen)
+                                    }
                                 >
                                     <div className="transition-transform duration-200 group-hover:translate-x-1">
                                         <div className="font-medium text-primary">
@@ -215,6 +221,7 @@ export function Header() {
                             key={link.label}
                             href={link.href}
                             className="py-4 text-base font-medium text-primary transition-colors first:pt-0 last:pb-0 hover:text-primary/80"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
                             {link.label}
                         </Link>
