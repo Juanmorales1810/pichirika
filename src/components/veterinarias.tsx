@@ -11,6 +11,7 @@ import { fontMono } from "@/config/fonts";
 import { Skeleton } from "./ui/skeleton";
 import { getDistance } from "geolib";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const VeterinariasCercanas = () => {
     const { lat, lon, error, loading } = useGeolocation();
@@ -23,11 +24,16 @@ const VeterinariasCercanas = () => {
                     <p className="text-sm text-center text-muted-foreground">
                         Obteniendo tu ubicación...
                     </p>
-                    <div className="w-full space-y-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                        <Skeleton className="h-12 w-full" />
+                        <Skeleton className="h-12 w-full" />
+                        <Skeleton className="h-12 w-full" />
                         <Skeleton className="h-12 w-full" />
                         <Skeleton className="h-12 w-full" />
                         <Skeleton className="h-12 w-full" />
                     </div>
+                    <Separator className="my-4" />
+                    <Skeleton className="w-full h-[550px]" />
                 </CardContent>
             </Card>
         );
@@ -77,20 +83,20 @@ const VeterinariasCercanas = () => {
                             {veterinariasCercanas.map((veterinaria) => (
                                 <Card
                                     key={veterinaria.nombre}
-                                    className="border-primary/20 bg-primary/5 py-3"
+                                    className="py-3 border-2 bg-lime-50 dark:bg-lime-950 border-lime-700 dark:border-lime-700"
                                 >
                                     <CardContent className="px-3">
-                                        <div className="flex items-start gap-2">
-                                            <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                                        <div className="flex items-center gap-2 text-lime-700 dark:text-lime-300">
+                                            <MapPin className="h-5 w-5 text-lime-700 dark:text-lime-300 shrink-0 mt-0.5" />
                                             <div>
                                                 <h3
-                                                    className={`text-base font-bold ${fontMono.className}`}
+                                                    className={`text-base font-bold ${fontMono.className} line-clamp-1`}
                                                 >
                                                     {veterinaria.nombre}
                                                 </h3>
-                                                <p className="text-xs text-muted-foreground">
+                                                <p className="text-xs text-lime-700 dark:text-lime-300">
                                                     A{" "}
-                                                    <span className="font-semibold text-foreground">
+                                                    <span className="font-semibold text-lime-900 dark:text-lime-200">
                                                         {veterinaria.distancia}m
                                                     </span>{" "}
                                                     de distancia
@@ -100,22 +106,26 @@ const VeterinariasCercanas = () => {
                                     </CardContent>
                                 </Card>
                             ))}
-                            <Card className="border-primary/20 bg-primary/5 py-3 border-2 border-dashed">
+                            <Card className=" bg-lime-50 dark:bg-lime-950 border-lime-700 dark:border-lime-700 py-3 border-2 border-dashed">
                                 <CardContent className="px-3">
-                                    <div className="flex items-center gap-2">
-                                        <Plus className="h-5 w-5 text-primary shrink-0" />
+                                    <Link
+                                        target="_blank"
+                                        href="https://forms.gle/fiFhKZL6fbCzcK1U9"
+                                        className="flex items-center gap-2"
+                                    >
+                                        <Plus className="h-5 w-5 text-lime-700 dark:text-lime-300 shrink-0" />
                                         <div>
                                             <h3
-                                                className={`text-base font-bold ${fontMono.className}`}
+                                                className={`text-base font-bold text-lime-700 dark:text-lime-300 ${fontMono.className}`}
                                             >
                                                 Quieres agregar una veterinaria?
                                             </h3>
-                                            <p className="text-xs text-muted-foreground">
+                                            <p className="text-xs text-lime-600 dark:text-lime-300">
                                                 Clickea aquí para agregar una
                                                 veterinaria
                                             </p>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </CardContent>
                             </Card>
                         </div>
@@ -131,7 +141,6 @@ const VeterinariasCercanas = () => {
         );
     }
 
-    // Caso por defecto: No hay ubicación y no hay error (esto no debería ocurrir normalmente)
     return (
         <Card className="w-full">
             <CardContent className="flex flex-col items-center justify-center p-6 space-y-4">
