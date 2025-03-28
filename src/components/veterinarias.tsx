@@ -15,10 +15,6 @@ import { Button } from "./ui/button";
 const VeterinariasCercanas = () => {
     const { lat, lon, error, loading } = useGeolocation();
 
-    // Añadir console.log para depurar
-    console.log("Geolocation:", { lat, lon, error, loading });
-
-    // Caso 1: Está cargando la ubicación
     if (loading) {
         return (
             <Card className="w-full">
@@ -37,7 +33,6 @@ const VeterinariasCercanas = () => {
         );
     }
 
-    // Caso 2: Hay un error al obtener la ubicación
     if (error) {
         return (
             <Alert variant="destructive" className="mx-auto max-w-md">
@@ -60,7 +55,6 @@ const VeterinariasCercanas = () => {
         );
     }
 
-    // Caso 3: Tenemos la ubicación del usuario
     if (lat && lon) {
         const veterinariasConDistancia = veterinarias.map((veterinaria) => {
             const distancia = getDistance(
