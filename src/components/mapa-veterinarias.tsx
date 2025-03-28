@@ -1,6 +1,5 @@
 import {
     GoogleMap,
-    LoadScript,
     DirectionsService,
     DirectionsRenderer,
     useGoogleMap,
@@ -160,7 +159,7 @@ const MapaVeterinarias = ({
     if (loadError) return <div>Error al cargar el mapa</div>;
     if (!isLoaded)
         return (
-            <div>
+            <div className="flex flex-col items-center justify-center w-full h-full gap-2">
                 <LoaderCircle
                     className="animate-spin text-green-700"
                     size={32}
