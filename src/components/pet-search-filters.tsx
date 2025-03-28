@@ -93,13 +93,13 @@ export function PetSearchFilters() {
                         placeholder="Buscar por nombre..."
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full"
+                        className="w-full bg-white"
                     />
                 </div>
 
                 <div className="w-full sm:w-48">
                     <Select value={location} onValueChange={setLocation}>
-                        <SelectTrigger className="w-full">
+                        <SelectTrigger className="w-full bg-white">
                             <SelectValue placeholder="Localidad" />
                         </SelectTrigger>
                         <SelectContent>
@@ -118,7 +118,7 @@ export function PetSearchFilters() {
 
                 <div className="w-full sm:w-48">
                     <Select value={category} onValueChange={setCategory}>
-                        <SelectTrigger className="w-full">
+                        <SelectTrigger className="w-full bg-white">
                             <SelectValue placeholder="Categoría" />
                         </SelectTrigger>
                         <SelectContent>
