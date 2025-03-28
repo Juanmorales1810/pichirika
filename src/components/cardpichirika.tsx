@@ -46,7 +46,7 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
 
     if (skeleton) {
         return (
-            <article className="flex flex-col min-w-40 max-w-48 bg-lime-50 dark:bg-lime-800 rounded-2xl p-3 border-2 border-lime-700 dark:border-lime-400">
+            <article className="flex flex-col min-w-48 max-w-60 bg-lime-50 dark:bg-lime-800 rounded-2xl p-3 border-2 border-lime-700 dark:border-lime-400">
                 <div className="aspect-square w-full bg-lime-200 dark:bg-lime-700 animate-pulse rounded-xl" />
                 <div className="p-2 space-y-2">
                     <div className="h-5 w-3/4 bg-lime-200 dark:bg-lime-700 animate-pulse rounded-md" />
