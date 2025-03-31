@@ -24,7 +24,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { CalendarIcon, CloudUpload, Loader2 } from "lucide-react";
+import { CalendarIcon, CloudUpload, Info, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import MapaFormulario from "@/components/mapa-formulario";
 import {
@@ -200,6 +200,7 @@ export default function LostPetFormPage() {
                                                                 new Date()
                                                             }
                                                             initialFocus
+                                                            locale={es}
                                                         />
                                                     </PopoverContent>
                                                 </Popover>
@@ -226,7 +227,7 @@ export default function LostPetFormPage() {
                                                             <SelectValue placeholder="Selecciona un departamento" />
                                                         </SelectTrigger>
                                                     </FormControl>
-                                                    <SelectContent className="top-20">
+                                                    <SelectContent className="z-[1000]">
                                                         {department.map(
                                                             (dep) => (
                                                                 <SelectItem
@@ -380,24 +381,28 @@ export default function LostPetFormPage() {
                                                 }
                                             />
                                         </div>
-                                        <FormDescription>
+                                        <FormDescription className="flex items-center space-x-2 text-sm text-muted-foreground gap-1.5">
+                                            <Info className="size-8 text-muted-foreground" />
                                             Haz clic en el mapa para seleccionar
                                             la ubicación donde se perdió el
-                                            animal
+                                            animal, esto ayudara a otros
+                                            usuarios a localizar a otros
+                                            animales perdidos en la misma zona.
                                         </FormDescription>
                                     </div>
 
-                                    <div className="grid-cols-2 gap-4 hidden">
+                                    <div className="grid grid-cols-2 gap-4">
                                         <FormField
                                             control={form.control}
                                             name="lat"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>
+                                                    <FormLabel className="hidden">
                                                         Latitud
                                                     </FormLabel>
                                                     <FormControl>
                                                         <Input
+                                                            className="hidden"
                                                             readOnly
                                                             {...field}
                                                         />
@@ -412,11 +417,12 @@ export default function LostPetFormPage() {
                                             name="lng"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>
+                                                    <FormLabel className="hidden">
                                                         Longitud
                                                     </FormLabel>
                                                     <FormControl>
                                                         <Input
+                                                            className="hidden"
                                                             readOnly
                                                             {...field}
                                                         />
@@ -491,6 +497,7 @@ export default function LostPetFormPage() {
                                                                 checked={
                                                                     field.value
                                                                 }
+                                                                className="border-lime-500 data-[state=checked]:border-lime-500 data-[state=checked]:bg-lime-500 transition-colors"
                                                                 onCheckedChange={
                                                                     field.onChange
                                                                 }
@@ -515,6 +522,7 @@ export default function LostPetFormPage() {
                                                                 checked={
                                                                     field.value
                                                                 }
+                                                                className="border-lime-500 data-[state=checked]:border-lime-500 data-[state=checked]:bg-lime-500 transition-colors"
                                                                 onCheckedChange={
                                                                     field.onChange
                                                                 }
