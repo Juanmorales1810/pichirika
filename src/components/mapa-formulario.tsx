@@ -20,7 +20,7 @@ const MapaFormulario = ({
     // Obtener la ubicación actual del usuario
     const { lat, lon, loading, error } = useGeolocation();
 
-    // Definir el centro del mapa, utilizando Santiago como fallback
+    // Definir el centro del mapa, utilizando San Juan como fallback
     const mapCenter =
         lat && lon
             ? { lat, lng: lon }
