@@ -15,27 +15,20 @@ export async function GET(req: NextRequest) {
     try {
         await connectMongoDB();
 
-        const pets = await Pet.find();
-
-        // Obtener los parámetros de consulta
         const { searchParams } = new URL(req.url);
-        const page = parseInt(searchParams.get("page") || "1", 10); // Página por defecto: 1
-        const limit = parseInt(searchParams.get("limit") || "10", 10); // Límite por defecto: 10 elementos por página
-        const search = searchParams.get("search") || ""; // Filtro de búsqueda
+        const page = parseInt(searchParams.get("page") || "1", 10);
+        const limit = parseInt(searchParams.get("limit") || "10", 10);
+        const search = searchParams.get("search") || "";
 
-        // Calcular el índice de inicio
         const skip = (page - 1) * limit;
 
-        // Construir el filtro de búsqueda
-        const filter = search ? { titulo: new RegExp(search, "i") } : {}; // Filtra por nombre, ignorando mayúsculas/minúsculas
+        const filter = search ? { titulo: new RegExp(search, "i") } : {};
 
-        // Obtener elementos con filtrado y paginación (el método sort ordena los elementos por fecha de creación descendente)
         const items = await Pet.find(filter)
             .sort({ _id: -1 })
             .skip(skip)
             .limit(limit);
 
-        // Obtener el total de documentos que coinciden con el filtro
         const totalItems = await Pet.countDocuments(filter);
 
         return NextResponse.json(
@@ -90,7 +83,21 @@ export async function POST(NextRequest: NextRequest) {
 
         const bytes = await (image as Blob).arrayBuffer();
         const buffer = await Buffer.from(bytes);
-        console.log("Imagen subida:", buffer);
+
+        // En la configuración de opciones de carga:
+        const uploadOptions = {
+            folder: "pets", // Carpeta donde se guardarán las imágenes
+            resource_type: "image" as "image", // Aserción de tipo para resolver el error
+            public_id: `${Date.now()}-${name.toString().replace(/\s+/g, "-")}`,
+            tags: department
+                ? [`mascotas`, department.toString()]
+                : ["mascotas"],
+            // Añadir opciones de expiración
+            expires_at: isHomeless
+                ? Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60 // Expiración en 30 días (en timestamp Unix)
+                : undefined, // Sin expiración
+            invalidate: true, // Asegura que la imagen se elimine completamente
+        };
 
         const resultImag: any = await new Promise((resolve, reject) => {
             cloudinary.uploader
