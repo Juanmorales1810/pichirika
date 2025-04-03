@@ -6,10 +6,12 @@ import { fontMono } from "@/config/fonts";
 
 interface RegisterPetCTAProps {
     registerUrl?: string;
+    lostPet?: boolean;
 }
 
 export default function RegisterPetCTA({
-    registerUrl = "/register-pet",
+    registerUrl = "/adoptar/registrar-mascota",
+    lostPet = false,
 }: RegisterPetCTAProps) {
     return (
         <article className="flex flex-col min-w-40 max-w-48 bg-lime-50 dark:bg-lime-950 rounded-2xl p-3 border-2 border-dashed border-lime-700 dark:border-lime-700 hover:shadow-md transition-shadow">
@@ -25,21 +27,25 @@ export default function RegisterPetCTA({
                 <h3
                     className={`text-lg font-bold ${fontMono.className} text-lime-800 dark:text-lime-200 mb-1`}
                 >
-                    ¿Tienes una mascota para dar en adopción?
+                    {lostPet
+                        ? "¿Has perdido a tu mascota?"
+                        : "¿Tienes una mascota para dar en adopción?"}
                 </h3>
 
                 <p className="text-xs text-lime-700 dark:text-lime-300 mb-3">
-                    Ayúdanos a encontrar un hogar para tu mascota registrándola
-                    en nuestra plataforma
+                    {lostPet
+                        ? "Registrala para que la comunidad te ayude a encontrarla"
+                        : "Ayúdanos a encontrar un hogar para ella registrándola"}
                 </p>
 
-                <Button className="w-full font-semibold bg-lime-600 hover:bg-lime-700 dark:bg-lime-700 dark:hover:bg-lime-800 text-white h-8">
+                <Button className="w-full font-semibold bg-lime-600 hover:bg-lime-700 dark:bg-lime-700 dark:hover:bg-lime-800 text-white h-auto">
                     <Link
                         href={registerUrl}
-                        className="flex items-center gap-1 w-full justify-center"
+                        className="flex items-center gap-1 w-full justify-center text-sm text-wrap "
                     >
-                        <PlusCircle className="h-4 w-4" />
-                        Registrar mascota
+                        {lostPet
+                            ? "Registrar mascota perdida"
+                            : "Registrar mascota en adopción"}
                     </Link>
                 </Button>
             </div>
