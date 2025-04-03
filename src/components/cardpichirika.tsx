@@ -24,6 +24,7 @@ interface CardPetAdoptionProps {
     skeleton?: boolean;
     species?: string; // Optional: to show if it's a dog, cat, etc.
     age?: string; // Optional: to show the age of the pet
+    lostPet?: boolean; // Optional: to show if it's a lost pet
 }
 
 export default function CardPetAdoption(props: CardPetAdoptionProps) {
@@ -35,6 +36,7 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
         skeleton,
         species = "Mascota",
         age = "Desconocida",
+        lostPet = false,
     } = props;
     const [isFavorite, setIsFavorite] = useState(false);
 
@@ -131,10 +133,14 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
 
                 <Button className="w-full mt-2 font-semibold bg-lime-600 hover:bg-lime-700 dark:bg-lime-700 dark:hover:bg-lime-800 text-white h-8">
                     <Link
-                        href={`/adoptar/${id}`}
+                        href={
+                            lostPet
+                                ? `/mascotas-perdidas/${id}`
+                                : `/adoptar/${id}`
+                        }
                         className="flex items-center gap-1 w-full justify-center"
                     >
-                        Adoptar
+                        {lostPet ? "Adoptar" : "Ver mascota"}
                     </Link>
                 </Button>
             </div>
