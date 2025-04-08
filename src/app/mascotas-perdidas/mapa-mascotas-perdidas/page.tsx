@@ -188,6 +188,7 @@ const MapaMascotasPerdidas = () => {
                         style={{ height: "100%", width: "100%" }}
                         gestureHandling={'greedy'}
                         disableDefaultUI={true}
+                        renderingType="RASTER"
                     >
                         {/* Marcador de la ubicación del usuario */}
                         <Marker

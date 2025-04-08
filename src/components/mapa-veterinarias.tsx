@@ -95,7 +95,7 @@ const MapaVeterinarias = ({
             apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
             libraries={["routes", "places"]}
         >
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full rounded-lg overflow-hidden">
                 <Map
                     defaultCenter={center}
                     defaultZoom={15.5}
@@ -105,7 +105,7 @@ const MapaVeterinarias = ({
                     renderingType="RASTER"
                 >
 
-                    {/* {veterinarias.map((veterinaria, index) => (
+                    {veterinarias.map((veterinaria, index) => (
                         <AdvancedMarker
                             key={veterinaria.nombre}
                             position={{
@@ -147,7 +147,7 @@ const MapaVeterinarias = ({
                             origin={`${lat},${lon}`}
                             destination={`${selectedVeterinaria.lat},${selectedVeterinaria.lon}`}
                         />
-                    )} */}
+                    )}
                 </Map>
             </div>
         </APIProvider>

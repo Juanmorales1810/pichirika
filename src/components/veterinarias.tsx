@@ -130,7 +130,7 @@ const VeterinariasCercanas = () => {
                             </Card>
                         </div>
                         <Separator className="my-4" />
-                        <div className="w-full h-[550px] rounded-lg overflow-hidden">
+                        <div className="w-full h-[550px]">
                             <MapaVeterinarias
                                 veterinarias={veterinariasCercanas}
                             />
