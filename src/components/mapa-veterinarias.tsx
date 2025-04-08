@@ -95,39 +95,13 @@ const MapaVeterinarias = ({
             apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
             libraries={["routes", "places"]}
         >
-            <div className="relative w-full h-[500px] md:h-[600px]">
+            <div className="relative w-full h-full">
                 <Map
                     defaultCenter={center}
                     defaultZoom={15.5}
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        backgroundColor: "#f0f0f0"
-                    }}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     disableDefaultUI={true}
                     gestureHandling="greedy"
-                    mapTypeControl={false}
-                    zoomControl={true}
-                    streetViewControl={false}
-                    fullscreenControl={false}
-                    keyboardShortcuts={false}
-                    clickableIcons={false}
-                    styles={[
-                        {
-                            featureType: "all",
-                            elementType: "geometry",
-                            stylers: [{ visibility: "on" }]
-                        },
-                        {
-                            featureType: "all",
-                            elementType: "labels",
-                            stylers: [{ visibility: "on" }]
-                        }
-                    ]}
                 >
                     {/* Marcadores de veterinarias */}
                     {veterinarias.map((veterinaria, index) => (
@@ -139,20 +113,22 @@ const MapaVeterinarias = ({
                             }}
                             title={veterinaria.nombre}
                             onClick={() => handleVeterinariaClick(veterinaria)}
-                            zIndex={100 / (index + 1)}
+                            zIndex={1000 + index}
                         >
-                            <img
-                                src="https://pichirika.vercel.app/pichirika-dot.png"
-                                alt="Marker"
-                                width={32}
-                                height={32}
-                            />
+                            <div style={{ zIndex: 1000 + index }}>
+                                <img
+                                    src="https://pichirika.vercel.app/pichirika-dot.png"
+                                    alt="Marker"
+                                    width={32}
+                                    height={32}
+                                />
+                            </div>
                         </AdvancedMarker>
                     ))}
 
                     {/* Ubicación del usuario */}
                     {lat && lon && (
-                        <AdvancedMarker position={center} zIndex={1000}>
+                        <AdvancedMarker position={center} zIndex={2000}>
                             <div
                                 style={{
                                     backgroundColor: "#4285F4",
@@ -160,6 +136,7 @@ const MapaVeterinarias = ({
                                     width: "16px",
                                     height: "16px",
                                     border: "2px solid white",
+                                    zIndex: 2000
                                 }}
                             />
                         </AdvancedMarker>
