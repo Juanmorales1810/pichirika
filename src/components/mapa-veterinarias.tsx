@@ -95,7 +95,7 @@ const MapaVeterinarias = ({
             apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
             libraries={["routes", "places"]}
         >
-            <div className="relative w-full h-full min-h-[400px]">
+            <div className="relative w-full h-[500px] md:h-[600px]">
                 <Map
                     defaultCenter={center}
                     defaultZoom={15.5}
@@ -104,7 +104,8 @@ const MapaVeterinarias = ({
                         width: "100%",
                         position: "absolute",
                         top: 0,
-                        left: 0
+                        left: 0,
+                        backgroundColor: "#f0f0f0"
                     }}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     disableDefaultUI={true}
@@ -119,6 +120,11 @@ const MapaVeterinarias = ({
                         {
                             featureType: "all",
                             elementType: "geometry",
+                            stylers: [{ visibility: "on" }]
+                        },
+                        {
+                            featureType: "all",
+                            elementType: "labels",
                             stylers: [{ visibility: "on" }]
                         }
                     ]}
