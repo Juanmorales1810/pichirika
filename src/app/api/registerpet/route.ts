@@ -85,9 +85,16 @@ export async function POST(NextRequest: NextRequest) {
         const buffer = await Buffer.from(bytes);
 
         // En la configuración de opciones de carga:
-        const uploadOptions = {
+        const uploadOptions: {
+            folder: string;
+            resource_type: "image";
+            public_id: string;
+            tags: string[];
+            expires_at: number;
+            invalidate: boolean;
+        } = {
             folder: "pets", // Carpeta donde se guardarán las imágenes
-            resource_type: "image" as "image", // Aserción de tipo para resolver el error
+            resource_type: "image", // Aserción de tipo para resolver el error
             public_id: `${Date.now()}-${name.toString().replace(/\s+/g, "-")}`,
             tags: department
                 ? [`mascotas`, department.toString()]
@@ -95,13 +102,13 @@ export async function POST(NextRequest: NextRequest) {
             // Añadir opciones de expiración
             expires_at: isHomeless
                 ? Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60 // Expiración en 30 días (en timestamp Unix)
-                : undefined, // Sin expiración
+                : Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60, // Expiración en 1 año
             invalidate: true, // Asegura que la imagen se elimine completamente
         };
 
         const resultImag: any = await new Promise((resolve, reject) => {
             cloudinary.uploader
-                .upload_stream({}, (error, result) => {
+                .upload_stream(uploadOptions, (error, result) => {
                     if (error) {
                         console.log("Error al subir la imagen:", error);
 
