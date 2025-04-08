@@ -87,18 +87,24 @@ export async function POST(NextRequest: NextRequest) {
         const buffer = await Buffer.from(bytes);
 
         // En la configuración de opciones de carga:
-        const uploadOptions = {
-            folder: "lost-pets", // Carpeta donde se guardarán las imágenes
-            resource_type: "image" as "image", // Aserción de tipo para resolver el error
+        const uploadOptions: {
+            folder: string;
+            resource_type: "image";
+            public_id: string;
+            tags: string[];
+            expires_at: number;
+            invalidate: boolean;
+        } = {
+            folder: "lost-pets",
+            resource_type: "image",
             public_id: `${Date.now()}-${petName
                 .toString()
                 .replace(/\s+/g, "-")}`,
             tags: department
                 ? [`mascotas-perdidas`, department.toString()]
                 : ["mascotas-perdidas"],
-            // Añadir opciones de expiración
-            expires_at: Math.floor(Date.now() / 1000) + 90 * 24 * 60 * 60, // Expiración en 90 días (en timestamp Unix)
-            invalidate: true, // Asegura que la imagen se elimine completamente
+            expires_at: Math.floor(Date.now() / 1000) + 90 * 24 * 60 * 60,
+            invalidate: true,
         };
 
         const resultImag: any = await new Promise((resolve, reject) => {
@@ -118,40 +124,40 @@ export async function POST(NextRequest: NextRequest) {
         console.log("Imagen subida:", resultImag);
 
         const imageUrl = resultImag.secure_url;
-        const body = JSON.stringify({
+
+        // Convertir lat y lng a números
+        const latitude = parseFloat(lat as string);
+        const longitude = parseFloat(lng as string);
+
+        if (isNaN(latitude) || isNaN(longitude)) {
+            return NextResponse.json(
+                {
+                    message: "Las coordenadas proporcionadas no son válidas",
+                },
+                { status: 400 }
+            );
+        }
+
+        const newPet = new LostPet({
             petName,
             description,
             lostDate,
             department,
-            lat,
-            lng,
+            lat: lat,
+            lng: lng,
             ownerName,
             phoneNumber,
             canCall,
             canWhatsapp,
             image: imageUrl,
         });
-        const obj = JSON.parse(body);
-        console.log(obj);
-        const newPet: ILostPetSchema = new LostPet({
-            petName,
-            description,
-            lostDate,
-            department,
-            lat,
-            lng,
-            ownerName,
-            phoneNumber,
-            canCall,
-            canWhatsapp,
-            image: imageUrl,
-        });
+
         const savedPet = await newPet.save();
         console.log("Mascota guardada:", savedPet);
         return NextResponse.json(
             {
-                newMenu: savedPet,
-                message: messages.success.menuCreated,
+                newPet: savedPet,
+                message: "Mascota registrada exitosamente",
             },
             {
                 status: 200,
