@@ -97,7 +97,6 @@ const MapaVeterinarias = ({
         >
             <div className="relative w-full h-full">
                 <Map
-                    style={{ width: '100vw', height: '100vh' }}
                     defaultCenter={center}
                     defaultZoom={15.5}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
