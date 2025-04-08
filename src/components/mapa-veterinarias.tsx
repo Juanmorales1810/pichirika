@@ -93,16 +93,35 @@ const MapaVeterinarias = ({
     return (
         <APIProvider
             apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
-
+            libraries={["routes", "places"]}
         >
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full min-h-[400px]">
                 <Map
                     defaultCenter={center}
                     defaultZoom={15.5}
+                    style={{
+                        height: "100%",
+                        width: "100%",
+                        position: "absolute",
+                        top: 0,
+                        left: 0
+                    }}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
-                    gestureHandling={'greedy'}
                     disableDefaultUI={true}
-
+                    gestureHandling="greedy"
+                    mapTypeControl={false}
+                    zoomControl={true}
+                    streetViewControl={false}
+                    fullscreenControl={false}
+                    keyboardShortcuts={false}
+                    clickableIcons={false}
+                    styles={[
+                        {
+                            featureType: "all",
+                            elementType: "geometry",
+                            stylers: [{ visibility: "on" }]
+                        }
+                    ]}
                 >
                     {/* Marcadores de veterinarias */}
                     {veterinarias.map((veterinaria, index) => (
