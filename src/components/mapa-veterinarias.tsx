@@ -102,6 +102,7 @@ const MapaVeterinarias = ({
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     disableDefaultUI={true}
                     gestureHandling="greedy"
+                    renderingType="RASTER"
                 >
                     {/* Marcadores de veterinarias */}
                     {veterinarias.map((veterinaria, index) => (
@@ -113,9 +114,9 @@ const MapaVeterinarias = ({
                             }}
                             title={veterinaria.nombre}
                             onClick={() => handleVeterinariaClick(veterinaria)}
-                            zIndex={1000 + index}
+
                         >
-                            <div style={{ zIndex: 1000 + index }}>
+                            <div>
                                 <img
                                     src="https://pichirika.vercel.app/pichirika-dot.png"
                                     alt="Marker"
@@ -128,7 +129,7 @@ const MapaVeterinarias = ({
 
                     {/* Ubicación del usuario */}
                     {lat && lon && (
-                        <AdvancedMarker position={center} zIndex={2000}>
+                        <AdvancedMarker position={center} >
                             <div
                                 style={{
                                     backgroundColor: "#4285F4",
