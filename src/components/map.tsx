@@ -66,6 +66,7 @@ const Mapa = (props: MapaProps) => {
                     style={{ height: "100%", width: "100%" }}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}
+                    renderingType="RASTER"
                 >
                     {/* Usar nuestro componente personalizado para el círculo */}
                     <MapCircle center={mapCenter} radius={radius} />
