@@ -175,7 +175,7 @@ const MapaMascotasPerdidas = () => {
             </div>
 
             <div
-                className="h-[80vh] w-full rounded-lg overflow-hidden shadow-lg"
+                className="h-[70vh] w-full rounded-lg overflow-hidden shadow-lg"
                 suppressHydrationWarning
             >
                 <APIProvider
