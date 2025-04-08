@@ -30,7 +30,6 @@ const SearchRadiusCircle = ({ radius }: { radius: number }) => {
                 top: "50%",
                 pointerEvents: "none",
             }}
-            suppressHydrationWarning
         />
     );
 };
