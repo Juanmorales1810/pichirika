@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import {
     APIProvider,
     Map,
-    AdvancedMarker,
     useMap,
 } from "@vis.gl/react-google-maps";
 
@@ -59,14 +58,14 @@ const Mapa = (props: MapaProps) => {
 
     return (
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
-            <div className="relative w-full h-full rounded-xl py-1.5 overflow-hidden">
+            <div className="relative w-full h-52 rounded-xl overflow-hidden">
                 <Map
                     defaultCenter={mapCenter}
                     defaultZoom={13}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
-                    style={{ height: "200px", width: "100%" }}
+                    style={{ height: "100%", width: "100%" }}
+                    gestureHandling={'greedy'}
                     disableDefaultUI={true}
-                    draggable={false}
                 >
                     {/* Usar nuestro componente personalizado para el círculo */}
                     <MapCircle center={mapCenter} radius={radius} />
