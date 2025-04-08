@@ -76,17 +76,15 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
                     <Button
                         variant="ghost"
                         size="icon"
-                        className={`absolute top-1 right-1 h-7 w-7 rounded-full bg-lime-100/80 dark:bg-lime-700/80 backdrop-blur-sm hover:bg-lime-200 dark:hover:bg-lime-600 ${
-                            isFavorite
-                                ? "text-red-500"
-                                : "text-lime-700 dark:text-lime-300"
-                        }`}
+                        className={`absolute top-1 right-1 h-7 w-7 rounded-full bg-lime-100/80 dark:bg-lime-700/80 backdrop-blur-sm hover:bg-lime-200 dark:hover:bg-lime-600 ${isFavorite
+                            ? "text-red-500"
+                            : "text-lime-700 dark:text-lime-300"
+                            }`}
                         onClick={toggleFavorite}
                     >
                         <Heart
-                            className={`h-4 w-4 ${
-                                isFavorite ? "fill-red-500" : ""
-                            }`}
+                            className={`h-4 w-4 ${isFavorite ? "fill-red-500" : ""
+                                }`}
                         />
                         <span className="sr-only">Añadir a favoritos</span>
                     </Button>
@@ -140,7 +138,7 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
                         }
                         className="flex items-center gap-1 w-full justify-center"
                     >
-                        {lostPet ? "Adoptar" : "Ver mascota"}
+                        {lostPet ? "Ver mascota" : "Adoptar"}
                     </Link>
                 </Button>
             </div>
