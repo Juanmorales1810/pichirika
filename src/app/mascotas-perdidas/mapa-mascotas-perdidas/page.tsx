@@ -186,7 +186,8 @@ const MapaMascotasPerdidas = () => {
                         defaultCenter={ubicacionUsuario}
                         defaultZoom={13}
                         mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
-                        gestureHandling={"greedy"}
+                        style={{ height: "100%", width: "100%" }}
+                        gestureHandling={'greedy'}
                         disableDefaultUI={true}
                     >
                         {/* Marcador de la ubicación del usuario */}
