@@ -145,11 +145,16 @@ export async function POST(NextRequest: NextRequest) {
             department,
             lat: lat,
             lng: lng,
+            location: {
+                type: "Point",
+                coordinates: [longitude, latitude],
+            },
             ownerName,
             phoneNumber,
             canCall,
             canWhatsapp,
             image: imageUrl,
+            expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 días desde ahora
         });
 
         const savedPet = await newPet.save();
