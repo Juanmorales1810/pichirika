@@ -104,8 +104,8 @@ const MapaVeterinarias = ({
                     gestureHandling="greedy"
                     renderingType="RASTER"
                 >
-                    {/* Marcadores de veterinarias */}
-                    {veterinarias.map((veterinaria, index) => (
+
+                    {/* {veterinarias.map((veterinaria, index) => (
                         <AdvancedMarker
                             key={veterinaria.nombre}
                             position={{
@@ -127,7 +127,6 @@ const MapaVeterinarias = ({
                         </AdvancedMarker>
                     ))}
 
-                    {/* Ubicación del usuario */}
                     {lat && lon && (
                         <AdvancedMarker position={center} >
                             <div
@@ -148,7 +147,7 @@ const MapaVeterinarias = ({
                             origin={`${lat},${lon}`}
                             destination={`${selectedVeterinaria.lat},${selectedVeterinaria.lon}`}
                         />
-                    )}
+                    )} */}
                 </Map>
             </div>
         </APIProvider>
