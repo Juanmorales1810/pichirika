@@ -63,7 +63,11 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
     return (
         <article className="flex flex-col min-w-40 max-w-48 bg-lime-50 dark:bg-lime-950 rounded-2xl p-3 border-2 border-lime-700 dark:border-lime-700 hover:shadow-md transition-shadow">
             <div className="relative">
-                <Link href={`/adoptar/${id}`} className="block">
+                <Link href={
+                    lostPet
+                        ? `/mascotas-perdidas/${id}`
+                        : `/adoptar/${id}`
+                } className="block">
                     <ViewTransition name={`${title}-image`}>
                         <Image
                             className="rounded-xl aspect-square object-cover"
