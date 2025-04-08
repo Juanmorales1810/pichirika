@@ -103,6 +103,7 @@ const MapaVeterinarias = ({
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}
+                    renderingType="VECTOR"
 
                 >
                     {/* Marcadores de veterinarias */}
