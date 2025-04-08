@@ -93,7 +93,7 @@ export default function LostPetFormPage() {
         startLoading();
         await Fetch({
             endpoint: "register-lost-pets",
-            redirectRoute: "/mascostas-perdidas",
+            redirectRoute: "/mascotas-perdidas",
             formData: formData,
             method: "POST",
         });
@@ -173,7 +173,7 @@ export default function LostPetFormPage() {
                                                                 className={cn(
                                                                     "w-full pl-3 text-left font-normal",
                                                                     !field.value &&
-                                                                        "text-muted-foreground"
+                                                                    "text-muted-foreground"
                                                                 )}
                                                             >
                                                                 {field.value ? (
@@ -206,8 +206,8 @@ export default function LostPetFormPage() {
                                                             selected={
                                                                 field.value
                                                                     ? new Date(
-                                                                          field.value
-                                                                      )
+                                                                        field.value
+                                                                    )
                                                                     : undefined
                                                             }
                                                             onSelect={(
@@ -264,7 +264,7 @@ export default function LostPetFormPage() {
                                                                 >
                                                                     {
                                                                         mappedDepartment[
-                                                                            dep
+                                                                        dep
                                                                         ]
                                                                     }
                                                                 </SelectItem>
@@ -316,7 +316,7 @@ export default function LostPetFormPage() {
                                                             >
                                                                 <CloudUpload className="h-10 w-10" />
                                                                 {value &&
-                                                                value.length >
+                                                                    value.length >
                                                                     0 ? (
                                                                     <>
                                                                         <p className="mb-2 text-sm font-semibold">
@@ -370,7 +370,7 @@ export default function LostPetFormPage() {
                                                                         .formState
                                                                         .errors
                                                                         .image &&
-                                                                        "border-destructive"
+                                                                    "border-destructive"
                                                                 )}
                                                                 onChange={(e) =>
                                                                     onChange(
