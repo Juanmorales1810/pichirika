@@ -54,7 +54,7 @@ export const metadata: Metadata = {
         siteName: "PichiriKa",
         images: [
             {
-                url: "https://pichirika.com/Metadata.jpg", // Must be an absolute URL
+                url: "https://pichirika.com/Metadata.jpg",
                 width: 1200,
                 height: 630,
             },
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
         siteId: "1467726470533754880",
         creator: "@Juanmora1810",
         creatorId: "1467726470533754880",
-        images: ["https://pichirika.com/Metadata.jpg"], // Must be an absolute URL
+        images: ["https://pichirika.com/Metadata.jpg"],
     },
 };
 
