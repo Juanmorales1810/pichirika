@@ -7,6 +7,7 @@ import {
     useMapsLibrary,
 } from "@vis.gl/react-google-maps";
 import useGeolocation from "@/hooks/useLocation";
+import Image from "next/image";
 
 type Veterinaria = {
     nombre: string;
@@ -120,7 +121,7 @@ const MapaVeterinarias = ({
                             onClick={() => handleVeterinariaClick(veterinaria)}
                             zIndex={100 / (index + 1)}
                         >
-                            <img
+                            <Image
                                 src="https://pichirika.vercel.app/pichirika-dot.png"
                                 alt="Marker"
                                 width={32}
