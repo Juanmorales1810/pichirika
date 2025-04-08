@@ -7,7 +7,6 @@ import {
     useMapsLibrary,
 } from "@vis.gl/react-google-maps";
 import useGeolocation from "@/hooks/useLocation";
-import { LoaderCircle } from "lucide-react";
 
 type Veterinaria = {
     nombre: string;
@@ -23,7 +22,6 @@ const MapaVeterinarias = ({
     const { lat, lon } = useGeolocation();
     const [selectedVeterinaria, setSelectedVeterinaria] =
         useState<Veterinaria | null>(null);
-    const [isMapLoaded, setIsMapLoaded] = useState(false);
 
     const center = {
         lat: lat ?? 0,
@@ -95,26 +93,17 @@ const MapaVeterinarias = ({
     return (
         <APIProvider
             apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
-            libraries={["routes"]}
+
         >
             <div className="relative w-full h-full">
-                {!isMapLoaded && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70 z-10">
-                        <div className="flex flex-col items-center gap-2">
-                            <LoaderCircle className="animate-spin text-primary h-8 w-8" />
-                            <p className="text-sm text-muted-foreground">
-                                Cargando mapa...
-                            </p>
-                        </div>
-                    </div>
-                )}
                 <Map
+                    style={{ width: '100vw', height: '100vh' }}
                     defaultCenter={center}
                     defaultZoom={15.5}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
+                    gestureHandling={'greedy'}
                     disableDefaultUI={true}
-                    draggable={true}
-                    onTilesLoaded={() => setIsMapLoaded(true)}
+
                 >
                     {/* Marcadores de veterinarias */}
                     {veterinarias.map((veterinaria, index) => (
