@@ -11,8 +11,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Search, X } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { MapPin, Search, X } from "lucide-react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
 import type { Department } from "@/validations/registerPetSchema";
 
@@ -45,6 +45,7 @@ const DEPARTMENTS: Department[] = [
 export function PetSearchFilters() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const pathname = usePathname();
 
     const [name, setName] = useState(searchParams.get("name") || "");
     const [location, setLocation] = useState(
@@ -149,6 +150,15 @@ export function PetSearchFilters() {
                             Limpiar filtros
                         </Button>
                     </div>
+                )}
+                {pathname === "/mascotas-perdidas" && (
+                    <Button
+                        type="button"
+                        onClick={() => router.push("/mascotas-perdidas/mapa-mascotas-perdidas")}
+                    >
+                        <MapPin />
+                        Ver en mapa
+                    </Button>
                 )}
             </div>
         </form>
