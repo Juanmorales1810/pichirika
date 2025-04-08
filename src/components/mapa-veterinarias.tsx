@@ -97,16 +97,21 @@ const MapaVeterinarias = ({
         >
             <div className="relative w-full h-full">
                 <Map
-                    defaultCenter={center} // Asignación del centro por defecto
-                    defaultZoom={15.5} // Cambiado a defaultZoom para permitir navegación
+                    defaultCenter={center}
+                    defaultZoom={15.5}
                     style={{
-                        height: "calc(100% + 25px)",
-                        width: "calc(100% + 25px)",
+                        height: "100%",
+                        width: "100%",
+                        position: "absolute",
+                        top: 0,
+                        left: 0
                     }}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
-                    disableDefaultUI={true} // Deshabilitar UI por defecto
-                    gestureHandling="greedy" // Permitir interacción completa
-                    mapTypeControl={false} // Deshabilitar selector de tipo de mapa
+                    disableDefaultUI={false}
+                    gestureHandling="greedy"
+                    mapTypeControl={true}
+                    zoomControl={true}
+                    streetViewControl={true}
                 >
                     {/* Marcadores de veterinarias */}
                     {veterinarias.map((veterinaria, index) => (
