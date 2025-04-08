@@ -17,10 +17,10 @@ import { ModeToggle } from "../mode-toggle";
 import Image from "next/image";
 
 const links = [
-    { href: "/veterinarias", label: "Veterinarias Cercanas" },
-    { href: "/blogs", label: "Blogs" },
     { href: "/adoptar", label: "Adoptar" },
     { href: "/mascotas-perdidas", label: "Mascotas perdidas" },
+    { href: "/veterinarias", label: "Veterinarias Cercanas" },
+    { href: "/blogs", label: "Blogs" },
     { href: "/#preguntas-frecuentes", label: "Preguntas frecuentes" },
 ];
 
@@ -48,7 +48,7 @@ export function Header() {
                 {/* Desktop Navigation */}
                 <NavigationMenu className="max-w-max flex-1 items-center justify-center max-lg:hidden">
                     <NavigationMenuList className="flex flex-1 list-none items-center justify-center gap-1">
-                        <NavigationMenuItem>
+                        {/* <NavigationMenuItem>
                             <NavigationMenuTrigger className="bg-transparent px-1.5 data-[state=open]:bg-accent/50">
                                 Features
                             </NavigationMenuTrigger>
@@ -85,7 +85,7 @@ export function Header() {
                                     </Link>
                                 </div>
                             </NavigationMenuContent>
-                        </NavigationMenuItem>
+                        </NavigationMenuItem> */}
                         {links.map((link) => (
                             <NavigationMenuItem key={link.label}>
                                 <Link href={link.href} legacyBehavior passHref>
@@ -156,7 +156,7 @@ export function Header() {
                 )}
             >
                 <nav className="flex flex-1 flex-col divide-y divide-border">
-                    <div className="py-4 first:pt-0 last:pb-0">
+                    {/* <div className="py-4 first:pt-0 last:pb-0">
                         <button
                             className="flex w-full items-center justify-between text-base font-medium text-primary"
                             onClick={() => setIsFeatureOpen(!isFeatureOpen)}
@@ -215,7 +215,7 @@ export function Header() {
                                 </Link>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     {links.map((link) => (
                         <Link
                             key={link.label}
