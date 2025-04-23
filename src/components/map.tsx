@@ -60,7 +60,7 @@ const Mapa = (props: MapaProps) => {
                     defaultZoom={13}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     style={{ height: "100%", width: "100%" }}
-                    gestureHandling={"greedy"}
+                    gestureHandling={"none"}
                     disableDefaultUI={true}
                 >
                     {/* Usar nuestro componente personalizado para el círculo */}
