@@ -100,10 +100,11 @@ const MapaVeterinarias = ({
                     defaultCenter={center}
                     defaultZoom={15.5}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
+                    style={{ height: "100%", width: "100%" }}
                     gestureHandling={"greedy"}
                     disableDefaultUI={true}
                 >
-                    {veterinarias.map((veterinaria, index) => (
+                    {/* {veterinarias.map((veterinaria, index) => (
                         <AdvancedMarker
                             key={veterinaria.nombre}
                             position={{
@@ -144,7 +145,7 @@ const MapaVeterinarias = ({
                             origin={`${lat},${lon}`}
                             destination={`${selectedVeterinaria.lat},${selectedVeterinaria.lon}`}
                         />
-                    )}
+                    )} */}
                 </Map>
             </div>
         </APIProvider>
