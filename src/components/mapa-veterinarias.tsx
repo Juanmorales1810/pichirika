@@ -6,7 +6,6 @@ import {
     useMap,
     useMapsLibrary,
 } from "@vis.gl/react-google-maps";
-import useGeolocation from "@/hooks/useLocation";
 
 type Veterinaria = {
     nombre: string;
@@ -14,12 +13,14 @@ type Veterinaria = {
     lon: number;
 };
 
-const MapaVeterinarias = ({
-    veterinarias,
-}: {
+interface MapaVeterinariasProps {
     veterinarias?: Veterinaria[];
-}) => {
-    const { lat, lon } = useGeolocation();
+    lat: number | null;
+    lon: number | null;
+}
+
+const MapaVeterinarias = (props: MapaVeterinariasProps) => {
+    const { veterinarias, lat, lon } = props;
     const [selectedVeterinaria, setSelectedVeterinaria] =
         useState<Veterinaria | null>(null);
 
