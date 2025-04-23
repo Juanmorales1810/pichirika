@@ -112,7 +112,7 @@ const MapaMascotasPerdidas = () => {
 
     if (locationError || error) {
         return (
-            <div className="container mx-auto pt-20 pb-13">
+            <div className="container mx-auto pt-20 pb-13 px-2">
                 <div
                     className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                     role="alert"
@@ -132,8 +132,8 @@ const MapaMascotasPerdidas = () => {
     };
 
     return (
-        <div className="container mx-auto pt-20 pb-13" suppressHydrationWarning>
-            <h1 className="text-2xl font-bold mb-4" suppressHydrationWarning>
+        <div className="container mx-auto pt-20 pb-13 px-2">
+            <h1 className="text-2xl font-bold mb-4">
                 Mascotas Perdidas Cercanas
             </h1>
 
