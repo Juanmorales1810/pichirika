@@ -16,50 +16,50 @@ import Link from "next/link";
 const VeterinariasCercanas = () => {
     const { lat, lon, error, loading } = useGeolocation();
 
-    // if (loading) {
-    //     return (
-    //         <Card className="w-full">
-    //             <CardContent className="flex flex-col items-center justify-center p-6 space-y-4">
-    //                 <LoaderCircle className="animate-spin text-primary h-8 w-8" />
-    //                 <p className="text-sm text-center text-muted-foreground">
-    //                     Obteniendo tu ubicación...
-    //                 </p>
-    //                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-    //                     <Skeleton className="h-12 w-full" />
-    //                     <Skeleton className="h-12 w-full" />
-    //                     <Skeleton className="h-12 w-full" />
-    //                     <Skeleton className="h-12 w-full" />
-    //                     <Skeleton className="h-12 w-full" />
-    //                     <Skeleton className="h-12 w-full" />
-    //                 </div>
-    //                 <Separator className="my-4" />
-    //                 <Skeleton className="w-full h-[550px]" />
-    //             </CardContent>
-    //         </Card>
-    //     );
-    // }
+    if (loading) {
+        return (
+            <Card className="w-full">
+                <CardContent className="flex flex-col items-center justify-center p-6 space-y-4">
+                    <LoaderCircle className="animate-spin text-lime-600 h-8 w-8" />
+                    <p className="text-sm text-center text-muted-foreground">
+                        Obteniendo tu ubicación...
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                        <Skeleton className="h-12 w-full" />
+                        <Skeleton className="h-12 w-full" />
+                        <Skeleton className="h-12 w-full" />
+                        <Skeleton className="h-12 w-full" />
+                        <Skeleton className="h-12 w-full" />
+                        <Skeleton className="h-12 w-full" />
+                    </div>
+                    <Separator className="my-4" />
+                    <Skeleton className="w-full h-[550px]" />
+                </CardContent>
+            </Card>
+        );
+    }
 
-    // if (error) {
-    //     return (
-    //         <Alert variant="destructive" className="mx-auto max-w-md">
-    //             <AlertTitle className="font-semibold">
-    //                 No pudimos acceder a tu ubicación
-    //             </AlertTitle>
-    //             <AlertDescription className="mt-2">
-    //                 <p className="text-sm mb-4">
-    //                     {error.message ||
-    //                         "Por favor permite el acceso a tu ubicación para ver veterinarias cercanas"}
-    //                 </p>
-    //                 <Button
-    //                     onClick={() => window.location.reload()}
-    //                     className="w-full"
-    //                 >
-    //                     Reintentar
-    //                 </Button>
-    //             </AlertDescription>
-    //         </Alert>
-    //     );
-    // }
+    if (error) {
+        return (
+            <Alert variant="destructive" className="mx-auto max-w-md">
+                <AlertTitle className="font-semibold">
+                    No pudimos acceder a tu ubicación
+                </AlertTitle>
+                <AlertDescription className="mt-2">
+                    <p className="text-sm mb-4">
+                        {error.message ||
+                            "Por favor permite el acceso a tu ubicación para ver veterinarias cercanas"}
+                    </p>
+                    <Button
+                        onClick={() => window.location.reload()}
+                        className="w-full"
+                    >
+                        Reintentar
+                    </Button>
+                </AlertDescription>
+            </Alert>
+        );
+    }
 
     if (lat && lon) {
         const veterinariasConDistancia = veterinarias.map((veterinaria) => {
@@ -142,17 +142,6 @@ const VeterinariasCercanas = () => {
             </div>
         );
     }
-
-    return (
-        <Card className="w-full">
-            <CardContent className="flex flex-col items-center justify-center p-6 space-y-4">
-                <LoaderCircle className="animate-spin text-yellow-600 h-8 w-8" />
-                <p className="text-sm text-center text-muted-foreground">
-                    Esperando datos de ubicación...
-                </p>
-            </CardContent>
-        </Card>
-    );
 };
 
 export default VeterinariasCercanas;
