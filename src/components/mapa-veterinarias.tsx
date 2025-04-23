@@ -17,7 +17,7 @@ type Veterinaria = {
 const MapaVeterinarias = ({
     veterinarias,
 }: {
-    veterinarias: Veterinaria[];
+    veterinarias?: Veterinaria[];
 }) => {
     const { lat, lon } = useGeolocation();
     const [selectedVeterinaria, setSelectedVeterinaria] =
@@ -101,7 +101,7 @@ const MapaVeterinarias = ({
                     gestureHandling={"greedy"}
                     disableDefaultUI={true}
                 >
-                    {veterinarias.map((veterinaria, index) => (
+                    {veterinarias?.map((veterinaria, index) => (
                         <AdvancedMarker
                             key={veterinaria.nombre}
                             position={{
