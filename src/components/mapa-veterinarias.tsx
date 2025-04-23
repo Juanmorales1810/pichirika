@@ -100,11 +100,9 @@ const MapaVeterinarias = ({
                     defaultCenter={center}
                     defaultZoom={15.5}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
+                    gestureHandling={"greedy"}
                     disableDefaultUI={true}
-                    gestureHandling="greedy"
-                    renderingType="RASTER"
                 >
-
                     {veterinarias.map((veterinaria, index) => (
                         <AdvancedMarker
                             key={veterinaria.nombre}
@@ -114,7 +112,6 @@ const MapaVeterinarias = ({
                             }}
                             title={veterinaria.nombre}
                             onClick={() => handleVeterinariaClick(veterinaria)}
-
                         >
                             <div>
                                 <img
@@ -128,7 +125,7 @@ const MapaVeterinarias = ({
                     ))}
 
                     {lat && lon && (
-                        <AdvancedMarker position={center} >
+                        <AdvancedMarker position={center}>
                             <div
                                 style={{
                                     backgroundColor: "#4285F4",
@@ -136,7 +133,7 @@ const MapaVeterinarias = ({
                                     width: "16px",
                                     height: "16px",
                                     border: "2px solid white",
-                                    zIndex: 2000
+                                    zIndex: 2000,
                                 }}
                             />
                         </AdvancedMarker>
