@@ -1,11 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import {
-    APIProvider,
-    Map,
-    useMap,
-} from "@vis.gl/react-google-maps";
+import { APIProvider, Map, useMap } from "@vis.gl/react-google-maps";
 
 // Componente para crear el círculo usando la API de Google Maps
 function MapCircle({
@@ -64,9 +60,8 @@ const Mapa = (props: MapaProps) => {
                     defaultZoom={13}
                     mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     style={{ height: "100%", width: "100%" }}
-                    gestureHandling={'greedy'}
+                    gestureHandling={"greedy"}
                     disableDefaultUI={true}
-                    renderingType="RASTER"
                 >
                     {/* Usar nuestro componente personalizado para el círculo */}
                     <MapCircle center={mapCenter} radius={radius} />
