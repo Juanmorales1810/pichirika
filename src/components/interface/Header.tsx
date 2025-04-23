@@ -21,7 +21,7 @@ const links = [
     { href: "/mascotas-perdidas", label: "Mascotas perdidas" },
     { href: "/veterinarias", label: "Veterinarias Cercanas" },
     { href: "/blogs", label: "Blogs" },
-    { href: "/#preguntas-frecuentes", label: "Preguntas frecuentes" },
+    { href: "/preguntas-frecuentes", label: "Preguntas frecuentes" },
 ];
 
 export function Header() {
