@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+import { APIProvider, Map, Marker, useMap } from "@vis.gl/react-google-maps";
 import useGeolocation from "@/hooks/useLocation";
+import { LoaderCircleIcon } from "lucide-react";
+import { SliderWithTicks } from "@/components/SilederTicks";
 
 interface MascotaPerdida {
     id: string;
@@ -14,25 +16,42 @@ interface MascotaPerdida {
     image: string;
 }
 
-// Componente para el círculo del radio (renderizado solo en el cliente)
-const SearchRadiusCircle = ({ radius }: { radius: number }) => {
-    return (
-        <div
-            style={{
-                position: "absolute",
-                width: `${radius / 50}px`,
-                height: `${radius / 50}px`,
-                borderRadius: "50%",
-                background: "rgba(66, 133, 244, 0.1)",
-                border: "1px solid rgba(66, 133, 244, 0.4)",
-                transform: "translate(-50%, -50%)",
-                left: "50%",
-                top: "50%",
-                pointerEvents: "none",
-            }}
-        />
-    );
-};
+// Componente para crear el círculo usando la API nativa de Google Maps
+function MapCircle({
+    center,
+    radius,
+    options,
+}: {
+    center: google.maps.LatLngLiteral;
+    radius: number;
+    options?: google.maps.CircleOptions;
+}) {
+    const map = useMap();
+
+    useEffect(() => {
+        if (!map) return;
+
+        // Crear el círculo usando la API nativa de Google Maps
+        const circle = new google.maps.Circle({
+            map,
+            center,
+            radius,
+            fillColor: "#bbf451",
+            fillOpacity: 0.3,
+            strokeColor: "#365314",
+            strokeOpacity: 0.6,
+            strokeWeight: 4,
+            ...options,
+        });
+
+        // Limpiar el círculo cuando el componente se desmonte
+        return () => {
+            circle.setMap(null);
+        };
+    }, [map, center, radius, options]);
+
+    return null;
+}
 
 const MapaMascotasPerdidas = () => {
     const {
@@ -82,15 +101,10 @@ const MapaMascotasPerdidas = () => {
         }
     }, [lat, lon, searchRadius, isMounted]);
 
-    const handleRadiusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newRadius = parseInt(e.target.value);
-        setSearchRadius(newRadius);
-    };
-
     if (locationLoading || loading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                <LoaderCircleIcon className="animate-spin h-12 w-12 text-lime-500" />
                 <span className="ml-3">Cargando mapa...</span>
             </div>
         );
@@ -123,61 +137,27 @@ const MapaMascotasPerdidas = () => {
                 Mascotas Perdidas Cercanas
             </h1>
 
-            <div className="mb-6" suppressHydrationWarning>
-                <div
-                    className="flex justify-between items-center mb-2"
-                    suppressHydrationWarning
-                >
-                    <label
-                        htmlFor="radius-slider"
-                        className="font-medium text-sm"
-                        suppressHydrationWarning
-                    >
-                        Radio de búsqueda:{" "}
-                        <span className="font-bold">
-                            {searchRadius / 1000} km
-                        </span>
-                    </label>
-                    <span
-                        className="text-sm text-gray-500"
-                        suppressHydrationWarning
-                    >
-                        {mascotasPerdidas.length} mascotas encontradas
-                    </span>
-                </div>
+            <SliderWithTicks
+                min={500}
+                max={10000}
+                step={500}
+                value={searchRadius}
+                onChange={setSearchRadius}
+                tickStep={1500}
+                tickFormatter={(value) => `${value / 1000}km`}
+                label="Radio de búsqueda"
+                className="my-4 "
+            />
 
-                <div className="relative" suppressHydrationWarning>
-                    <input
-                        id="radius-slider"
-                        type="range"
-                        min="500"
-                        max="10000"
-                        step="500"
-                        value={searchRadius}
-                        onChange={handleRadiusChange}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                        suppressHydrationWarning
-                    />
-                    {isSearching && (
-                        <div
-                            className="absolute -top-8 left-0 right-0 flex justify-center"
-                            suppressHydrationWarning
-                        >
-                            <div
-                                className="px-2 py-1 bg-blue-500 text-white text-xs rounded-md"
-                                suppressHydrationWarning
-                            >
-                                Buscando...
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
+            <div className="relative h-[65vh] w-full rounded-lg overflow-hidden shadow-lg">
+                {isSearching && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-10">
+                        <LoaderCircleIcon className="animate-spin h-12 w-12 text-lime-500" />
+                        <span className="ml-3">Buscando mascotas...</span>
+                    </div>
+                )}
 
-            <div
-                className="h-[70vh] w-full rounded-lg overflow-hidden shadow-lg"
-                suppressHydrationWarning
-            >
+                {/* Mapa de Google con el círculo y los marcadores */}
                 <APIProvider
                     apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
                 >
@@ -186,10 +166,18 @@ const MapaMascotasPerdidas = () => {
                         defaultZoom={13}
                         mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
                         style={{ height: "100%", width: "100%" }}
-                        gestureHandling={'greedy'}
+                        gestureHandling={"greedy"}
                         disableDefaultUI={true}
                         renderingType="RASTER"
                     >
+                        {/* Usar el componente de círculo nativo */}
+                        {isMounted && (
+                            <MapCircle
+                                center={ubicacionUsuario}
+                                radius={searchRadius}
+                            />
+                        )}
+
                         {/* Marcador de la ubicación del usuario */}
                         <Marker
                             position={ubicacionUsuario}
@@ -203,11 +191,6 @@ const MapaMascotasPerdidas = () => {
                                 scale: 1,
                             }}
                         />
-
-                        {/* Círculo que muestra el radio de búsqueda - solo del lado del cliente */}
-                        {isMounted && (
-                            <SearchRadiusCircle radius={searchRadius} />
-                        )}
 
                         {/* Marcadores de mascotas perdidas */}
                         {mascotasPerdidas.map((mascota) => (
