@@ -101,7 +101,7 @@ const MapaVeterinarias = ({
                     gestureHandling={"greedy"}
                     disableDefaultUI={true}
                 >
-                    {/* {veterinarias.map((veterinaria, index) => (
+                    {veterinarias.map((veterinaria, index) => (
                         <AdvancedMarker
                             key={veterinaria.nombre}
                             position={{
@@ -142,7 +142,7 @@ const MapaVeterinarias = ({
                             origin={`${lat},${lon}`}
                             destination={`${selectedVeterinaria.lat},${selectedVeterinaria.lon}`}
                         />
-                    )} */}
+                    )}
                 </Map>
             </div>
         </APIProvider>
