@@ -132,6 +132,8 @@ const VeterinariasCercanas = () => {
                         <Separator className="my-4" />
                         <div className="w-full h-[550px]">
                             <MapaVeterinarias
+                                lat={lat}
+                                lon={lon}
                                 veterinarias={veterinariasCercanas}
                             />
                         </div>
