@@ -1,4 +1,5 @@
-import VeterinariasCercanas from "@/components/veterinarias";
+import Mapa from "@/components/map";
+import MapaVeterinarias from "@/components/mapa-veterinarias";
 import React from "react";
 
 export default function Page() {
@@ -18,7 +19,6 @@ export default function Page() {
                     por nombre.
                 </p>
             </div>
-            <VeterinariasCercanas />
         </div>
     );
 }
