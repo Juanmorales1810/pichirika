@@ -91,10 +91,7 @@ const MapaVeterinarias = ({
     }
 
     return (
-        <APIProvider
-            apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
-            libraries={["routes", "places"]}
-        >
+        <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
             <div className="relative w-full h-full rounded-lg overflow-hidden">
                 <Map
                     defaultCenter={center}
