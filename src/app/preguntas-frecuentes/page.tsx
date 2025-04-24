@@ -8,22 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { FacebookIcon, GithubIcon, InstagramIcon } from "lucide-react";
 
-interface FaqItem {
-    id: string;
-    question: string;
-    answer: string;
-}
-
-interface Faq3Props {
-    heading: string;
-    description: string;
-    items?: FaqItem[];
-    supportHeading: string;
-    supportDescription: string;
-    supportButtonText: string;
-    supportButtonUrl: string;
-}
-
 const faqItems = [
     {
         id: "1",
@@ -62,24 +46,19 @@ const faqItems = [
     },
 ];
 
-export default function Page({
-    heading = "Preguntas Frecuentes",
-    description = "Aquí tienes algunas preguntas frecuentes que pueden ayudarte.",
-    items = faqItems,
-    supportHeading = "Este proyecto es de código abierto y gratuito",
-    supportDescription = "Siempre estamos buscando formas de mejorar y expandir este proyecto. Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros.",
-    supportButtonText = "Contáctanos",
-    supportButtonUrl = "https://www.shadcnblocks.com",
-}: Faq3Props) {
+export default function Page() {
+    const items = faqItems;
+
     return (
         <section className="py-32">
             <div className="container mx-auto space-y-16 px-2">
                 <div className="mx-auto flex max-w-3xl flex-col text-left md:text-center">
                     <h2 className="mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl">
-                        {heading}
+                        Preguntas Frecuentes
                     </h2>
                     <p className="text-muted-foreground lg:text-lg">
-                        {description}
+                        Aquí tienes algunas preguntas frecuentes que pueden
+                        ayudarte.
                     </p>
                 </div>
                 <Accordion
@@ -122,15 +101,17 @@ export default function Page({
                         </Avatar>
                     </div>
                     <h3 className="mb-2 max-w-3xl font-semibold lg:text-lg">
-                        {supportHeading}
+                        Este proyecto es de código abierto y gratuito
                     </h3>
                     <p className="mb-8 max-w-3xl text-muted-foreground lg:text-lg">
-                        {supportDescription}
+                        Siempre estamos buscando formas de mejorar y expandir
+                        este proyecto. Si tienes alguna pregunta o sugerencia,
+                        no dudes en ponerte en contacto con nosotros.
                     </p>
                     <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
                         <Button className="w-full sm:w-auto" asChild>
-                            <a href={supportButtonUrl} target="_blank">
-                                {supportButtonText}
+                            <a href="#" target="_blank">
+                                Contáctanos
                             </a>
                         </Button>
                     </div>
