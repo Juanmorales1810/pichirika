@@ -20,7 +20,7 @@ const links = [
     { href: "/adoptar", label: "Adoptar" },
     { href: "/mascotas-perdidas", label: "Mascotas perdidas" },
     { href: "/veterinarias", label: "Veterinarias Cercanas" },
-    { href: "/blogs", label: "Blogs" },
+    { href: "/blog", label: "Blogs" },
     { href: "/preguntas-frecuentes", label: "Preguntas frecuentes" },
 ];
 
