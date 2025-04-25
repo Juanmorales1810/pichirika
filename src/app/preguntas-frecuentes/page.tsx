@@ -22,7 +22,7 @@ const faqItems = [
     {
         id: "3",
         question: "¿Cómo puedo registar un animal?",
-        answer: "Puedes registrarte en nuestra aplicación y luego ir a la sección de registro de animales. Allí podrás ingresar la información necesaria sobre el animal que deseas registrar.",
+        answer: "Puedes registrar un animal en nuestra aplicación y luego ir a la sección de registro de animales. Allí podrás ingresar la información necesaria sobre el animal que deseas registrar.",
     },
     {
         id: "4",
