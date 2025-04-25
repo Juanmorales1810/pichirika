@@ -31,7 +31,7 @@ const faqItems = [
     },
     {
         id: "5",
-        question: "¿Cómo puedo reportar un problema?",
+        question: "¿Cómo puedo reportar un problema en la App?",
         answer: "Puedes ponerte en contacto con nosotros a través de la sección de contacto en la aplicación o enviarnos un correo electrónico a nuestro soporte.",
     },
     {
