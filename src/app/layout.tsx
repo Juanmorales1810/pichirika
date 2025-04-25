@@ -9,7 +9,7 @@ import "@/styles/globals.css";
 
 export const viewport: Viewport = {
     themeColor: [
-        { color: "#bef264", media: "(prefers-color-scheme: light)" },
+        { color: "#f7fee7", media: "(prefers-color-scheme: light)" },
         { color: "#14532d", media: "(prefers-color-scheme: dark)" },
     ],
 };
@@ -81,7 +81,7 @@ export default function RootLayout({
     return (
         <html lang="es" suppressHydrationWarning>
             <body
-                className={`${fontMono.variable} antialiased relative [&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-lime-50 [&::-webkit-scrollbar-thumb]:bg-lime-500 bg-lime-50 transition-colors dark:bg-zinc-950`}
+                className={`${fontMono.variable} antialiased relative [&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-lime-50 [&::-webkit-scrollbar-thumb]:bg-lime-300 bg-lime-50 transition-colors dark:bg-zinc-950`}
             >
                 <ThemeProvider
                     attribute="class"
