@@ -3,10 +3,10 @@ title: "Guía básica de alimentación para mascotas: lo que debes saber"
 date: "2025-04-25"
 excerpt: "Conoce cómo alimentar correctamente a tu mascota, entender las etiquetas de alimentos balanceados, iniciar la dieta BARF y evitar errores comunes al dar premios."
 category: "Mascotas"
-coverImage: "/placeholder.svg?height=400&width=600&text=Alimentación+de+Mascotas"
+coverImage: "/images/blogs/Gemini_Generated_Image_bf8axubf8axubf8a.jpg"
 author:
     name: "Juan Morales (Generado por IA)"
-    avatar: "/placeholder.svg?height=48&width=48&text=MG"
+    avatar: "/images/avatar/juan morales.webp"
 ---
 
 # Guía básica de alimentación para mascotas

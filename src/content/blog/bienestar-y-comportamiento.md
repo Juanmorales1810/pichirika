@@ -3,10 +3,10 @@ title: "Bienestar y comportamiento en mascotas: enriquecimiento, juegos y víncu
 date: "2025-04-25"
 excerpt: "¿Tu mascota se pone ansiosa cuando te vas? ¿Querés mejorar su día a día? Te mostramos cómo combatir la ansiedad por separación con enriquecimiento ambiental y juguetes DIY adaptados a cada especie."
 category: "Mascotas"
-coverImage: "/placeholder.svg?height=400&width=600&text=Bienestar+Animal"
+coverImage: "/images/blogs/Gemini_Generated_Image_t4xhf3t4xhf3t4xh.jpg"
 author:
     name: "Juan Morales (Generado por IA)"
-    avatar: "/placeholder.svg?height=48&width=48&text=MG"
+    avatar: "/images/avatar/juan morales.webp"
 ---
 
 # Bienestar y comportamiento en mascotas

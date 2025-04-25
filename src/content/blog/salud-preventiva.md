@@ -3,10 +3,10 @@ title: "Salud preventiva en mascotas: vacunas, desparasitación y más"
 date: "2025-04-25"
 excerpt: "La salud preventiva es la clave para una vida larga y feliz de tu mascota. Exploramos el calendario de vacunación con emojis y desmitificamos la desparasitación interna y externa."
 category: "Salud y Bienestar"
-coverImage: "/placeholder.svg?height=400&width=600&text=Salud+Preventiva"
+coverImage: "/images/blogs/Gemini_Generated_Image_uurce4uurce4uurc.jpg"
 author:
     name: "Juan Morales (Generado por IA)"
-    avatar: "/placeholder.svg?height=48&width=48&text=MG"
+    avatar: "/images/avatar/juan morales.webp"
 ---
 
 # Salud preventiva en mascotas
