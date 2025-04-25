@@ -20,13 +20,6 @@ import {
 } from "lucide-react";
 import { getPostBySlug } from "@/lib/blog-utils";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-
-interface BlogPostPageProps {
-    params: {
-        slug: string;
-    };
-}
 
 export async function generateMetadata({
     params,
@@ -45,6 +38,31 @@ export async function generateMetadata({
     return {
         title: post.title,
         description: post.excerpt,
+        creator: "Juan Morales",
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            url: `https://pichirika.com/blog/${paramsResolved.slug}`,
+            siteName: "PichiriKa",
+            images: [
+                {
+                    url: `https://pichirika.com/images/blogs/${post.coverImage}`,
+                    width: 1200,
+                    height: 630,
+                },
+            ],
+            locale: "es_AR",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: post.title,
+            description: post.excerpt,
+            siteId: "1467726470533754880",
+            creator: "@Juanmora1810",
+            creatorId: "1467726470533754880",
+            images: [`https://pichirika.com/images/blogs/${post.coverImage}`],
+        },
     };
 }
 
