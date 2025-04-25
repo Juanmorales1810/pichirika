@@ -2,7 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Blog - Tu Sitio Web",
+    title: "Blog",
     description:
         "Descubre las últimas tendencias, noticias y artículos de interés en nuestro blog",
 };
