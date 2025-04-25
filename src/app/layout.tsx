@@ -4,7 +4,7 @@ import { Header } from "@/components/interface/Header";
 import type { Metadata, Viewport } from "next";
 import { fontMono } from "@/config/fonts";
 import { Toaster } from "sonner";
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/styles/globals.css";
 
 export const viewport: Viewport = {
@@ -14,7 +14,7 @@ export const viewport: Viewport = {
     ],
 };
 const siteConfig = {
-    name: "PichiriKa - Adopta una mascota",
+    name: "PichiriKa | Adopta una mascota",
     description: "Adopta una mascota y dale un hogar",
 };
 
