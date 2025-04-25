@@ -151,8 +151,9 @@ export default async function BlogPostPage({
                     </Avatar>
                     <span>
                         <span className="font-medium">{post.author.name}</span>
+                        <br className="hidden md:inline" />
                         <span className="ml-1 text-muted-foreground">
-                            on {post.date}
+                            {post.date}
                         </span>
                     </span>
                 </div>
