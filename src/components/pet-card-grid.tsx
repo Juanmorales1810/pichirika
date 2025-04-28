@@ -14,6 +14,7 @@ interface PaginationProps {
     image: string;
     _id: string;
     category?: string;
+    age?: string;
 }
 
 interface PetsResponse {
@@ -115,6 +116,7 @@ export async function PetCardGrid({
             )}
 
             <ul className="flex flex-wrap justify-center gap-2 py-2">
+                {" "}
                 <RegisterPetCTA registerUrl="/adoptar/registrar-mascota" />
                 {data?.items.map((product: PaginationProps, index: number) => (
                     <CardPichiriKa
@@ -123,6 +125,8 @@ export async function PetCardGrid({
                         image={product.image}
                         ubication={product.department}
                         id={product._id}
+                        species={product.category || "Mascota"}
+                        age={product.age || "Desconocida"}
                     />
                 ))}
             </ul>
