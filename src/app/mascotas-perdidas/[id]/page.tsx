@@ -49,6 +49,51 @@ const getItem = cache(async function loadPet(params: string) {
     return obj;
 });
 
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string }>;
+}) {
+    const { id } = await params;
+    const pet: LostPetSchema = await getItem(id);
+
+    if (!pet) {
+        return {
+            title: "Pagina no encontrada",
+        };
+    }
+
+    return {
+        title: pet.petName,
+        description: pet.description,
+        creator: "Juan Morales",
+        openGraph: {
+            title: pet.petName,
+            description: pet.description,
+            url: `https://pichirika.com/blog/${pet._id}`,
+            siteName: "PichiriKa",
+            images: [
+                {
+                    url: `https://pichirika.com${pet.image}`,
+                    width: 1200,
+                    height: 630,
+                },
+            ],
+            locale: "es_AR",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: pet.petName,
+            description: pet.description,
+            siteId: "1467726470533754880",
+            creator: "@Juanmora1810",
+            creatorId: "1467726470533754880",
+            images: [`https://pichirika.com${pet.image}`],
+        },
+    };
+}
+
 export default async function PetDetailsPage({
     params,
 }: {
