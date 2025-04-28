@@ -98,6 +98,8 @@ export const petSchema = z
             }),
         street2: z.string().optional(),
         description: z.string().optional(),
+        age: z.string().optional(),
+        category: z.string().optional(),
         isHomeless: z.boolean().optional(),
         telephone: z.string().optional(),
         namecontact: z.string().optional(),
