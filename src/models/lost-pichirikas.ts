@@ -18,6 +18,8 @@ export interface ILostPetSchema extends Document {
     canWhatsapp: boolean;
     image: string;
     expiresAt?: Date;
+    age?: string;
+    category?: string;
 }
 
 // Definir el esquema para mascotas perdidas
@@ -77,6 +79,16 @@ const LostPetSchema = new Schema(
         image: {
             type: String,
             required: [true, "La imagen es requerida"],
+        },
+        age: {
+            type: String,
+            required: false,
+            trim: true,
+        },
+        category: {
+            type: String,
+            required: false,
+            trim: true,
         },
         expiresAt: {
             type: Date,
