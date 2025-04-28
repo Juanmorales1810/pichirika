@@ -101,6 +101,8 @@ export const lostPetFormSchema = z.object({
     department: z.enum(department, {
         errorMap: () => ({ message: "Debes seleccionar un departamento." }),
     }),
+    age: z.string().optional(),
+    category: z.string().optional(),
     image: imageSchema,
 
     // Ubicación
