@@ -74,7 +74,7 @@ export async function generateMetadata({
             siteName: "PichiriKa",
             images: [
                 {
-                    url: `https://pichirika.com${pet.image}`,
+                    url: pet.image,
                     width: 1200,
                     height: 630,
                 },
@@ -89,7 +89,7 @@ export async function generateMetadata({
             siteId: "1467726470533754880",
             creator: "@Juanmora1810",
             creatorId: "1467726470533754880",
-            images: [`https://pichirika.com${pet.image}`],
+            images: [pet.image],
         },
     };
 }
