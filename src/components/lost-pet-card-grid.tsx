@@ -17,6 +17,8 @@ interface PaginationProps {
     canWhatsapp: boolean;
     image: string;
     _id: string;
+    category?: string;
+    age?: string;
 }
 
 interface PetsResponse {
@@ -121,7 +123,7 @@ export async function LostPetCardGrid({
                 <RegisterPetCTA
                     lostPet
                     registerUrl="/mascotas-perdidas/registrar-mascota-perdida"
-                />
+                />{" "}
                 {data?.items.map((product: PaginationProps, index: number) => (
                     <CardPichiriKa
                         lostPet
@@ -130,6 +132,8 @@ export async function LostPetCardGrid({
                         image={product.image}
                         ubication={product.department as Department}
                         id={product._id}
+                        species={product.category || "Mascota"}
+                        age={product.age || "Desconocida"}
                     />
                 ))}
             </ul>
