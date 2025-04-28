@@ -2,31 +2,87 @@
     "theme_color": "#f7fee7",
     "background_color": "#f7fee7",
     "display": "standalone",
+    "orientation": "any",
     "scope": "/",
-    "start_url": "/",
+    "start_url": "/?source=pwa",
+    "id": "/",
     "name": "PichiriKa",
     "short_name": "PichiriKa",
-    "description": "Un portal web para la adopci\u00f3n y cuidado de animales es una plataforma virtual que facilita la conexi\u00f3n entre mascotas necesitadas de hogar y personas interesadas en brindarles amor y cuidados. Ofrece perfiles detallados de animales disponibles, informaci\u00f3n sobre cuidados b\u00e1sicos y salud, citas para visitar refugios, sistemas de donaciones y foros comunitarios. Promueve la adopci\u00f3n responsable y el bienestar animal.",
+    "description": "Plataforma para adopción de mascotas, búsqueda de mascotas perdidas y localización de veterinarias cercanas. Promovemos la adopción responsable y el bienestar animal.",
+    "categories": ["pets", "lifestyle", "social", "utilities"],
+    "lang": "es-ES",
+    "dir": "ltr",
+    "prefer_related_applications": false,
     "icons": [
         {
             "src": "/icon-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
             "src": "/icon-256x256.png",
             "sizes": "256x256",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "/icon-384x384.png",
             "sizes": "384x384",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "/icon-512x512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Adoptar mascota",
+            "short_name": "Adoptar",
+            "description": "Explora mascotas disponibles para adopción",
+            "url": "/adoptar",
+            "icons": [
+                {
+                    "src": "/icon-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Mascotas perdidas",
+            "short_name": "Perdidas",
+            "description": "Buscar o reportar mascotas perdidas",
+            "url": "/mascotas-perdidas",
+            "icons": [
+                {
+                    "src": "/icon-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Veterinarias",
+            "short_name": "Veterinarias",
+            "description": "Encuentra veterinarias cercanas",
+            "url": "/veterinarias",
+            "icons": [
+                {
+                    "src": "/icon-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/Metadata.jpg",
+            "sizes": "1920x1080",
+            "type": "image/jpeg",
+            "label": "Pantalla de inicio de PichiriKa"
         }
     ]
 }
