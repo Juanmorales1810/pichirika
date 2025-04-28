@@ -23,10 +23,6 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { WhatsAppLogo } from "@/components/icons";
 
-interface Params {
-    id: string;
-}
-
 interface PetSchema {
     _id: string;
     name: string;
@@ -50,6 +46,51 @@ const getItem = cache(async function loadPet(params: string) {
     obj._id = obj._id.toString();
     return obj;
 });
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string }>;
+}) {
+    const { id } = await params;
+    const pet: PetSchema = await getItem(id);
+
+    if (!pet) {
+        return {
+            title: "Pagina no encontrada",
+        };
+    }
+
+    return {
+        title: pet.name,
+        description: pet.description,
+        creator: "Juan Morales",
+        openGraph: {
+            title: pet.name,
+            description: pet.description,
+            url: `https://pichirika.com/blog/${pet._id}`,
+            siteName: "PichiriKa",
+            images: [
+                {
+                    url: `https://pichirika.com${pet.image}`,
+                    width: 1200,
+                    height: 630,
+                },
+            ],
+            locale: "es_AR",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: pet.name,
+            description: pet.description,
+            siteId: "1467726470533754880",
+            creator: "@Juanmora1810",
+            creatorId: "1467726470533754880",
+            images: [`https://pichirika.com${pet.image}`],
+        },
+    };
+}
 
 export default async function PetDetailsPage({
     params,
