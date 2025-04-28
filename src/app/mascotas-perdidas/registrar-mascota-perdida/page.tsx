@@ -47,7 +47,6 @@ import { useFetch } from "@/hooks/useFetch";
 export default function LostPetFormPage() {
     const { finishLoading, isLoading, startLoading } = useLoading();
     const Fetch = useFetch();
-
     const form = useForm<LostPetFormValues>({
         resolver: zodResolver(lostPetFormSchema),
         defaultValues: {
@@ -61,6 +60,8 @@ export default function LostPetFormPage() {
             phoneNumber: "",
             canCall: false,
             canWhatsapp: false,
+            age: "Desconocido",
+            category: undefined,
         },
     });
 
@@ -68,7 +69,6 @@ export default function LostPetFormPage() {
         form.setValue("lat", lat.toString(), { shouldValidate: true });
         form.setValue("lng", lng.toString(), { shouldValidate: true });
     };
-
     async function onSubmit(values: LostPetFormValues) {
         const formData = new FormData();
         formData.append("petName", values.petName);
@@ -81,6 +81,8 @@ export default function LostPetFormPage() {
         formData.append("phoneNumber", values.phoneNumber);
         formData.append("canCall", values.canCall ? "true" : "false");
         formData.append("canWhatsapp", values.canWhatsapp ? "true" : "false");
+        formData.append("age", values.age || "");
+        formData.append("category", values.category || "");
         const image = form.getValues("image");
         if (image && image.length > 0) {
             formData.append("image", image[0]);
@@ -173,7 +175,7 @@ export default function LostPetFormPage() {
                                                                 className={cn(
                                                                     "w-full pl-3 text-left font-normal",
                                                                     !field.value &&
-                                                                    "text-muted-foreground"
+                                                                        "text-muted-foreground"
                                                                 )}
                                                             >
                                                                 {field.value ? (
@@ -206,8 +208,8 @@ export default function LostPetFormPage() {
                                                             selected={
                                                                 field.value
                                                                     ? new Date(
-                                                                        field.value
-                                                                    )
+                                                                          field.value
+                                                                      )
                                                                     : undefined
                                                             }
                                                             onSelect={(
@@ -235,7 +237,7 @@ export default function LostPetFormPage() {
                                                 <FormMessage />
                                             </FormItem>
                                         )}
-                                    />
+                                    />{" "}
                                     <FormField
                                         control={form.control}
                                         name="department"
@@ -264,12 +266,113 @@ export default function LostPetFormPage() {
                                                                 >
                                                                     {
                                                                         mappedDepartment[
-                                                                        dep
+                                                                            dep
                                                                         ]
                                                                     }
                                                                 </SelectItem>
                                                             )
                                                         )}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />{" "}
+                                    <FormField
+                                        control={form.control}
+                                        name="age"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Edad</FormLabel>
+                                                <FormControl>
+                                                    <Select
+                                                        onValueChange={
+                                                            field.onChange
+                                                        }
+                                                        defaultValue={
+                                                            field.value
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Selecciona la edad" />
+                                                        </SelectTrigger>
+                                                        <SelectContent className="z-[1000]">
+                                                            <SelectItem value="Desconocido">
+                                                                Desconocido
+                                                            </SelectItem>
+                                                            <SelectItem value="Menos de 1 año">
+                                                                Menos de 1 año
+                                                            </SelectItem>
+                                                            <SelectItem value="1 año">
+                                                                1 año
+                                                            </SelectItem>
+                                                            <SelectItem value="2 años">
+                                                                2 años
+                                                            </SelectItem>
+                                                            <SelectItem value="3 años">
+                                                                3 años
+                                                            </SelectItem>
+                                                            <SelectItem value="4 años">
+                                                                4 años
+                                                            </SelectItem>
+                                                            <SelectItem value="5 años">
+                                                                5 años
+                                                            </SelectItem>
+                                                            <SelectItem value="6 años">
+                                                                6 años
+                                                            </SelectItem>
+                                                            <SelectItem value="7 años">
+                                                                7 años
+                                                            </SelectItem>
+                                                            <SelectItem value="8 años">
+                                                                8 años
+                                                            </SelectItem>
+                                                            <SelectItem value="9 años">
+                                                                9 años
+                                                            </SelectItem>
+                                                            <SelectItem value="10 años">
+                                                                10 años
+                                                            </SelectItem>
+                                                            <SelectItem value="Más de 10 años">
+                                                                Más de 10 años
+                                                            </SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="category"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Categoría</FormLabel>
+                                                <Select
+                                                    onValueChange={
+                                                        field.onChange
+                                                    }
+                                                    defaultValue={field.value}
+                                                >
+                                                    <FormControl>
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Selecciona una categoría" />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent className="z-[1000]">
+                                                        <SelectItem value="Perro">
+                                                            Perro
+                                                        </SelectItem>
+                                                        <SelectItem value="Gato">
+                                                            Gato
+                                                        </SelectItem>
+                                                        <SelectItem value="Ave">
+                                                            Ave
+                                                        </SelectItem>
+                                                        <SelectItem value="Otro">
+                                                            Otro
+                                                        </SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                                 <FormMessage />
@@ -316,7 +419,7 @@ export default function LostPetFormPage() {
                                                             >
                                                                 <CloudUpload className="h-10 w-10" />
                                                                 {value &&
-                                                                    value.length >
+                                                                value.length >
                                                                     0 ? (
                                                                     <>
                                                                         <p className="mb-2 text-sm font-semibold">
@@ -370,7 +473,7 @@ export default function LostPetFormPage() {
                                                                         .formState
                                                                         .errors
                                                                         .image &&
-                                                                    "border-destructive"
+                                                                        "border-destructive"
                                                                 )}
                                                                 onChange={(e) =>
                                                                     onChange(
