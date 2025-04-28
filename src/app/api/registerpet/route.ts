@@ -61,6 +61,8 @@ export async function POST(NextRequest: NextRequest) {
     const telephone = data.get("telephone");
     const namecontact = data.get("namecontact");
     const image = data.get("image");
+    const age = data.get("age");
+    const category = data.get("category");
 
     console.log("Data:", data);
 
@@ -133,6 +135,8 @@ export async function POST(NextRequest: NextRequest) {
             telephone,
             namecontact,
             image: imageUrl,
+            age,
+            category,
         });
         const obj = JSON.parse(body);
         console.log(obj);
@@ -146,6 +150,8 @@ export async function POST(NextRequest: NextRequest) {
             telephone,
             namecontact,
             image: imageUrl,
+            age: age || "",
+            category: category || "",
         });
         const savedPet = await newPet.save();
         console.log("Mascota guardada:", savedPet);
