@@ -63,6 +63,8 @@ export async function POST(NextRequest: NextRequest) {
     const canCall = data.get("canCall") === "true";
     const canWhatsapp = data.get("canWhatsapp") === "true";
     const image = data.get("image");
+    const age = data.get("age");
+    const category = data.get("category");
 
     console.log("Data:", data);
 
@@ -137,7 +139,6 @@ export async function POST(NextRequest: NextRequest) {
                 { status: 400 }
             );
         }
-
         const newPet = new LostPet({
             petName,
             description,
@@ -154,6 +155,8 @@ export async function POST(NextRequest: NextRequest) {
             canCall,
             canWhatsapp,
             image: imageUrl,
+            age: age || "",
+            category: category || "",
             expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 días desde ahora
         });
 
