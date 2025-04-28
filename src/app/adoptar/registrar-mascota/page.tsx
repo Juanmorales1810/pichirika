@@ -39,7 +39,6 @@ export default function Register() {
     const [name, setName] = useState<string>("");
     const { finishLoading, isLoading, startLoading } = useLoading();
     const Fetch = useFetch();
-
     const form = useForm<FormValues>({
         resolver: zodResolver(petSchema),
         defaultValues: {
@@ -48,6 +47,8 @@ export default function Register() {
             street1: "",
             street2: "",
             description: "",
+            age: "Desconocido",
+            category: undefined,
             isHomeless: true,
         },
     });
@@ -60,7 +61,6 @@ export default function Register() {
         setName(newName);
         form.setValue("name", newName);
     };
-
     const onSubmit = async (data: FormValues) => {
         const formData = new FormData();
         formData.append("name", data.name);
@@ -68,6 +68,8 @@ export default function Register() {
         formData.append("street1", data.street1);
         formData.append("street2", data.street2 || "");
         formData.append("description", data.description || "");
+        formData.append("age", data.age || "");
+        formData.append("category", data.category || "");
         formData.append("isHomeless", String(data.isHomeless));
 
         const imageFile = data.image;
@@ -146,7 +148,6 @@ export default function Register() {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="department"
@@ -185,7 +186,6 @@ export default function Register() {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="street1"
@@ -202,7 +202,6 @@ export default function Register() {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="street2"
@@ -218,8 +217,7 @@ export default function Register() {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
-
+                        />{" "}
                         <FormField
                             control={form.control}
                             name="description"
@@ -235,8 +233,100 @@ export default function Register() {
                                     <FormMessage />
                                 </FormItem>
                             )}
+                        />{" "}
+                        <FormField
+                            control={form.control}
+                            name="age"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormControl>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <SelectTrigger className="bg-primary/5 w-full">
+                                                <SelectValue placeholder="Selecciona la edad" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Desconocido">
+                                                    Desconocido
+                                                </SelectItem>
+                                                <SelectItem value="Menos de 1 año">
+                                                    Menos de 1 año
+                                                </SelectItem>
+                                                <SelectItem value="1 año">
+                                                    1 año
+                                                </SelectItem>
+                                                <SelectItem value="2 años">
+                                                    2 años
+                                                </SelectItem>
+                                                <SelectItem value="3 años">
+                                                    3 años
+                                                </SelectItem>
+                                                <SelectItem value="4 años">
+                                                    4 años
+                                                </SelectItem>
+                                                <SelectItem value="5 años">
+                                                    5 años
+                                                </SelectItem>
+                                                <SelectItem value="6 años">
+                                                    6 años
+                                                </SelectItem>
+                                                <SelectItem value="7 años">
+                                                    7 años
+                                                </SelectItem>
+                                                <SelectItem value="8 años">
+                                                    8 años
+                                                </SelectItem>
+                                                <SelectItem value="9 años">
+                                                    9 años
+                                                </SelectItem>
+                                                <SelectItem value="10 años">
+                                                    10 años
+                                                </SelectItem>
+                                                <SelectItem value="Más de 10 años">
+                                                    Más de 10 años
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-
+                        <FormField
+                            control={form.control}
+                            name="category"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormControl>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <SelectTrigger className="bg-primary/5 w-full">
+                                                <SelectValue placeholder="Categoría" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Perro">
+                                                    Perro
+                                                </SelectItem>
+                                                <SelectItem value="Gato">
+                                                    Gato
+                                                </SelectItem>
+                                                <SelectItem value="Ave">
+                                                    Ave
+                                                </SelectItem>
+                                                <SelectItem value="Otro">
+                                                    Otro
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                         <FormField
                             control={form.control}
                             name="image"
@@ -317,7 +407,6 @@ export default function Register() {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="isHomeless"
@@ -337,7 +426,6 @@ export default function Register() {
                                 </FormItem>
                             )}
                         />
-
                         <div
                             className={cn(
                                 "flex flex-col w-full gap-4 transition-all duration-300 overflow-hidden",
@@ -387,7 +475,6 @@ export default function Register() {
                                 )}
                             />
                         </div>
-
                         <Button
                             type="submit"
                             className="w-32 mt-4 font-bold font-mono text-xl"
