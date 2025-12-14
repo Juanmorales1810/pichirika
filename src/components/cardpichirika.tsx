@@ -1,6 +1,5 @@
 "use client";
 
-import { unstable_ViewTransition as ViewTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Share2 } from "lucide-react";
@@ -180,15 +179,13 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
                     }
                     className="block"
                 >
-                    <ViewTransition name={`${title}-image`}>
-                        <Image
-                            className="rounded-xl aspect-square object-cover"
-                            src={image || "/placeholder.svg"}
-                            alt={title}
-                            width={200}
-                            height={200}
-                        />
-                    </ViewTransition>
+                    <Image
+                        className="rounded-xl aspect-square object-cover"
+                        src={image || "/placeholder.svg"}
+                        alt={title}
+                        width={200}
+                        height={200}
+                    />
                     <Button
                         variant="ghost"
                         size="icon"
@@ -213,13 +210,11 @@ export default function CardPetAdoption(props: CardPetAdoptionProps) {
 
             <div className="p-1 pt-2">
                 <div className="flex justify-between items-start mb-1">
-                    <ViewTransition name={`${title}-name`}>
-                        <h3
-                            className={`text-lg font-bold line-clamp-1 ${fontMono.className}`}
-                        >
-                            {title}
-                        </h3>
-                    </ViewTransition>
+                    <h3
+                        className={`text-lg font-bold line-clamp-1 ${fontMono.className}`}
+                    >
+                        {title}
+                    </h3>
                     <Badge
                         variant="outline"
                         className="ml-1 text-xs h-5 px-1.5 bg-lime-100 dark:bg-lime-700 border-lime-300 dark:border-lime-500 text-lime-800 dark:text-lime-200"
