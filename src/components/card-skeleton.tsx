@@ -1,4 +1,4 @@
-import CardPichiriKa from "@/components/cardpichirika";
+import CardPetAdoption from "@/components/cardpichirika";
 import RegisterPetCTA from "@/components/register-pet-cta";
 
 interface CardSkeletonProps {
@@ -24,7 +24,7 @@ export function CardSkeleton(props: CardSkeletonProps) {
                 {Array(9)
                     .fill(0)
                     .map((_, index) => (
-                        <CardPichiriKa
+                        <CardPetAdoption
                             key={index}
                             title=""
                             image=""
