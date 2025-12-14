@@ -1,5 +1,5 @@
 import type { Department } from "@/validations/registerPetSchema";
-import CardPichiriKa from "@/components/cardpichirika";
+import CardPetAdoption from "@/components/cardpichirika";
 import { PaginationControls } from "@/components/pagination-controls";
 import RegisterPetCTA from "@/components/register-pet-cta";
 import Link from "next/link";
@@ -125,7 +125,7 @@ export async function LostPetCardGrid({
                     registerUrl="/mascotas-perdidas/registrar-mascota-perdida"
                 />{" "}
                 {data?.items.map((product: PaginationProps, index: number) => (
-                    <CardPichiriKa
+                    <CardPetAdoption
                         lostPet
                         key={index}
                         title={product.petName}
