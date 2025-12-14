@@ -1,4 +1,3 @@
-import { unstable_ViewTransition as ViewTransition } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/interface/Header";
 import type { Metadata, Viewport } from "next";
@@ -88,13 +87,11 @@ export default function RootLayout({
                     defaultTheme="light"
                     enableSystem
                 >
-                    <ViewTransition name="page-transition">
-                        <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem] dark:bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)]"></div>
-                        <Header />
-                        {children}
-                        <SpeedInsights />
-                        <Toaster />
-                    </ViewTransition>
+                    <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem] dark:bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)]"></div>
+                    <Header />
+                    {children}
+                    <SpeedInsights />
+                    <Toaster />
                 </ThemeProvider>
             </body>
         </html>
