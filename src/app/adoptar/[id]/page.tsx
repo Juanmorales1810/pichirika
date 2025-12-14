@@ -9,7 +9,6 @@ import Image from "next/image";
 import { cache } from "react";
 import Link from "next/link";
 import { Phone, ArrowLeft } from "lucide-react";
-import { unstable_ViewTransition as ViewTransition } from "react";
 import {
     Card,
     CardContent,
@@ -121,15 +120,13 @@ export default async function PetDetailsPage({
             <div className="grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
                 <div className="">
                     <div className="relative w-full max-w-md aspect-square rounded-xl overflow-hidden border border-border shadow-lg">
-                        <ViewTransition name={`${pet.name}-image`}>
-                            <Image
-                                src={pet.image || "/placeholder.svg"}
-                                alt={pet.name}
-                                fill
-                                className="object-cover"
-                                priority
-                            />
-                        </ViewTransition>
+                        <Image
+                            src={pet.image || "/placeholder.svg"}
+                            alt={pet.name}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
                     </div>
                 </div>
 
@@ -141,9 +138,7 @@ export default async function PetDetailsPage({
                                     className={`text-3xl text-primary font-bold uppercase ${fontMono.className}`}
                                 >
                                     Hola mi nombre es&nbsp;
-                                    <ViewTransition name={`${pet.name}-name`}>
-                                        <span>{pet.name}</span>
-                                    </ViewTransition>
+                                    <span>{pet.name}</span>
                                 </CardTitle>
                                 <CardDescription className="text-lg font-medium">
                                     Estoy en {location}
