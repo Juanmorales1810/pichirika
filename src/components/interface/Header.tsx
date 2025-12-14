@@ -2,15 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     NavigationMenu,
-    NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "../mode-toggle";
@@ -25,7 +22,6 @@ const links = [
 ];
 
 export function Header() {
-    const [isFeatureOpen, setIsFeatureOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
@@ -88,11 +84,12 @@ export function Header() {
                         </NavigationMenuItem> */}
                         {links.map((link) => (
                             <NavigationMenuItem key={link.label}>
-                                <Link href={link.href} legacyBehavior passHref>
-                                    <NavigationMenuLink className="relative bg-transparent px-1.5 text-sm font-medium">
-                                        {link.label}
-                                    </NavigationMenuLink>
-                                </Link>
+                                <NavigationMenuLink
+                                    href={link.href}
+                                    className="relative bg-transparent px-1.5 text-sm font-medium"
+                                >
+                                    {link.label}
+                                </NavigationMenuLink>
                             </NavigationMenuItem>
                         ))}
                     </NavigationMenuList>
