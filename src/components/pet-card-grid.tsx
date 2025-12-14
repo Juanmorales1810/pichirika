@@ -1,5 +1,5 @@
 import type { Department } from "@/validations/registerPetSchema";
-import CardPichiriKa from "@/components/cardpichirika";
+import CardPetAdoption from "@/components/cardpichirika";
 import { PaginationControls } from "@/components/pagination-controls";
 import RegisterPetCTA from "@/components/register-pet-cta";
 import Link from "next/link";
@@ -119,7 +119,7 @@ export async function PetCardGrid({
                 {" "}
                 <RegisterPetCTA registerUrl="/adoptar/registrar-mascota" />
                 {data?.items.map((product: PaginationProps, index: number) => (
-                    <CardPichiriKa
+                    <CardPetAdoption
                         key={index}
                         title={product.name}
                         image={product.image}
